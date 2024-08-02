@@ -1,0 +1,105 @@
+ACTOR HFGuardian 
+{ 
+   Health 50 
+   Radius 24
+   Height 58 
+   Mass 500 
+   Speed 8 
+   FloatSpeed 8
+   PainChance 32 
+   MONSTER
+   Tag "Guardian" 
+   Obituary "A Guardian caught %o in its sight."
+   +ALLOWPAIN
+   +NOGRAVITY 
+   +FLOAT   
+   +NOBLOOD
+   +DONTHURTSPECIES
+   +NOICEDEATH
+   +DONTRIP
+   +LOOKALLAROUND   
+   SeeSound "guardian/see" 
+   PainSound "weapons/bounc1"
+   activesound "guardian/active"
+   DeathSound "guardian/death"
+   States 
+   { 
+   Spawn:
+       GARD A 0 
+       GARD A 1 A_SetInventory("GuardianArmor",1) //gives 100 armor.
+       GARD ABCDEF 3 A_Look 
+       Goto Spawn+3 
+   See: 
+       GARD ABCDEF 3 A_Chase
+       Loop 
+   Missile:
+       GARD G 0 {A_FaceTarget; A_ChangeVelocity(0,randompick(-8,0,8),0,CVF_RELATIVE|CVF_REPLACE);}
+       GARD G 8 Bright A_FaceTarget 
+       GARD H 4 Bright A_FaceTarget
+	   GARD I 0 Bright A_PlaySound("weapons/magic7",0,2.0)
+       GARD I 0 BRIGHT A_CustomMissile("GuardShot",32,4,0,1)
+       GARD I 4 BRIGHT A_CustomMissile("GuardShot",32,-4,0,1)
+       GARD H 4 Bright A_FaceTarget
+	   GARD I 0 Bright A_PlaySound("weapons/magic7",0,2.0)
+       GARD I 0 BRIGHT A_CustomMissile("GuardShot",32,4,0,1)
+       GARD I 4 BRIGHT A_CustomMissile("GuardShot",32,-4,0,1)
+       GARD H 4 Bright A_FaceTarget 
+	   GARD I 0 Bright A_PlaySound("weapons/magic7",0,2.0)
+       GARD I 0 BRIGHT A_CustomMissile("GuardShot",32,4,0,1)
+       GARD I 4 BRIGHT A_CustomMissile("GuardShot",32,-4,0,1)
+	   GARD H 4 Bright A_FaceTarget 
+       GARD G 8 Bright {A_FaceTarget; A_Stop;}
+       Goto See 
+   Pain: 
+       GARD A 3 
+       GARD J 3 A_Pain 
+       goto See 
+   Death:
+       GARD K 5 Bright {A_NoBlocking; A_Die;}
+	   GARD L 5 Bright 
+	   goto Death+1
+   Crash:
+       GARD M 4 Bright {A_Fall; A_NoBlocking; A_Scream;}
+	   TNT1 A 0 A_SpawnItem("ExplosionParticleSpawner")
+	   TNT1 A 0 A_SpawnItemEx("ExplosionFlareSpawner",0,0,32,0,0,0,0,SXF_NOCHECKPOSITION,0)
+       TNT1 AAA 0 A_CustomMissile ("LSpart1", 42, 0, random (0, 360), 2, random (0, 160))
+       TNT1 A 0 A_CustomMissile ("LSpart3", 42, 0, random (0, 360), 2, random (0, 160))
+       TNT1 AA 0 A_CustomMissile ("LSpart2", 42, 0, random (0, 360), 2, random (0, 160))
+	   GARD NOPQR 4 Bright A_SpawnItemEx ("FireBallExplosionFlamesMedium", 32, 0, random (0, 360), 2, random (0, 360))
+	   TNT1 A 0 A_SpawnItemEx("ExplosionFlareSpawner",0,0,32,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	   GARD S -1 
+	   TNT1 AAAA 0 A_CustomMissile("PlasmaSmoke", 32, 0, random (0, 360), 2, random (0, 360))
+	   stop 
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_SpawnItem("FrozenHFGuardian")
+	Stop
+   } 
+}
+
+ACTOR GuardShot : CacodemonBall
+{
+   Radius 6
+   Height 12
+   Speed 15
+   Damage 2
+   DamageType wepfire
+   Alpha 0.85
+   +THRUGHOST   
+   +FORCEXYBILLBOARD
+   Seesound "none"
+   deathsound "weapons/maceex"
+   Obituary "%o was fried by a Guardian."
+   States
+   {
+   Spawn:
+      GBAL AB 3 Bright
+      loop
+   Death:
+      GBAL CDEFGHI 3 Bright
+      stop
+   }
+}
