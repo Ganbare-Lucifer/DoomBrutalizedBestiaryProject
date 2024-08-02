@@ -1,0 +1,25 @@
+//Replace Missing Actors with Brutal Doom Platinum Substitues 
+Actor ArmorCrueltyBonus: CrueltyBonus5Armor {}
+Actor CrueltyBonus1Armor: CrueltyBonus5Armor {}
+Actor ArmorCrueltyBonus2: CrueltyBonus10Armor {}
+Actor HealthCrueltyBonus: CrueltyBonus1Health {}
+Actor HealthCrueltyBonus2: CrueltyBonus5Health {}
+Actor DemonPickup: HealthPlusFatalityBonus {}
+Actor DemonPickup2: HealthPlusFatalityBonus2 {}
+Actor Instestin: Guts {}
+Actor Intestine: Guts {}
+Actor Instestin2: Guts2 {}
+Actor DemonMorphRune: DemonRuneSpawner {}
+Actor BurningEmberParticlesFloating_Bigger: BurnParticles {}
+Actor RealFlameTrailsSmallLong: SmallFlameTrails {}
+Actor FlyingBurningFuelSmall: FlyingBurningFuel {}
+Actor RealFlameTrailsGreen: GreenFlameTrails {}
+Actor GreenBloodTrails: Green_FlyingBloodTrail {}
+Actor Green_Instestin: GreenGuts {}
+Actor MetalShardz1: MetalShard1 {}
+Actor MetalShardz2: MetalShard2 {}
+Actor MetalShardz3: MetalShard3 {}
+
+//Missing Tokens
+Actor SKLabGal: Inventory {Inventory.MaxAmount 1} //Needed for StealthKill - Add to Tokens for LabGal Decorate file
+Actor SKBLabguy: Inventory {Inventory.MaxAmount 1} //Needed for StealthKill - Add to Tokens for BLabguy Decorate file
