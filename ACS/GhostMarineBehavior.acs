@@ -1,0 +1,16 @@
+#library "GhostMarineBehavior"
+#include "zcommon.acs"
+
+Script "GhotsMarine_Behavior_SpamBullets" (VOID) NET
+{
+
+if	(GetCvar("IN_Monster_Ghost_StopSpam") == 0) 	 { TakeInventory("No_SpamBullets", 1);}
+if	(GetCvar("IN_Monster_Ghost_StopSpam") == 1)	 	 { GiveInventory("No_SpamBullets", 1);}
+}
+
+Script "GhotsMarine_Behavior_Teleport" (VOID) NET
+{
+
+if	(GetCvar("IN_Monster_Ghost_StopTeleport") == 0)  { TakeInventory("No_TeleGhotsPort", 1);}
+if	(GetCvar("IN_Monster_Ghost_StopTeleport") == 1)  { GiveInventory("No_TeleGhotsPort", 1);}
+}
