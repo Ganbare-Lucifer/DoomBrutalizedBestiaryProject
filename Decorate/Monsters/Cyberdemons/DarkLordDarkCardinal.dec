@@ -1,0 +1,2782 @@
+ACTOR DarkLord : Cyberdemon
+{
+  Tag "Dark Lord"
+  Health 6000
+  Speed 20
+  Radius 45
+  Height 100
+  Mass 5000
+  Damage 50
+  Species "CyberDemon"
+  Scale 1.2
+  Obituary "%o was decimated by the Dark Lord."
+  damagefactor "BFG", .5
+  DamageFactor "Plasma", 0.75
+  DamageFactor "Desintegrate", .5
+  DamageFactor "GreenFire", .5
+  DamageFactor "SSG", .75
+  DamageFactor "Blast", .75
+  DamageFactor "Cut", .75
+  DamageFactor "Freeze", .25
+  DamageFactor "Ice", .25
+  DamageFactor "Frost", .25
+  damagefactor "Explosive", 1.1
+  damagefactor "HKFT", 0.05
+  damagefactor "Decaptate", 5.0
+  damagefactor "Avoid", 0.0
+  damagefactor "killme", 0.0
+  damagefactor "GibRemoving", 0.0
+  damagefactor "TeleportRemover", 0.0
+  DamageFactor "CauseObjectsToSplash", 0.0
+  DamageFactor "Blackhole", 0.75
+  DamageFactor "ExtremePunches", 1.0
+  damagefactor "Crush", 10.0
+  damagefactor "Blood", 0.0 damagefactor "BlueBlood", 0.0 damagefactor "GreenBlood", 0.0
+  PainChance "Head", 80
+  PainChance "KillMe", 64
+  PainChance "Taunt", 255
+  PainChance "Siphon", 255
+  +MISSILEMORE
+  +MISSILEEVENMORE
+  +DONTRIP
+  +NORADIUSDMG
+  +QUICKTORETALIATE
+  +NOICEDEATH
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +NOTARGET
+  +NOINFIGHTING
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +BOSS
+  +NOFEAR
+  +THRUGHOST
+  +FULLVOLDEATH
+  +FULLVOLACTIVE
+  SeeSound "DarkCyber/Sight"
+  Activesound "DarkCyber/Active"
+  PainSound "DarkCyber/Pain"
+  DeathSound "DarkCyber/Death"
+  BloodType "CyberDemon_Blood", "SawBlood", "SawBlood"
+  DropItem "DemonStrengthRune" 50
+  DropItem "Doublesphere" 25
+  DropItem "HasteSphere" 20
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  var int user_rocketcount;
+  States 
+    {    
+      Spawn: 
+	    CBEP A 10 A_SetInventory("DarklordArmor",1) //gives 2000 armor.
+        CBEP A 10 A_Look 
+		CBEP A 10 A_Look 
+		CBEI A 10 A_Look
+		CBEI A 10 A_Look
+        Loop 
+      See: 	
+		TNT1 A 0 A_Jump(87,"Rush")
+		CBEP A 3 A_Hoof
+		CBEP ABBCC 3 A_Chase
+		CBEP D 3 A_Metal
+		CBEP D 3 A_Chase
+		Loop		
+      Rush:
+		TNT1 A 0 A_Hoof
+		CBEP A 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostA",0,0,0,0,0,0,0,128)
+		CBEP A 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostA",0,0,0,0,0,0,0,128)
+		CBEP A 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostB",0,0,0,0,0,0,0,128)
+		CBEP B 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostB",0,0,0,0,0,0,0,128)
+		CBEP C 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostC",0,0,0,0,0,0,0,128)
+		CBEP C 2 A_Chase
+		TNT1 A 0 A_Metal
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostC",0,0,0,0,0,0,0,128)
+		CBEP D 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostD",0,0,0,0,0,0,0,128)
+		CBEP D 2 A_Chase
+		TNT1 A 0 A_SpawnItemEx("DarkCyberGhostD",0,0,0,0,0,0,0,128)
+		TNT1 A 0 A_Jump(87,"See")		
+		Loop	
+      Missile:
+        TNT1 A 0 A_Jump(128,"Hellcomet","FloorStomp","Railgun","BFG15K")
+      Rockets:
+		CBEP EEE 10 A_FaceTarget
+        CBEP F 6 Bright A_CustomMissile("DarkCyberRocket",60,-25,0,0)
+        CBEP EEE 8 A_FaceTarget
+        CBEP F 6 Bright A_CustomMissile("DarkCyberRocket",60,-25,0,0)
+        CBEP EEE 8 A_FaceTarget
+        CBEP F 6 Bright A_CustomMissile("DarkCyberRocket",60,-25,0,0)
+		CBEP EEE 10 
+		TNT1 A 0 A_Jump(255,"Hellcomet","FloorStomp","Railgun","BFG15K")
+		Goto See
+     Hellcomet:
+	    TNT1 A 0 A_PlaySound("DarkCyber/Cometcharge",2,1.0,0,0.6)
+		CBEP E 10 {A_FaceTarget; A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0);}
+		CBEP E 8 A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0)
+		CBEP E 8 A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0)
+        CBEP F 6 Bright A_CustomMissile("Hellcomet",60,-25,0,0)
+		TNT1 A 0 A_PlaySound("DarkCyber/Cometcharge")
+        CBEP E 8 {A_FaceTarget; A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0);}
+		CBEP E 8 A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0)
+		CBEP E 8 A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0)
+        CBEP F 6 Bright A_CustomMissile("Hellcomet",60,-25,0,0)
+		TNT1 A 0 A_PlaySound("DarkCyber/Cometcharge")
+        CBEP E 8 {A_FaceTarget; A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0);}
+		CBEP E 8 A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0)
+		CBEP E 8 A_SpawnItemEx("Hellcometcharge",0,-25,55,0,0,0,0)
+        CBEP F 6 Bright A_CustomMissile("Hellcomet",60,-25,0,0)
+		CBEP E 10 
+		TNT1 A 0 A_Jump(128,"FloorStomp","Railgun","BFG15K")
+		Goto See		
+      FloorStomp:
+        CBEP G 10 A_FaceTarget
+		TNT1 A 0 A_SetInvulnerable
+		TNT1 A 0 A_SpawnItem("DarklordFlameSpawner",0,0,0,0)
+		CBE3 G 3 Bright A_PlaySoundEx("DarkCyber/Laugh","Voice")
+		TNT1 A 0 A_FaceTarget
+		CBE3 G 3 Bright A_SpawnItem("DarklordFlameSpawner",0,0,0,0)
+		TNT1 A 0 A_FaceTarget
+		CBE3 G 3 Bright A_SpawnItem("DarklordFlameSpawner",0,0,0,0)
+		TNT1 A 0 A_FaceTarget
+		CBE3 G 3 Bright A_SpawnItem("DarklordFlameSpawner",0,0,0,0)
+		TNT1 A 0 A_FaceTarget
+		CBE3 G 3 Bright A_SpawnItem("DarklordFlameSpawner",0,0,0,0)
+		TNT1 A 0 A_FaceTarget
+		CBE3 G 3 Bright A_SpawnItem("DarklordFlameSpawner",0,0,0,0)
+		TNT1 A 0 A_UnsetInvulnerable
+		CBEP G 7 A_FaceTarget
+		CBE3 A 5 A_FaceTarget
+		TNT1 A 0 Radius_Quake(10,8,0,24,0)	
+		CBE3 B 6 A_PlaySound("hellsmith/melee")
+		CBE3 B 2 A_CustomMissile("DarklordFireSpawner",0,0,0,0)
+		TNT1 A 0 A_CustomMissile("DarklordFireSpawner",0,0,15,0)
+		CBE3 B 2 A_CustomMissile("DarklordFireSpawner",0,0,-15,0)
+		TNT1 A 0 A_CustomMissile("DarklordFireSpawner",0,0,30,0)
+		CBE3 B 2 A_CustomMissile("DarklordFireSpawner",0,0,-30,0)
+		TNT1 A 0 A_CustomMissile("DarklordFireSpawner",0,0,45,0)
+		CBE3 B 2 A_CustomMissile("DarklordFireSpawner",0,0,-45,0)
+		CBE3 B 20
+		TNT1 A 0 A_Jump(128,"Railgun","Hellcomet","BFG15K")
+        Goto See			
+      Railgun:
+		TNT1 A 0 A_PlaySound("weapons/rgcharge",2,1.0,0,0.6)
+        CBEP EE 10 A_FaceTarget
+		CBEP E 10 Bright {A_FaceTarget; A_SpawnItemEx("LaserChargeIndicator",0,-25,55,0,0,0,0);}
+        CBEP F 10 Bright A_CustomMissile("DarklordRail",60,-25,0,0)
+		CBEP E 15
+		TNT1 A 0 A_PlaySound("weapons/rgcharge")
+        CBEP EE 10 A_FaceTarget
+		CBEP E 10 Bright {A_FaceTarget; A_SpawnItemEx("LaserChargeIndicator",0,-25,55,0,0,0,0);}
+        CBEP F 10 Bright A_CustomMissile("DarklordRail",60,-25,0,0)
+		CBEP E 15 
+		TNT1 A 0 A_Jump(128,"Hellcomet","BFG15K","FloorStomp")
+		Goto See
+		
+      BFG15K:
+	    TNT1 A 0 A_PlaySound("DarkCyber/Infernalchrg",2,1.0,0,0.6)
+	    CBEP EE 18 Bright A_FaceTarget
+	    CBEP EEEE 6 Bright {A_FaceTarget; A_SpawnItemEx("InfernalChargeIndicator",0,-25,55,0,0,0,0);}
+		CBEP F 4 Bright A_CustomMissile("Infernalshot",60,-25,0,0)
+		TNT1 A 0 A_PlaySound("DarkCyber/Infernalchrg")
+	    CBEP EE 18 Bright A_FaceTarget
+		CBEP EEEE 4 Bright {A_FaceTarget; A_SpawnItemEx("InfernalChargeIndicator",0,-25,55,0,0,0,0);}
+		CBEP F 4 Bright A_CustomMissile("Infernalshot",60,-25,0,0)	
+		CBEP E 20 Bright A_PlaySound("DarkCyber/Infernalcooldown")
+		TNT1 A 0 A_Jump(128,"FloorStomp")
+		Goto See		
+      Pain:
+		TNT1 A 0 A_Jump(128,"RocketRain")
+        CBEP G 10 A_Pain
+        Goto See
+	  RocketRain:
+	    TNT1 A 0 A_PlaySound("Cardinal/Sight",2,1.0,0,0.6)
+	    CBEP G 10 A_Pain
+		TNT1 A 0 A_SetInvulnerable
+	    CBEP G 0 A_JumpIfCloser(384,"RocketRainRandom")
+		CBEP G 0 A_FaceTarget
+		CBEP G 0 A_SetUserVar("user_rocketcount",0)
+		Goto RocketRainLoop
+	RocketRainLoop:
+		CBEP G 5 A_SpawnItemEx("DarkLordRocketRainUpwards", 0,0,70, frandom(5.0,-5.0),frandom(5.0,-5.0),20, 0,SXF_NOCHECKPOSITION)
+		CBEP G 0 A_VileTarget("DarkLordRainTracker")
+		CBEP G 0 A_SetUserVar(user_rocketcount,user_rocketcount+1)
+		CBEP G 0 A_JumpIf(user_rocketcount>=15,"EndRocketRain")
+		Loop
+	EndRocketRain:
+	    TNT1 A 0 A_UnSetInvulnerable
+		CBEP G 35
+		Goto See	
+	RocketRainRandom:
+		CBEP G 0 A_FaceTarget
+		CBEP G 0 A_SetUserVar("user_rocketcount",0)
+		Goto RocketRainRandomLoop
+	RocketRainRandomLoop:
+		CBEP G 4 A_SpawnItemEx("DarkLordRainUpwardsRandom", 0,0,70, frandom(5.0,-5.0),frandom(5.0,-5.0),20, 0,SXF_NOCHECKPOSITION)
+		CBEP G 0 A_SetUserVar(user_rocketcount,user_rocketcount+1)
+		CBEP G 0 A_JumpIf(user_rocketcount>=20,"EndRocketRain")
+		Loop
+		
+      Death:
+		CBEP G 10 A_Scream
+		CBEP H 10 A_NoBlocking
+		EXPL A 0 Radius_Quake (6, 200, 0, 22, 0)
+		TNT1 AAAA 0 A_CustomMissile ("SuperGoreSPawner", 110, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 90, 0, random (0, 360), 2, random (70, 90))
+        CBEP IIIII 2 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+		TNT1 AAAAAAAAAAAAAAAA 0 A_CustomMissile("XDeathBurnedMeat3", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+		TNT1 AAAA 0 A_CustomMissile ("SuperGoreSPawner", 110, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 90, 0, random (0, 360), 2, random (70, 90))
+        CBEP JJJJJ 2 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+		TNT1 AAAAAAAAAAAAAAAA 0 A_CustomMissile ("XDeathBurnedMeat", 32, 0, random (0, 360), 2, random (0, 160))
+        TNT1 AAAA 0 A_CustomMissile ("UltraGoreSPawner", 30, 0, random (0, 360), 2, random (0, 180))
+	    TNT1 AAAAAAAAAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 30, 0, random (0, 360), 2, random (70, 90))
+        CBEP KKKKK 2 Bright A_CustomMissile ("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+		TNT1 AAAAAA 0 A_CustomMissile ("UltraGoreSpawner", 30, 0, random (0, 360), 2, random (0, 180))
+	    TNT1 AAAAAAAAAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 30, 0, random (0, 360), 2, random (70, 90))
+	    TNT1 AAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 100, 0, random (0, 360), 2, random (20, 90))
+        CBEP LLLLL 1 Bright A_CustomMissile ("ExplosionSpawner", 50, 0, random (0, 360), 2, random (0, 360))
+        CBEP MMMMM 1 Bright A_CustomMissile("XDeathBurnedMeat2", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+		TNT1 AAAA 0 A_CustomMissile ("UltraGoreSPawner", 30, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAA 0 A_CustomMissile ("UltraGoreSpawner", 30, 0, random (0, 360), 2, random (0, 180))
+	    TNT1 AAAAAAAAAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 30, 0, random (0, 360), 2, random (70, 90))
+	    TNT1 AAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 100, 0, random (0, 360), 2, random (20, 90))
+	    TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+        CBEP N 5 
+		CBEP O 5 A_SpawnItemEx("DarkCardinal",0,0,30,0,0,3,0,0)
+		CBEP P 1 A_BossDeath
+        CBEP P -1 
+        Stop			
+    }
+}
+
+ACTOR DarkCyberGhostA
+{
+  Scale 1.2
+  RENDERSTYLE Translucent
+  Alpha 0.75
+  +NOGRAVITY
+  +CLIENTSIDEONLY
+  +DONTSPLASH
+  +NOINTERACTION
+  +NOCLIP
+  States
+  {
+    Spawn:
+      CBEP A 2 A_FadeOut(0.18)
+      Loop
+    }
+}
+
+ACTOR DarkCyberGhostB : DarkCyberGhostA
+{   
+  States
+  {
+    Spawn:
+      CBEP B 2 A_FadeOut(0.18)
+      Loop
+    }
+}
+
+ACTOR DarkCyberGhostC : DarkCyberGhostA
+{   
+  States
+  {
+   Spawn:
+     CBEP C 2 A_FadeOut(0.18)
+     Loop
+    }
+}
+
+ACTOR DarkCyberGhostD : DarkCyberGhostA
+{   
+  States
+  {
+    Spawn:
+      CBEP D 2 A_FadeOut(0.18)
+      Loop
+    }
+}
+
+ACTOR DarklordRail : FastProjectile
+{
+  Radius 6
+  Height 6
+  Speed 80
+  Damage (Random(70,80))
+  Scale 0.2
+  SeeSound "monsters/darkcyberrail"
+  MissileType "DarklordRailTrail"
+  Species "CyberDemon"
+  DeathSound "cyberrail/impact"
+  Decal "RedsmallScorch"
+  +RIPPER
+  +THRUSPECIES
+  +EXTREMEDEATH
+  +BLOODLESSIMPACT
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +THRUSPECIES
+  +MTHRUSPECIES
+  States
+  {
+  Spawn:
+    LEYS GG 0
+	LEYS R 1 BRIGHT
+	TNT1 A 0 A_SpawnItemEx("LaserTrail2", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	TNT1 AAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", (-2/10), 0, 0, 0, 0, 0, 0, 160)
+    Loop
+  Death:
+	TNT1 A 0
+	TNT1 A 0 A_StopSound(6)
+	TNT1 A 0 A_PlaySound("Weapons/YamatoExp",5)
+	TNT1 AAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", random(19,-19), random(19,-19), random(19,-19), 0, 0, 0, 0, 128, 0)
+	TNT1 A 0 A_SpawnItemEx("ObeliskExplode",0,0,0,0,0,0,0,128,0)
+	TNT1 A 0 A_Explode(50,200,0,1)
+	TNT1 A 0 A_SpawnItem ("BigRicoChet", 0, -15)
+	TNT1 A 0 A_SpawnItem("WhiteShockwave")
+	TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	TNT1 A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	TNT1 A 0 A_CustomMissile ("ExcavatorExploFX", random(1,5), random(-10,10), random (0, 360), 2, random (0, 360))
+	TNT1 AAA 0 A_CustomMissile ("FireworkSFXType2", 0, 0, random (0, 360), 2, random (30, 60))
+	EXPL AAA 0 A_CustomMissile ("FlamethrowerFireParticles", 6, 0, random (0, 360), 2, random (0, 90))
+	TNT1 AAAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 180))
+	EXPL A 0 Radius_Quake (3, 120, 0, 120, 0)
+	BEXP B 0 BRIGHT A_Scream
+	EXP1 ABCDEFGHIJKLMN 1 BRIGHT
+	TNT1 AAA 10 A_CustomMissile ("BigBlackSmoke", 0, 0, random (0, 360), 2, random (40, 160))
+	Stop
+	}
+}
+
+ACTOR DarklordRailTrail
+{
+  RenderStyle Add
+  +CLIENTSIDEONLY
+  +NOBLOCKMAP
+  +DONTSPLASH
+  +NOCLIP
+  +NOINTERACTION
+  +THRUACTORS
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +THRUSPECIES
+  +MTHRUSPECIES
+  Species "CyberDemon"
+  Scale 1
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	RGPG ABCDEFGHIJKLMNOP 2 A_FadeOut(0.04)
+	Stop
+	}
+}
+
+ACTOR LaserTrail2 : LaserTrail
+{
+  Speed 80
+  Scale 0.09
+}
+
+Actor DarklordChargeIndicator
+{
+	Renderstyle Add
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Translation "0:255=%[0,0,0]:[2.0,0.2,0.2]"
+	Scale 0.0
+	Alpha 0.6
+	ReactionTime 60
+	States
+	{
+	Spawn:
+		X060 A 1 Bright A_SetScale(scalex+0.02)
+		X060 A 0 A_Warp(AAPTR_TARGET,30,-20,50,0,WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+		X060 A 0 A_CountDown
+		Loop
+	Death:
+		X060 AAA 1 Bright A_SetScale(scalex/2)
+		Stop
+	}
+}
+
+ACTOR DarklordFlame
+{
+  +MISSILE
+  +DONTSPLASH
+  +CLIENTSIDEONLY
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOTELEPORT
+  +FORCEXYBILLBOARD
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +THRUSPECIES
+  +MTHRUSPECIES
+  Species "CyberDemon"
+  RenderStyle Add
+  Scale 0.5
+  States
+  {
+    Spawn:
+      FIG1 ABCDEFGHIJKL 2 Bright A_FadeOut
+      Stop
+   }
+}
+
+ACTOR DarklordFlameSpawner
+{
+  +CLIENTSIDEONLY
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +NOTELEPORT
+  +DONTSPLASH
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +THRUSPECIES
+  +MTHRUSPECIES
+  Species "CyberDemon"
+  States
+  {
+  Spawn:
+    TNT1 AAAAAA 0 A_SpawnItemEx("DarklordFlame",random(20,-20),random(20,-20),random(40,80),0,0,random(2,6),0,128,0)
+    TNT1 A 1
+    Stop
+  }
+}
+
+ACTOR DarklordFireSpawner
+{
+  Radius 16
+  Height 10
+  RenderStyle Add
+  PROJECTILE
+  +FLOORHUGGER
+  +BLOODLESSIMPACT
+  +THRUSPECIES
+  +FORCERADIUSDMG
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +THRUSPECIES
+  +MTHRUSPECIES
+  Speed 30
+  FastSpeed 35
+  Damage (Random(40,50))
+  DamageType "Incinerate"
+  Species "CyberDemon"
+  Obituary "%o was decimated by the Dark Lord."
+  MissileType "DarkCyberFire"
+  MissileHeight 0
+  Decal "RedsmallScorch"
+  States
+  {
+  Spawn: 
+    TNT1 A 0 A_PlaySoundEx("weapons/firex5","Voice",1)
+	TNT1 A 0 A_CStaffMissileSlither
+	TNT1 A 2 Bright A_MissileAttack
+	TNT1 AAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", (-2/10), 0, 0, 0, 0, 0, 0, 160)
+    Loop  
+  Death:
+    TNT1 A 0 A_StopSound(1)
+	TNT1 A 0 A_SpawnItem("HellRifle_Puff2",0)
+	TNT1 A 0 BRIGHT A_SpawnItem("RedFlare",0)
+	TNT1 A 0 A_explode(25,80)
+	TNT1 AAA 0 A_SpawnItemEx("ExplosionParticleVerySlow", random(-8, 8), random(-8, 8), random(-2,2), 0, 0, 0, 0, 128, 0)
+	TNT1 AA 0 A_SpawnItemEx("BurningEmberParticlesFloating_Bigger", random(19,-19), random(19,-19), random(4,-4), 0, 0, 0, 0, 128, 0)
+	TNT1 AAA 0 A_SpawnItemEx("ObeliskTrailSpark", random(-8, 8), random(-8, 8), random(-2,2), 0, 0, 0, 0, 128, 0)
+	TNT1 A 4	
+	TNT2 AAAAA 4 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+    Stop
+    }
+}
+
+ACTOR DarkCyberFire
+{
+  Radius 1
+  Height 1
+  Speed 0
+  Scale 0.5
+  Damage (Random(40,50))
+  Projectile
+  RenderStyle Add
+  Alpha 0.95
+  +FLOORHUGGER
+  +NODAMAGETHRUST
+  +FORCERADIUSDMG
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +THRUSPECIES
+  +MTHRUSPECIES
+  DamageType "Incinerate"
+  Species "CyberDemon"
+  Obituary "%o was decimated by the Dark Lord." 
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    STH1 A 1 Bright Radius_Quake (3, 120, 0, 120, 0)
+	STH1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 Bright A_FadeOut(0.05)
+    Stop   
+	}
+}
+
+Actor Hellcomet
+{
+  var int user_fx;
+  Radius 16
+  Height 8
+  Speed 40
+  Damage (Random(60,70))
+  DamageType "Superplasma"
+  Projectile
+  Species "CyberDemon"
+  +RANDOMIZE
+  +ForceXYBillboard
+  +FORCERADIUSDMG
+  +CLIENTSIDEONLY
+  +THRUGHOST
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +FULLVOLACTIVE
+  RenderStyle Add
+  Alpha 1
+  scale 0.08
+  ActiveSound "DarkCyber/Cometfly"
+  SeeSound "DarkCyber/Cometfire"
+  DeathSound "DarkCyber/Cometimpact"
+  Decal "RedScorch"
+  States
+  {
+  DM:
+	TNT1 A 0
+	TNT1 A 0 A_ChangeFLag("THRUSPECIES", 0)
+	TNT1 A 0 A_ChangeFLag("MTHRUSPECIES", 0)
+	Goto Spawn
+  
+  Spawn:
+    HCOT ABCDEFGH 1 {
+	    for(user_fx = 0;user_fx<=4;user_fx++) { A_SpawnItemEx("Hellcomettrail",0,0,0,frandom(-1,0),frandom(-1,-1),frandom(0,1));}
+		A_SpawnItemEx("Particlescomettrail", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION);
+		A_SpawnItemEx("Particlescomettrail2", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION);
+		A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION);
+		}
+    loop
+  Death:
+	NULL A 0 A_SpawnItem("HellcometImpact")
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	stop	
+  }
+}
+
+Actor Hellcometcharge : DarklordFlameSpawner
+{
+  Scale 0.3
+} 
+
+ACTOR Particlescomettrail: ExplosionParticleHeavy
+{
+  game Doom
+  Scale 0.07
+  speed 1
+  fastspeed 1
+  +NOGRAVITY
+  +NOCLIP
+  +NOINTERACTION
+  States
+  {
+	Spawn:
+	  PFCT B 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	  PFCT B 0 A_SetScale(ScaleX-0.00075)
+      PFCT B 3 bright A_ChangeVelocity (frandom(-0.2, 0.03), frandom(-0.01, 0.04), frandom(-0.1, 0.12), 0)
+      PFCT B 1 bright A_FadeOut(0.001)
+      Loop
+   }
+}
+
+ACTOR Particlescomettrail2: ExplosionParticleHeavy
+{
+  game Doom
+  Scale 0.03
+  speed 1
+  fastspeed 1
+  +NOGRAVITY
+  +NOCLIP
+  +NOINTERACTION
+  States
+  {
+	Spawn:
+	  PFCT A 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	  PFCT A 0 A_SetScale(ScaleX-0.00075)
+      PFCT A 3 bright A_ChangeVelocity (frandom(-0.2, 0.03), frandom(-0.01, 0.04), frandom(-0.1, 0.12), 0)
+      PFCT A 1 bright A_FadeOut(0.001)
+      Loop
+   }
+}
+
+Actor HellcometImpact
+{
+  Damage (30)
+  DamageType "Superplasma"
+  Species "CyberDemon"
+  +NOGRAVITY
+  +ForceXYBillboard
+  +CLIENTSIDEONLY
+  +THRUACTORS
+  +NODAMAGETHRUST
+  +FORCERADIUSDMG
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  RenderStyle Add
+  Alpha 0.95
+  Scale 1.2
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_Explode(30,200,0,0,true)
+	TNT1 A 0 A_Quake(5, 40, 0, 1024)
+	XDCT AABBCCDDEEFF 3 Bright
+	TNT2 AAAAA 4 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+    stop
+  }
+}
+
+Actor Hellcomettrail
+{
+  
+  +NOINTERACTION
+  +ROLLSPRITE
+  RenderStyle "Add"
+  Alpha 0.95
+  Scale 0.2
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_SetRoll(random(0,360))
+	TNT1 A 3
+	HCT8 ABCDEFGHI 2 Bright A_FadeOut(0.05)
+	Stop
+	}
+}
+
+ACTOR DarkCyberRocket : HellsmithHeavyRocket
+{
+  Decal "RedScorch"
+  Scale 1.2
+  Species "CyberDemon"
+  States
+  {
+  Spawn:
+	MIS5 AAABBB 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	MIS5 AAABBB 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	MIS5 AAABBB 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	MIS5 AAABBB 0 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_SpawnItemEx("PlasmaSmoke", (-2/10), 0, 0, 0, 0, 0, 0, 160)
+	Goto Spawn+1
+		
+  Death:
+	TNT1 A 0 
+	{
+	A_Explode(20,200);
+	Radius_Quake (2, 54, 0, 25, 0);
+	}
+	TNT1 A 0 A_SpawnItemEx("RockExplShockwave",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_SpawnItemEx("RocketExploDebris",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_SpawnItemEx("RocketExplosionNew",0,0,0, 0,0,0,0, SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_SpawnItem("ACIDFOG2", 0, 0)
+	TNT1 A 10 
+    TNT1 A 0 A_Jump(256, "RocketExploFXSpawner")
+    stop
+   }
+}
+
+ACTOR ACIDFOG2 : ACIDFOG
+{
+  Renderstyle Add
+  Species "CyberDemon"
+  Translation "0:255=%[0,0,0] : [1,0.25,0.25]"
+  States
+  {
+    Spawn:
+	  TNT1 A 0 A_Explode ( 50, 190 )
+	  TNT1 AAAAAAAA 0 A_SpawnItemEx("RedCloudLarge2", random(3,-3), random(3,-3), random(3,-3), random(1,-1), random(1,-1), 0, 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 AAAAAAAA 0 A_SpawnItemEx("RedCloudMedium2", random(3,-3), random(3,-3), random(3,-3), random(1,-1), random(1,-1), 0, 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 AAAAAAAA 0 A_SpawnItemEx("RedCloudSmall2", random(3,-3), random(3,-3), random(3,-3), random(1,-1), random(1,-1), 0, 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 AAAAAAAAAAAA 0 A_SpawnItemEx("Particlescomettrail", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 AAAA 2 BRIGHT Light("RedBigPoint3") A_SpawnItem("RedFlare",0,20)
+	  Goto Death
+			
+    Death:
+	  TNT1 A 60
+	  Stop
+    }
+}
+
+ACTOR RedCloudSmall2 : GreenCloudSmall
+{
+  Renderstyle Add
+  Species "CyberDemon"
+  Translation "0:255=%[0,0,0] : [1,0.25,0.25]"
+}
+ACTOR RedCloudMedium2 : GreenCloudMedium
+{
+  Renderstyle Add
+  Species "CyberDemon"
+  Translation "0:255=%[0,0,0] : [1,0.25,0.25]"
+}
+ACTOR RedCloudLarge2 : GreenCloudLarge
+{
+  Renderstyle Add
+  Species "CyberDemon"
+  Translation "0:255=%[0,0,0] : [1,0.25,0.25]"
+  States
+  {
+	Spawn:
+	  TNT1 A 0
+	  TNT1 A 0 A_Playsound("world/barrelloop", 4, 1, 1)
+	  GTXL KLMNOPQRST 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL TSRQPONMLK 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL KLMNOPQRST 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL TSRQPONMLK 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL KLMNOPQRST 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL TSRQPONMLK 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL KLMNOPQRST 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL TSRQPONMLK 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL KLMNOPQRST 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  GTXL TSRQPONMLK 1 
+	  TNT1 AA 0 A_SpawnItemEx("Particlescomettrail2", random(10,-10), random(10,-10), random(10,-10), random(-2, 2), random(-2, 2), random(-2, 2), 0, SXF_NOCHECKPOSITION, 0)
+	  TNT1 A 0 A_Explode ( 8, 100 )
+	  TNT1 A 0 A_StopSound(4)
+	  GTXL KLMNOPQRST 1  A_FadeOut( 0.10)
+	  Stop
+	}
+}
+
+//PROJECTILE
+ACTOR Infernalshot : FastProjectile
+{
+  Radius 13
+  Height 8
+  Speed 40
+  Damage 70
+  Projectile
+  Renderstyle Add
+  +FORCERADIUSDMG
+  +NOGRAVITY
+  +ForceXYBillboard
+  +CLIENTSIDEONLY
+  +FOILINVUL
+  +RIPPER
+  +THRUSPECIES
+  +THRUACTORS
+  +BLOODLESSIMPACT
+  +NODAMAGETHRUST
+  +DONTBLAST
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  Species "CyberDemon"
+  Scale 0.1
+  DamageType "Desintegrate"
+  Seesound "DarkCyber/Infernalfire"
+  MissileHeight 8
+  Decal "RedbigScorch"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_PlaySound("DarkCyber/Infernalfly",5,1.0,1)
+	TNT1 A 0 A_Explode(30,80,0,1)
+	TNT1 A 0 A_SpawnItemEx("InfernalshotTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,128,0)
+	TNT1 A 0 A_SpawnItemEx("InfernalshotTrail",-3,0,0,0,0,0,0,128,0)
+	YBAL A 1 bright
+	loop
+  Death:
+	TNT1 A 0 A_PlaySound("DarkCyber/Infernaldth",5)
+	//COLLATERAL DAMAGE EFFECTS
+	TNT1 A 0 A_Explode(20,80,0,1)
+	TNT1 A 0 A_Quake(3, 40, 0, 1024)
+	TNT1 A 0 A_BFGSpray("InfernalSpray",15,20)
+	//IMPACT STUFF
+	TNT1 A 0 A_SpawnItemEx("InfernalStruckGlowX",0,0,10,0,0,0,0,128,0)
+	TNT1 A 0 A_SpawnItemEx("InfernalStruckGlowY",0,0,10,0,0,0,0,128,0)
+	TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("InfernalSphereSmoke",random(126,-126),random(126,-126),random(66,-66),0.00001*random(100000,-100000),0.00001*random(100000,-100000),0.00001*random(100000,-100000),random(0,359),128,0)
+	TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("InfernalChunkSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,128,0)
+	TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("InfernalChunkSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,128,0)
+	Stop
+  }
+}
+
+ACTOR InfernalEffectInheritance
+{
+	+NOCLIP
+	+NOINTERACTION
+	+NOGRAVITY
+	Alpha 0.99
+	Renderstyle Add
+}
+
+ACTOR InfernalSpawnerInheritance
+{
+	+NOCLIP
+	+NOINTERACTION
+	+NOGRAVITY
+}
+
+ACTOR InfernalSmokeInheritance
+{
+	+NOINTERACTION
+	+NOGRAVITY
+	+FORCERADIUSDMG
+	Renderstyle Add
+	States
+	{
+	Spawn:
+	TNT1 A 1 NoDelay A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")
+	Stop
+	Spawn1:
+	 TNT1 A 0 A_SetScale(ScaleX +0.003, ScaleY +0.003)
+	 THD1 A 0 A_Explode(15,128)
+	 THD1 A 4 Bright A_FadeOut(0.009)
+	 Loop
+	Spawn2:
+	 TNT1 A 0 A_SetScale(ScaleX +0.003, ScaleY +0.003)
+	 THD1 A 0 A_Explode(15,128)
+	 THD2 A 4 Bright A_FadeOut(0.007)
+	 Loop
+	Spawn3:
+	 TNT1 A 0 A_SetScale(ScaleX +0.003, ScaleY +0.003)
+	 THD1 A 0 A_Explode(15,128)
+	 THD3 A 4 Bright A_FadeOut(0.006)
+	 Loop
+	Spawn4:
+	 TNT1 A 0 A_SetScale(ScaleX -0.003, ScaleY -0.003)
+	 THD1 A 0 A_Explode(15,128)
+	 THD1 A 4 Bright A_FadeOut(0.0075)
+	 Loop
+	Spawn5:
+	 TNT1 A 0 A_SetScale(ScaleX -0.001, ScaleY -0.001)
+	 THD1 A 0 A_Explode(15,128)
+	 THD2 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	Spawn6:
+	 TNT1 A 0 A_SetScale(ScaleX -0.003, ScaleY -0.003)
+	 THD1 A 0 A_Explode(15,128)
+	 THD3 A 4 Bright A_FadeOut(0.008)
+	 Loop
+	}
+}
+
+//TRAIL
+ACTOR InfernalshotTrail : InfernalEffectInheritance
+{
+	Alpha 0.65
+	Renderstyle Add
+	Scale 0.1
+	States
+	{
+	Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_SetScale(ScaleX -0.01, ScaleY -0.01)
+	YBAL A 1 Bright A_FadeOut(0.1)
+	Loop
+	}
+}
+
+ACTOR InfernalshotTrailSpark : InfernalEffectInheritance
+{
+	Scale 0.5
+	States
+	{
+	Spawn:
+	YELE ABCDEF 1 Bright A_FadeOut(0.1)
+	Stop
+	}
+}
+
+//IMPACT
+ACTOR InfernalStruckGlowY : InfernalEffectInheritance
+{
+	Alpha 0.5
+	Scale 0.1
+	States
+	{
+	Spawn:
+	CBUM A 0
+	YBUM A 0 A_SetScale(ScaleX +0.025, ScaleY +0.1)
+	YBUM A 1 Bright A_FadeOut(0.01)
+	Loop
+	}
+}
+
+ACTOR InfernalStruckGlowX : InfernalEffectInheritance
+{
+	Alpha 0.5
+	Scale 0.1
+	States
+	{
+	Spawn:
+	CBUM A 0
+	YBUM A 0 A_SetScale(ScaleX +0.1, ScaleY +0.025)
+	YBUM A 1 Bright A_FadeOut(0.01)
+	Loop
+	}
+}
+
+//SPRAY
+ACTOR InfernalSpray : InfernalSpawnerInheritance
+{
+	States
+	{
+	Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_SpawnItemEx("InfernalSprayGlowX",0,0,0,0,0,0,0,128,0)
+	TNT1 A 0 A_SpawnItemEx("InfernalSprayGlowY",0,0,0,0,0,0,0,128,0)
+	TNT1 AAAAAA 3 A_SpawnItemEx("InfernalSpraySpark",random(24,-24),random(24,-24),random(24,-24),0,0,0,0,128,0)
+	Stop
+	}
+}
+
+ACTOR InfernalSpraySpark : InfernalEffectInheritance
+{
+	Scale 0.25
+	States
+	{
+	Spawn:
+	YELE ABCDEF 2 Bright A_FadeOut(0.1)
+	Stop
+	}
+}
+
+ACTOR InfernalSprayGlowY : InfernalStruckGlowX
+{
+	Alpha 0.35
+	Scale 0.025
+	States
+	{
+	Spawn:
+	CBUM A 0
+	YBUM A 0 A_SetScale(ScaleX +0.05, ScaleY +0.01)
+	YBUM A 1 Bright A_FadeOut(0.01)
+	Loop
+	}
+}
+
+ACTOR InfernalSprayGlowX : InfernalStruckGlowY
+{
+	Alpha 0.35
+	Scale 0.025
+	States
+	{
+	Spawn:
+	CBUM A 0
+	YBUM A 0 A_SetScale(ScaleX +0.01, ScaleY +0.05)
+	YBUM A 1 Bright A_FadeOut(0.01)
+	Loop
+	}
+}
+
+ACTOR InfernalSphereSmoke : InfernalSmokeInheritance
+{
+	Scale 1.8
+	Alpha 0.45
+	PROJECTILE
+	Species "CyberDemon"
+	DamageType "Desintegrate"
+	+NODAMAGETHRUST
+	States
+	{
+	Spawn:
+	TNT1 A 0
+	TNT1 A 1 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")
+	Stop
+	Spawn1:
+	 TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+	 TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+	 THD1 A 0 A_Explode(10,164)
+	 THD1 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	Spawn2:
+	 TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+	 TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+	 THD1 A 0 A_Explode(10,164)
+	 THD2 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	Spawn3:
+	 TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+	 TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+	 THD1 A 0 A_Explode(10,164)
+	 THD3 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	Spawn1:
+	 TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+	 TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+	 THD1 A 0 A_Explode(10,164)
+	 THD1 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	Spawn2:
+	 TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+	 TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+	 THD1 A 0 A_Explode(10,164)
+	 THD2 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	Spawn3:
+	 TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+	 TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+	 THD1 A 0 A_Explode(10,164)
+	 THD3 A 4 Bright A_FadeOut(0.0065)
+	 Loop
+	}
+}
+
+ACTOR InfernalChunkSpark : InfernalshotTrailSpark
+{
+	Scale 1.15
+	States
+	{
+	Spawn:
+	YELE ABCDEF 2 Bright A_FadeOut(0.1)
+	Stop
+	}
+}
+
+Actor InfernalChargeIndicator
+{
+	Renderstyle Add
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Translation "0:255=%[0,0,0]:[2.0,0.2,0.2]"
+	Scale 1.2
+	Alpha 1
+	ReactionTime 10
+	States
+	{
+	Spawn:
+	    TNT1 A 0 A_SpawnItemEx("Hellstartrail2", (-2/10), 0, 0, 0, 0, 0, 0, 160)
+		ICHI AB 1 Bright A_SetScale(scalex-0.15)
+		ICHI AB 0 A_Countdown
+		Loop
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor Hellstartrail2 : Hellstartrail
+{ 
+  Scale 0.4
+}  
+
+//-------------------------------------------------
+//Rocket Rain
+
+Actor DarkLordRocketRainUpwards
+{
+	Projectile
+	Speed 0
+	Radius 3
+	Height 2
+	+THRUACTORS
+	+SKYEXPLODE
+	Scale 0.6
+	States
+	{
+	Spawn:
+		MIC8 B 0 NODELAY 
+		{ 
+		A_PlaySound("DarkCyber/Attack",5,1.0,false,0.95);
+		A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION);
+		A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION);
+		}
+		MIC8 B 50 Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Death
+	Death:
+		TNT1 A 0 A_Stop
+		TNT1 A 0 A_ChangeFlag(NOINTERACTION,1)
+		TNT1 A 50
+		Stop
+	}
+}
+
+Actor DarkLordRainTracker
+{
+	+NOINTERACTION
+	RenderStyle None
+	Scale 0.3
+	States
+	{
+	Spawn:
+		TNT1 A 0 NODELAY 
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAA 5 A_Fire
+	SpawnStuff:
+		TNT1 A 10 A_SpawnItemEx("DummyRainSpawner",0,0,0, 0,0,0, 0,SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS)
+		Stop
+	}
+}
+
+Actor DummyRainSpawner
+{
+	+NOINTERACTION
+	+SPAWNCEILING
+	RenderStyle None
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 30 A_CustomMissile("RocketTarget") //waits a bit
+		TNT1 A 10 A_CustomMissile("RocketRainingDown") //then drops
+		Stop
+	}
+}
+
+
+Actor RocketRainingDown
+{
+	Projectile
+	Speed 0
+	Radius 3
+	Height 5
+	+SPAWNCEILING
+	+CEILINGHUGGER
+	-NOGRAVITY
+	Gravity 2.5
+	Scale 0.6
+	DeathSound "weapons/rocklx"
+	States
+	{
+	Spawn:
+		MIC8 C 1 Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Loop
+	Death:
+		TNT1 A 0 A_Explode(32,80,0,0,32)
+		TNT1 A 0 A_Quake(2,2,0,512)
+		TNT1 A 0 A_SpawnItemEx("RockExplShockwave",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketExploDebris",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("RocketExplosionNew",0,0,15,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 10 A_ChangeFlag("NOINTERACTION",1)
+		TNT1 A 10 
+        TNT1 A 0 A_Jump(256, "RocketExploFXSpawner")
+		Stop
+	}
+}
+Actor RocketRainingDownStrong : RocketRainingDown
+{
+	States
+	{
+	Death:
+		TNT1 A 0 A_Explode(32,128,0,0,64)
+		TNT1 A 0 A_Quake(2,2,0,512)
+		TNT1 A 0 A_SpawnItemEx("RockExplShockwave",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketExploDebris",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("RocketExplosionNew",0,0,15,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 10 A_ChangeFlag("NOINTERACTION",1)
+		TNT1 A 10 
+        TNT1 A 0 A_Jump(256, "RocketExploFXSpawner")
+		Stop
+	}
+}
+
+Actor RocketTarget
+{
+	Radius 2
+	Height 2
+	+NOINTERACTION
+	+BRIGHT
+	+FORCEXYBILLBOARD
+	+FLOORHUGGER
+	RenderStyle Add
+	Translation "0:255=%[0,0,0]:[2.0,0.0,0.2]"
+	XScale 0.7
+	YScale 0.15
+	States
+	{
+	Spawn:
+		X060 A 30 Bright
+		X060 A 2 Bright A_FadeOut(0.05)
+		Wait
+
+	}
+}
+
+Actor RocketZoomer
+{
+	Radius 2
+	Height 2
+	+NOINTERACTION
+	+BRIGHT
+	+FORCEXYBILLBOARD
+	+FLOORHUGGER
+	RenderStyle Add
+	Translation "0:255=%[0,0,0]:[2.0,0.0,0.2]"
+	Scale 2.51
+	Alpha 0.01
+	States
+	{
+	Spawn:
+		X060 A 30 Bright
+		Goto Looper
+	Looper:
+		X060 A 1 Bright A_SetScale(scalex - 0.05)
+		X060 A 0 Bright A_FadeTo(2.51, 0.05, true)
+		Loop
+	}
+}
+
+//Rocket Rain random
+Actor DarkLordRainUpwardsRandom
+{
+	Projectile
+	Speed 0
+	Radius 3
+	Height 8
+	+THRUACTORS
+	+SKYEXPLODE
+	Scale 0.6
+	RenderStyle None
+	States
+	{
+	Spawn:
+		MIC8 B 0 NODELAY 
+		{ 
+		A_PlaySound("DarkCyber/Attack",5,1.0,false,0.95);
+		A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION);
+		A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION);
+		}
+		MIC8 B 50 Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		Goto Death
+	Death:
+		TNT1 A 0 A_Stop
+		TNT1 A 0 A_ChangeFlag(NOINTERACTION,1)
+		TNT1 A 50 A_CustomMissile("RRUrandomer",0,0,random(0,359),CMF_TRACKOWNER)
+		Stop
+	}
+}
+
+Actor RRUrandomer
+{
+	Projectile 
+	Radius 3
+	Height 3
+	Speed 35
+	Scale 0.6
+	+CEILINGHUGGER
+	+SPAWNCEILING
+	RenderStyle None
+	States
+	{
+	Spawn:
+		TROO A 0 NODELAY A_Jump(200,2,4,6,8,10,12,14)
+		TROO AAAAAAAAAAAAAAAAA 1 
+		Goto Death
+	Death:
+		TROO A 0 A_Stop
+		TROO A 0 A_ChangeFlag("NOINTERACTION",1)
+		TROO A 10 A_SpawnItemEx("DummyRainRandomSpawner",0,0,0, 0,0,0, 0,SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS)
+		Stop
+	}
+}
+
+Actor DummyRainRandomSpawner	
+{
+	+NOINTERACTION
+	+SPAWNCEILING
+	RenderStyle None
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 30 A_CustomMissile("RocketTarget") //waits a bit
+		TNT1 A 10 A_CustomMissile("RocketRainingDownStrong") //then drops
+		Stop
+	}
+}
+
+ACTOR Darklordpassivespawn
+{
+	Speed 100
+	Radius 20
+    Height 56
+	Mass 40
+	+THRUACTORS
+	-COUNTKILL
+	States
+	{
+	Spawn:
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAA 1 A_Wander
+		TNT1 A 5 A_Wander
+		TNT1 A 0 A_CheckSight ("Create")
+		TNT1 A 5 A_Wander
+		TNT1 A 0 A_CheckSight ("Create")
+		TNT1 A 5 A_Wander
+		TNT1 A 0 A_CheckSight ("Create")
+		TNT1 A 5 A_Wander
+		TNT1 A 0 A_CheckSight ("Create")
+		TNT1 A 0 A_Jump(50,"Die")
+		Loop
+	Create:
+		TNT1 A 0 A_SpawnItemEx("DarkLord")
+		Stop
+	Die:
+		TNT1 A 0
+		Stop	
+	}
+}
+
+ACTOR DarkCardinal : Cyberdemon
+{ 
+  Tag "Dark Cardinal"
+  Obituary "%o tried to take on the Dark Cardinal but failed miserably and became his bitch instead."  
+  Health 6000
+  Speed 20
+  Mass 2500
+  Radius 90
+  PainChance 30
+  PainChance "Head", 80
+  PainChance "KillMe", 64
+  PainChance "Taunt", 255
+  PainChance "Siphon", 255
+  damagefactor "BFG", .5
+  DamageFactor "Plasma", 0.75
+  DamageFactor "Desintegrate", .5
+  DamageFactor "GreenFire", .5
+  DamageFactor "SSG", .75
+  DamageFactor "Blast", .75
+  DamageFactor "Cut", .75
+  DamageFactor "Freeze", .25
+  DamageFactor "Ice", .25
+  DamageFactor "Frost", .25
+  damagefactor "Explosive", 1.1
+  damagefactor "HKFT", 0.05
+  damagefactor "Decaptate", 5.0
+  damagefactor "Avoid", 0.0
+  damagefactor "killme", 0.0
+  damagefactor "GibRemoving", 0.0
+  damagefactor "TeleportRemover", 0.0
+  DamageFactor "CauseObjectsToSplash", 0.0
+  DamageFactor "Blackhole", 0.75
+  DamageFactor "ExtremePunches", 1.0
+  damagefactor "Crush", 10.0
+  damagefactor "Blood", 0.0 damagefactor "BlueBlood", 0.0 damagefactor "GreenBlood", 0.0
+  BloodType "CyberDemon_Blood", "SawBlood", "SawBlood"
+  SeeSound "Cardinal/Sight"
+  PainSound "DarkCyber/Pain"
+  DeathSound "DarkCyber/Death"
+  ActiveSound "Cardinal/Active"
+  Scale 1.2
+  Species "CyberDemon" 
+  DropItem "DemonStrengthRune" 50
+  DropItem "Doublesphere" 25
+  DropItem "HasteSphere" 20
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  DropItem "Demonpickup2" 255
+  +MISSILEMORE
+  +MISSILEEVENMORE
+  +DONTRIP
+  +NORADIUSDMG
+  +QUICKTORETALIATE
+  +NOICEDEATH
+  +FLOAT
+  +NOGRAVITY	
+  -FLOORCLIP
+  +LOOKALLAROUND
+  +BOSS
+  +BOSSDEATH
+  +DONTHARMSPECIES
+  +DONTHURTSPECIES
+  +NOINFIGHTING
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +NOFEAR
+  +FULLVOLDEATH
+  +FULLVOLACTIVE
+   States 
+   { 
+   Spawn:
+     TNT1 A 0 NoDelay A_SpawnItemEx("DarkCardinalFireSpawner",0,0,0,0,0,0,0,SXF_SETMASTER)
+		
+   Idle:
+     CARD A 3 A_SetInventory("DarklordArmor",1) //gives 2000 armor.
+	 CARD AB 3 A_Look
+	 Loop
+	
+   See:
+     TNT1 A 0
+	 TNT1 A 0 A_Jump(87,"Rush")
+	 CARD AB 3 
+	 {
+	   A_Chase;
+	   if(random(1,30) == 30) { A_Recoil(-10); }
+	 }
+	 Loop
+
+    Rush:
+	  CARD AAABBB 1
+		{
+		A_Chase;
+		A_SpawnItemEx("GenericRushGhost",0,0,0,0,0,0,0,SXF_TRANSFERSCALE|SXF_TRANSFERSPRITEFRAME);
+		}
+	TNT1 A 0 A_Jump(16,"See") 
+      Loop	  
+   Missile:
+      TNT1 A 0 A_Jump(128,"Seekers","BigComet","BFG10K","HellLimbo")
+	  TNT1 A 0 A_JumpIf(health <= 3000,"PainRage")
+   Normal:
+      CARD CCCC 2 Bright
+	  CARD CCC 2 Bright 
+	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile ("DarkCyberRocket",60,-25,0,0)
+	  CARD DDD 2 Bright
+      CARD CCCC 2 Bright
+	  CARD CCC 2 Bright 
+	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile ("DarkCyberRocket",60,-25,0,0)
+	  CARD DDD 2 Bright 	  
+      CARD CCCC 2 Bright
+	  CARD CCC 2 Bright 
+ 	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile ("DarkCyberRocket",60,-25,0,0)
+	  CARD DDD 2 Bright 
+	  CARD CCC 2 Bright 
+	  TNT1 A 0 A_Jump(256,"Seekers","BFG10K","BigComet","HellLimbo")
+	  TNT1 A 0 A_JumpIf(health <= 3000,"PainRage")
+      Goto See
+   Seekers:
+      CARD CCC 2 Bright 
+	  CARD CC 2 Bright 
+	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile("Darkcardinalseekermissile",60,-25,0,0)
+	  CARD DDD 2 Bright 
+      CARD CCC 2 Bright
+	  CARD CC 2 Bright 
+	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile("Darkcardinalseekermissile",60,-25,0,0)
+	  CARD DDD 2 Bright 
+      CARD CCC 2 Bright
+	  CARD CC 2 Bright 
+	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile("Darkcardinalseekermissile",60,-25,0,0)
+	  CARD DDD 2 
+      CARD CCC 2 Bright
+	  CARD CC 2 Bright 
+	  CARD CC 2 Bright A_FaceTarget
+      CARD D 6 Bright A_CustomMissile("Darkcardinalseekermissile",60,-25,0,0)
+	  CARD DDD 2 Bright 
+	  CARD CCC 2 Bright  
+	  TNT1 A 0 A_Jump(128,"BigComet","BFG10K","HellLimbo")
+	  TNT1 A 0 A_JumpIf(health <= 3000,"PainRage")
+      Goto See
+    BigComet:
+	  TNT1 A 0 { bNOPAIN = true; }
+	  TNT1 A 0 A_PlaySound("Cardinal/Laugh",2,1.0,0,0.6)
+	  TNT1 A 0 A_SpawnItemEx("DarkCardinalCometGrowing",0,0,0,0,0,0,0,SXF_SETMASTER)
+	  CARD NMMM 5 A_FaceTarget
+	  TNT1 A 0 A_SpawnItemEx("DarkCardinalCometCharging",0,0,0,0,0,0,0,SXF_SETMASTER)
+	  CARD MMMMMMMMMMMMMM 5
+	  {
+	  A_FaceTarget;
+	  A_SpawnProjectile("DarkCardinalSmallComet",140,60,random(-20,20),CMF_OFFSETPITCH,random(-10,5));
+	  }
+	  CARD NN 5 A_FaceTarget
+	  CARD O 20 
+	  {
+	  A_SpawnProjectile("DarkCardinalComet",140,60);
+	  A_RemoveChildren(1,RMVF_EVERYTHING);
+	  A_SpawnItemEx("DarkCardinalFireSpawner",0,0,0,0,0,0,0,SXF_SETMASTER);
+	  bNOPAIN = false;
+	  }
+	  TNT1 A 0 A_Jump(128,"Seekers","BFG10K")
+	  TNT1 A 0 A_JumpIf(health <= 3000,"PainRage")
+	  Goto See	  
+   BFG10K:
+      TNT1 A 0 A_PlaySound("weapons/rgcharge",2,1.0,0,0.6)
+	  CARD CCC 4 Bright 
+	  CARD CC 2 Bright
+	  CARD CC 2 Bright
+	  CARD CCC 2 Bright {A_FaceTarget; A_SpawnItemEx("LaserChargeIndicator",0,-25,55,0,0,0,0);}
+	  TNT1 A 0 Bright A_PlaySound("Cardinal/ElectroBall",2,1.0,0,0.6)
+      CARD D 3 Bright A_CustomMissile("DarkCardinalShotHell",60,-25,0,0)
+	  CARD DDD 2 Bright
+	  TNT1 A 0 A_PlaySound("weapons/rgcharge",2,1.0,0,0.6)
+      CARD CCC 4 Bright
+	  CARD CC 2 Bright
+	  CARD CC 2 Bright
+	  CARD CCC 2 Bright {A_FaceTarget; A_SpawnItemEx("LaserChargeIndicator",0,-25,55,0,0,0,0);}
+	  TNT1 A 0 Bright A_PlaySound("Cardinal/ElectroBall",2,1.0,0,0.6)
+      CARD D 3 Bright A_CustomMissile("DarkCardinalShotHell",60,-25,0,0)
+	  CARD DDD 2 Bright
+	  TNT1 A 0 A_PlaySound("weapons/rgcharge",2,1.0,0,0.6)
+      CARD CCC 4 Bright 
+	  CARD CC 2 Bright
+	  CARD CC 2 Bright
+	  CARD CCC 2 Bright {A_FaceTarget; A_SpawnItemEx("LaserChargeIndicator",0,-25,55,0,0,0,0);}
+	  TNT1 A 0 Bright A_PlaySound("Cardinal/ElectroBall",2,1.0,0,0.6)
+      CARD D 3 Bright A_CustomMissile("DarkCardinalShotHell",60,-25,0,0)
+	  CARD CCCCC 4 Bright
+	  TNT1 A 0 A_Jump(128,"HellLimbo","BigComet","Seekers")
+	  TNT1 A 0 A_JumpIf(health <= 3000,"PainRage")
+      Goto See	  
+    HellLimbo:
+	  TNT1 A 0 { bNOPAIN = true; }
+	  TNT1 A 0 A_PlaySound("Cardinal/Laugh",2,1.0,0,0.6)
+	  TNT1 A 0 A_SpawnItemEx("DarkCardinalHellLimboGrowing",0,0,0,0,0,0,0,SXF_SETMASTER)
+	  CARD NMMM 5 A_FaceTarget
+	  TNT1 A 0 A_SpawnItemEx("DarkCardinalHellLimboCharging",0,0,0,0,0,0,0,SXF_SETMASTER)
+	  CARD MMMMMMMMMMMMMM 5
+	  {
+	  A_FaceTarget;
+	  A_SpawnProjectile("HellGhost",140,60,random(-20,20),CMF_OFFSETPITCH,random(-10,5));
+	  }
+	  CARD NN 5 A_FaceTarget
+	  CARD O 20 
+	  {
+	  A_SpawnProjectile("DarkCardinalHellLimbo",140,60);
+	  A_RemoveChildren(1,RMVF_EVERYTHING);
+	  A_SpawnItemEx("DarkCardinalFireSpawner",0,0,0,0,0,0,0,SXF_SETMASTER);
+	  bNOPAIN = false;
+	  }
+	  TNT1 A 0 A_Jump(128,"BFG10K","Seekers")
+	  TNT1 A 0 A_JumpIf(health <= 3000,"PainRage")
+      Goto See
+   Pain:
+	  TNT1 A 0 A_Jump(32,"PainRage")
+	  TNT1 A 0 A_Jump(128,"PainMissile")
+      CARD E 3 Bright A_Pain
+      CARD E 3 Bright
+      CARD E 3 Bright
+      Goto See
+   PainMissile:
+      CARD E 3 Bright A_Pain
+      CARD E 3 Bright
+      CARD E 3 Bright	  
+      Goto Missile
+   PainRage:
+	  TNT1 A 0 A_JumpIfCloser(1000,1)
+	  Goto Pain+1
+      CARD E 3 Bright A_Pain
+	  TNT1 A 0 A_JumpIfInventory("CardinalToken",6,"See")	
+      CARD EEEE 3 Bright 
+	  TNT1 A 0 A_GiveInventory("CardinalToken",1)
+	  TNT1 A 0 Bright A_SetInvulnerable
+	  TNT1 A 0 Bright Radius_Quake(10,80,0,24,0)
+	  TNT1 A 0 Bright A_GiveInventory("Health",1000) 
+	  TNT1 A 0 A_PlaySound("Cardinal/Sight",2,1.0,0,0.6)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	 
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)	  
+	  TNT1 A 0 Bright  A_SpawnItemEx("Darkcardinalragecharge",0,0,80,0,0,0,0,SXF_NOCHECKPOSITION)
+	  CARD E 2 Bright A_SpawnItemEx("RainCometSpawner",Random(1250,-1250),Random(1250,-1250),0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 Bright A_UnSetInvulnerable
+      CARD EE 3 Bright 
+	  Goto See
+	  
+   Death:
+	  CARD E 10 {A_Scream; A_RemoveChildren(1,RMVF_EVERYTHING);}
+	  CARD F 10 A_NoBlocking
+	  EXPL A 0 Radius_Quake (6, 200, 0, 22, 0)
+	  TNT1 AAAA 0 A_CustomMissile ("SuperGoreSPawner", 110, 0, random (0, 360), 2, random (0, 180))
+      TNT1 AAAA 0 A_CustomMissile ("BloodMistXXBig", 90, 0, random (0, 360), 2, random (70, 90))
+      CARD GGGGG 2 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+	  TNT1 AAAA 0 A_CustomMissile ("SuperGoreSPawner", 110, 0, random (0, 360), 2, random (0, 180))
+      TNT1 AAAA 0 A_CustomMissile ("BloodMistXXBig", 90, 0, random (0, 360), 2, random (70, 90))
+      CARD HHHHH 2 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+	  TNT1 AAAAAAAAA 0 A_CustomMissile ("XDeathBurnedMeat", 32, 0, random (0, 360), 2, random (0, 160))
+      TNT1 AAAA 0 A_CustomMissile ("UltraGoreSPawner", 30, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 AAAAAA 0 A_CustomMissile ("BloodMistXXBig", 30, 0, random (0, 360), 2, random (70, 90))
+      CARD IIIII 2 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+	  TNT1 AAAA 0 A_CustomMissile ("UltraGoreSPawner", 30, 0, random (0, 360), 2, random (0, 180))
+      TNT1 AAAAAA 0 A_CustomMissile ("UltraGoreSpawner", 30, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 AAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 30, 0, random (0, 360), 2, random (70, 90))
+	  TNT1 AAAAAAA 0 A_CustomMissile ("BloodMistXXBig", 100, 0, random (0, 360), 2, random (20, 90))
+      CARD JJJJJ 1 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+	  TNT1 AAAAAAAAAAAA 0 A_CustomMissile("XDeathBurnedMeat2", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+	  TNT1 AAAAAAAAAAAA 0 A_CustomMissile ("XDeathBurnedMeat3", 32, 0, random (0, 360), 2, random (0, 160))
+      CARD KKKKK 1 Bright A_CustomMissile("ExplosionSpawner", random(20,80), random(20,-20), random(0,360), 2, random(0,360))
+	  TNT1 AAAA 0 A_CustomMissile ("UltraGoreSPawner", 30, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 AAAAAA 0 A_CustomMissile ("BloodMistXXBig", 30, 0, random (0, 360), 2, random (70, 90))
+	  TNT1 A 0 A_SpawnItem ("BigBloodSpot")
+      CARD L 5 Bright A_BossDeath
+      Stop
+      } 
+}
+
+ACTOR CardinalToken : Inventory
+{
+Inventory.Amount 1
+Inventory.MaxAmount 10
+}
+
+ACTOR Darkcardinalseekermissile
+{
+	Radius 11
+	Height 8
+	Scale 0.6
+	Speed 20
+	Projectile
+    DONTHURTSHOOTER
+    Damage (Random(20,25))
+	Decal "HitScorchMediumSmall"
+	+RANDOMIZE
+	+THRUSPECIES
+    +MTHRUSPECIES
+	+DONTHURTSPECIES
+	+DONTHARMSPECIES
+	+SEEKERMISSILE
+	RenderStyle Normal
+	SeeSound "monster/homingrockfire"
+    DeathSound "weapons/rocklx"
+    Obituary "%o ate %k's Rocket."
+	DamageType "ExplosiveImpact"
+	Species "CyberDemon"
+	States
+	{
+	Spawn:
+	  TNT1 A 0
+	  TNT1 A 0 A_Jump(168,"Homing")
+	  
+	Normal:	
+	  HSHR A 2 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Loop
+	Homing:  
+	  HSHR A 2 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  HSHR A 2  Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  HSHR A 2  Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  Goto StartSeek
+	
+	StartSeek:
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		TNT1 A 0 A_Tracer2
+	    HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		TNT1 A 0 A_Tracer2
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_Weave(2,2,2.0,1.0)
+		HSHR A 1 Light(YellowMediumPoint2) Bright A_SpawnItemEx("RocketTrailFire",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_PlaySound("monster/homingrockbeep")
+		Loop
+		
+	Death:
+	  TNT1 A 0 A_Quake (2,35,0,1024)
+	  TNT1 A 0 A_Explode (10,160,0,0,15)
+	  TNT1 A 0 A_SpawnItemEx("RockExplShockwave",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  TNT1 A 0 A_SpawnItemEx("RocketExploDebris",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	  TNT1 A 0 A_SpawnItemEx("RocketExplosionNew",0,0,0, 0,0,0,0, SXF_NOCHECKPOSITION)
+	  TNT1 A 10 
+      TNT1 A 0 A_Jump(256, "RocketExploFXSpawner")
+      stop
+	   }
+}	
+
+
+Actor DarkCardinalFireSpawner
+{
+  +NOINTERACTION
+  var int user_fx;
+  States
+  {
+  Spawn:
+    TNT1 A 1 A_Warp(AAPTR_MASTER,0,0,0,0,WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE)
+	TNT1 A 0 
+		{
+		if(random(0,1) == 0) { A_SpawnItemEx("DarkCardialFirespawn2",random(2,26),0,random(45,55),frandom(-2,0),0,frandom(-8,0),random(0,360)); }
+		else  { A_SpawnItemEx("DarkCardialFirespawn1",random(2,26),0,random(45,55),frandom(-2,0),0,frandom(-8,0),random(0,360)); }
+	    for(user_fx = 0;user_fx<=2;user_fx++) { A_SpawnItemEx("CardinalGroundFire",frandom(-20,20),frandom(-20,20),-1000,0,0,0,0,0,192); }
+        }
+       Loop
+	}
+}
+
+
+Actor DarkCardialFirespawn1
+{
+  +NOINTERACTION
+  +BRIGHT
+  +ROLLSPRITE
+  Renderstyle "Add"
+  Scale 2.0
+  var int user_tic;
+  States
+    {
+    Spawn:
+	TNT1 A 2
+	TNT1 A 0 
+		{
+		if(random(0,1) == 1) { bSPRITEFLIP = true; }
+		A_SetRoll(random(0,360));
+		user_tic = random(2,4);
+		return ResolveState("Spawn2");
+		}
+	Goto Spawn2
+	
+    Spawn2:
+	  DCF1 GHIJK 4
+		{
+		A_FadeOut(0.1);
+		A_SetTics(user_tic);
+		}
+	Stop
+	}
+}
+
+Actor DarkCardialFirespawn2
+{
+  +NOINTERACTION
+  +BRIGHT
+  +YFLIP
+  Renderstyle "Add"
+  Scale 2.0
+  var int user_tic;
+  States
+  {
+  Spawn:
+	TNT1 A 2
+	TNT1 A 0 
+	{
+	if(random(0,1) == 1) { bSPRITEFLIP = true; }
+	user_tic = random(2,3);
+	return ResolveState("Spawn2");
+	}
+	Goto Spawn2
+	Spawn2:
+	DCF1 ABCDEF 3
+		{
+		A_FadeOut(0.1);
+		A_SetTics(user_tic);
+		}
+	Stop
+	}
+}
+
+Actor CardinalGroundFire
+{
+  Scale 0.2
+  RenderStyle Normal
+  Alpha 0.95
+  States
+  {
+  Spawn:
+    STH1 ABCDEFGHIJKLMNOPQRS 3 Bright
+    Stop
+	}
+}
+
+Actor DarkCardinalCometGrowing
+{
+  Scale 0.15
+  +NOINTERACTION
+  States
+  {
+  Spawn:
+	GCO5 ABCABCABCABCABCABCABC 1 Bright
+		{
+		A_Warp(AAPTR_MASTER,0,60,140,0,WARPF_NOCHECKPOSITION);
+		}
+	Stop
+	}
+}
+
+Actor DarkCardinalCometCharging
+{
+  +NOINTERACTION
+  Scale 0.15
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_Warp(AAPTR_MASTER,0,60,140,0,WARPF_NOCHECKPOSITION)
+	GCO5 ABC 2 Bright A_Warp(AAPTR_MASTER,0,60,140,0,WARPF_NOCHECKPOSITION)
+	Goto Spawn+1
+	}
+}
+
+Actor DarkCardinalComet
+{
+  var int user_fx;
+  Radius 16
+  Height 20
+  Speed 35
+  Projectile
+  Damage (Random(60,80))
+  Scale 0.2
+  SeeSound "Cardinal/Comet"
+  DeathSound "Cardinal/Bigcometexp"
+  Damagetype "Incinerate"
+  Species "CyberDemon"
+  +RANDOMIZE
+  +ForceXYBillboard
+  +FORCERADIUSDMG
+  +CLIENTSIDEONLY
+  +THRUGHOST
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +FULLVOLDEATH
+  Decal "RedbigScorch"
+  States
+  {
+  Spawn:
+    GCO5 AABBCC 2 Bright
+	{
+	for(user_fx = 0;user_fx<=4;user_fx++) { A_SpawnItemEx("DarkCardinalCometTrail",0,0,0,frandom(-1,0),frandom(-1,-1),frandom(0,1));}
+	for(user_fx = 0;user_fx<=4;user_fx++) { A_SpawnItemEx("ObeliskTrailSpark",frandom(-15,0),frandom(-15,15),frandom(-6,18),0,frandom(-5,5),frandom(0,5));}
+	for(user_fx = 0;user_fx<=4;user_fx++) {	A_SpawnItemEx("Particlescomettrail2",frandom(-15,0),frandom(-15,15),frandom(-6,18),0,frandom(-2,2),frandom(0,7));}
+	}
+    Loop
+  Death:
+    TNT1 A 0 A_SpawnItem("DarkCometImpact",0,0,0)
+	TNT1 AAAAAAAAAAA 0 A_SpawnItem("DarkCardinalCometsmoke",0,0,0)
+	TNT1 A 0 A_SpawnItemEx("DarkCardinalCometShockwave",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS,0)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("CometParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("CometParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("CometParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("CometParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	TNT1 A 0
+	{
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_SetRenderStyle(1.0,STYLE_ADD);}
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_SetScale(1.5);}
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_QuakeEx(9,9,9,35,0,3000,0,QF_SCALEDOWN,0,0,0,1000);}
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_Explode(10,150,0,0,true);}
+	}
+	HLE9 A 1 Light("RedBigPoint1") A_FadeOut(0.08)
+	HLE9 B 1 Light("RedBigPoint2") A_FadeOut(0.08)
+	HLE9 C 1 Light("RedBigPoint3") A_FadeOut(0.08)
+	HLE9 D 1 Light("RedMediumPoint1") A_FadeOut(0.08)
+	HLE9 E 1 Light("RedMediumPoint2") A_FadeOut(0.08)
+	HLE9 F 1 Light("RedMediumPoint3") A_FadeOut(0.08)
+	HLE9 G 1 Light("RedSmallPoint1") A_FadeOut(0.08)
+	HLE9 H 1 Light("RedSmallPoint2") A_FadeOut(0.08)
+	HLE9 I 1 Light("RedSmallPoint3") A_FadeOut(0.08)
+	Stop
+	}
+}
+  
+ACTOR DarkCardinalCometShockwave 
+{
+  Renderstyle None
+  +DROPOFF
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +THRUACTORS
+  +NOTELEPORT
+  +NOINTERACTION
+  States
+	{
+	Spawn:
+	  TNT1 A 0
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA random(0,1) A_SpawnItemEx("DarkCometFlame",frandom(-32,32),frandom(-32,32),frandom(-32,32),frandom(8,9),frandom(8,9),frandom(-0.1,0.1),frandom(0,359),SXF_TRANSFERPOINTERS|SXF_NOCHECKPOSITION,96)
+	  TNT1 A 1
+	  Stop
+	}
+}
+
+Actor DarkCometImpact : DarkCardinalCometShockwave 
+{
+  Renderstyle Normal
+  Scale 1.0
+   States
+	{
+	Spawn:
+	  TNT1 A 0
+	  CXP2 ABCDEFGH 1
+	  CXP2 IJKLMNOPQ 2
+	  stop
+	}
+} 
+Actor DarkCardinalSmallComet
+{
+  var int user_fx;
+  Projectile
+  Radius 6
+  Height 8
+  Speed 35
+  Damage (Random(15,20))
+  +RANDOMIZE
+  +ForceXYBillboard
+  +FORCERADIUSDMG
+  +CLIENTSIDEONLY
+  +THRUGHOST
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +FULLVOLDEATH
+  Scale 0.9
+  SeeSound "Cardinal/SmallComet"
+  DeathSound "Cardinal/Smallcometexp"
+  Damagetype "Superplasma"
+  Species "CyberDemon"
+  Decal "RedsmallScorch"
+  States
+  {
+  Spawn:
+    GCO4 AABBCC 2 Bright
+	{
+	for(user_fx = 0;user_fx<=3;user_fx++) { A_SpawnItemEx("DarkCardinalCometTrailSmall",0,0,0,frandom(-0.5,0),frandom(-0.5,-0.5),frandom(0,0.5));}
+	for(user_fx = 0;user_fx<=3;user_fx++) {	A_SpawnItemEx("ObeliskTrailSpark",frandom(-6,0),frandom(-6,6),frandom(-2,6),0,frandom(-2,2),frandom(0,3));}
+	for(user_fx = 0;user_fx<=3;user_fx++) {	A_SpawnItemEx("Particlescomettrail2",frandom(-6,0),frandom(-6,6),frandom(-2,6),0,frandom(-1,1),frandom(0,5));}
+	}
+    Loop
+  Death:
+    TNT1 A 0 
+    {
+    for(user_fx = 0;user_fx<=35;user_fx++) { A_Explode(10,100,0,0,true);}
+    for(user_fx = 0;user_fx<=35;user_fx++) { A_QuakeEx(4,4,4,12,0,900,0,QF_SCALEDOWN,0,0,0,300);}
+	}
+    GCO4 DE 3 Bright
+	TNT1 A 0 A_SetRenderStyle(0.7,STYLE_ADD)
+	TNT1 A 0 A_SetScale(1.2)
+	TNT1 AAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark",frandom(-6,0),frandom(-6,6),frandom(-2,6),0,frandom(-2,2),frandom(0,3))
+	GCO4 FGHI 3 Bright
+	TNT1 AAAAA 4 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+    Stop
+	}
+}
+
+Actor GenericRushGhost
+{
+  +NOINTERACTION
+  Renderstyle "Translucent"
+  Alpha 0.9
+  States
+  {
+  Spawn:
+    TNT1 A 3
+    "----" A 2 A_FadeOut
+    Wait
+    }
+}
+
+Actor DarkCardinalCometTrail
+{
+  +NOINTERACTION
+  +ROLLSPRITE
+  Renderstyle "Add"
+  Scale 3.0
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_SetRoll(random(0,360))
+	TNT1 A 3
+	GCO3 ABCDEFGHI 2 Bright A_FadeOut(0.05)
+	Stop
+	}
+}
+
+Actor DarkCardinalCometTrailSmall : DarkCardinalCometTrail
+{
+  Scale 1.0
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_SetRoll(random(0,360))
+	TNT1 A 1
+	GCO3 ABCDEFGHI 1 Bright A_FadeOut(0.05)
+	Stop
+	}
+}
+
+Actor Darkcardinalragecharge : Hellstartrail
+{
+  Renderstyle "Add"
+  Alpha 0.60
+  Scale 0.6
+  States
+  {
+  Spawn:
+    DC10 ABCDEFGH 2 Bright A_FadeOut(0.2)
+    Loop
+  }
+}  
+
+ACTOR HellGhost
+{
+  Alpha 1
+  Height 2
+  Projectile
+  Radius 2
+  RenderStyle Add
+  SeeSound "CYANF11/SWNG"
+  DeathSound "imp/shotx"
+  Speed 30
+  Scale 1.2
+  Damage (Random(15,20))
+  Damagetype "Incinerate"
+  Species "CyberDemon"
+  +BRIGHT
+  +THRUACTORS
+  Decal "RedScorch"
+  States
+  {
+	Spawn:
+		TNT1 A 0 A_PlaySound("SpiritSeeker", 3, 1.0, 1)
+		BLHS ABCD 2 BRIGHT {
+		A_Weave(3, 3, 1.0, 1.0);
+		A_SpawnItem("RedFlareSpawn",0,0,0,0);
+		A_SpawnItemEx("ObeliskTrailSpark", random(5,-5), random(5,-5), random(5,-5), 0, 0, 0, 0, 128, 0);
+	    A_SpawnItemEx("RocketTrailSmoke",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION);
+		}
+		loop
+	Death:
+		TNT1 A 0 A_SpawnItem("HellGhostImpact",0)
+		stop
+	}
+}
+
+Actor HellGhostImpact
+{
+  Damage 10
+  DamageType "Incinerate"
+  Species "CyberDemon"
+  +NOGRAVITY
+  +ForceXYBillboard
+  +CLIENTSIDEONLY
+  +THRUACTORS
+  +NODAMAGETHRUST
+  +FORCERADIUSDMG
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +Bright
+  RenderStyle add
+  alpha 1
+  Scale 1.0
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_Explode (10,100,0,0,true)
+	AIS1 AABBCCDDEEFFGGHH 3 Bright
+	TNT1 AAAAAAAAAAAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	TNT1 AAAAA 4 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+    stop
+  }
+}
+
+
+Actor DarkCardinalHellLimboGrowing
+{
+  RenderStyle Normal
+  Scale 1.0
+  +NOINTERACTION
+  +BRIGHT
+  States
+  {
+  Spawn:
+	HLI3 ABCDEFGABCDEFGABCDEFGABCDEFGABCDEFGABCDEFGABCDEFG 1 BRIGHT
+		{
+		A_Warp(AAPTR_MASTER,0,60,140,0,WARPF_NOCHECKPOSITION);
+		}
+	Stop
+	}
+}
+
+Actor DarkCardinalHellLimboCharging
+{
+  RenderStyle Normal
+  +NOINTERACTION
+  +BRIGHT
+  Scale 1.0
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_Warp(AAPTR_MASTER,0,60,140,0,WARPF_NOCHECKPOSITION)
+	HLI3 ABCDEFG 2 BRIGHT A_Warp(AAPTR_MASTER,0,60,140,0,WARPF_NOCHECKPOSITION)
+	Goto Spawn+1
+	}
+}
+
+Actor DarkCardinalHellLimbo
+{
+  var int user_fx;
+  RenderStyle Normal
+  Radius 16
+  Height 20
+  Speed 35
+  Projectile
+  Damage (Random(60,80))
+  Scale 1.0
+  SeeSound "Cardinal/Limbo"
+  DeathSound "Cardinal/Limboexp"
+  Damagetype "Desintegrate"
+  Species "CyberDemon"
+  +RANDOMIZE
+  +ForceXYBillboard
+  +FORCERADIUSDMG
+  +CLIENTSIDEONLY
+  +THRUGHOST
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +FULLVOLDEATH
+  +BRIGHT
+  Decal "PurplebigScorch"
+  States
+  {
+  Spawn:
+    HLI3 ABCDEFG 2 Bright
+	{
+	for(user_fx = 0;user_fx<=4;user_fx++) { A_SpawnItemEx("DarkCardinalLimboTrail",0,0,0,frandom(-1,0),frandom(-1,-1),frandom(0,1));}
+	for(user_fx = 0;user_fx<=4;user_fx++) { A_SpawnItemEx("ParticlesHellLimbotrail2",frandom(-15,0),frandom(-15,15),frandom(-6,18),0,frandom(-5,5),frandom(0,5));}
+	for(user_fx = 0;user_fx<=4;user_fx++) {	A_SpawnItemEx("ParticlesHellLimbotrail",frandom(-15,0),frandom(-15,15),frandom(-6,18),0,frandom(-2,2),frandom(0,7));}
+	}
+    Loop
+  Death:
+	TNT1 AAAAAAAAAAA 0 A_SpawnItem("LimboSmoke",0,0,0)
+	TNT1 A 0 A_SpawnItemEx("LimboShockwave",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS,0)
+	TNT1 A 0 A_SpawnItemEx("LimboExploFlare",0,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("LimboParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("LimboParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("LimboParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("LimboParticlesExplod", 0,0,0, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	TNT1 A 0
+    {
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_SetRenderStyle(1.0,STYLE_ADD);}
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_SetScale(1.5);}
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_QuakeEx(9,9,9,35,0,3000,0,QF_SCALEDOWN,0,0,0,1000);}
+	for(user_fx = 0;user_fx<=120;user_fx++){ A_Explode(10,150,0,0,true);}
+	}
+	HLE2 A 1 Light("BHOLE_2") A_FadeOut(0.08)
+	HLE2 B 1 Light("BHOLE_3") A_FadeOut(0.08)
+	HLE2 C 1 Light("BHOLE_4") A_FadeOut(0.08)
+	HLE2 D 1 Light("BHOLE_5") A_FadeOut(0.08)
+	HLE2 E 1 Light("BHOLE_6") A_FadeOut(0.08)
+	HLE2 F 1 Light("BHOLE_7") A_FadeOut(0.08)
+	HLE2 G 1 Light("BHOLE_8") A_FadeOut(0.08)
+	HLE2 H 1 Light("BHOLE_9") A_FadeOut(0.08)
+	HLE2 I 1 Light("BHOLE_10") A_FadeOut(0.08)
+	Stop
+	}
+}
+
+Actor DarkCardinalLimboTrail
+{
+  +NOINTERACTION
+  +ROLLSPRITE
+  Renderstyle Normal
+  Scale 1.0
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_SetRoll(random(0,360))
+	TNT1 A 3
+	ALGT ABCDEF 2 Bright A_FadeOut(0.05)
+	Stop
+	}
+}
+
+ACTOR ParticlesHellLimbotrail: ExplosionParticleHeavy
+{
+  RenderStyle Normal
+  game Doom
+  Scale 0.1
+  speed 1
+  fastspeed 1
+  +NOGRAVITY
+  +NOCLIP
+  +NOINTERACTION
+  States
+  {
+	Spawn:
+	  REP4 A 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	  REP4 A 0 A_SetScale(ScaleX-0.00075)
+      REP4 A 3 bright A_ChangeVelocity (frandom(-0.2, 0.03), frandom(-0.01, 0.04), frandom(-0.1, 0.12), 0)
+      REP4 A 1 bright A_FadeOut(0.001)
+      Loop
+   }
+}
+
+ACTOR ParticlesHellLimbotrail2: ExplosionParticleHeavy
+{
+  RenderStyle Normal
+  game Doom
+  Scale 0.1
+  speed 1
+  fastspeed 1
+  +NOGRAVITY
+  +NOCLIP
+  +NOINTERACTION
+  States
+  {
+	Spawn:
+	  REP4 B 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	  REP4 B 0 A_SetScale(ScaleX-0.00075)
+      REP4 B 3 bright A_ChangeVelocity (frandom(-0.2, 0.03), frandom(-0.01, 0.04), frandom(-0.1, 0.12), 0)
+      REP4 B 1 bright A_FadeOut(0.001)
+      Loop
+   }
+}
+
+Actor LimboParticlesExplod : SupershotParticle
+{
+  RenderStyle Normal
+  Scale 0.2
+  States
+    {
+	Spawn:
+	  REP4 A 1 bright A_FadeOut(0.01)
+      loop
+   }
+}
+
+Actor CometParticlesExplod : SupershotParticle
+{
+  Scale 0.2
+  States
+    {
+	Spawn:
+	  PHSR A 1 bright A_FadeOut(0.01)
+      loop
+   }
+}
+
+Actor ParticleShotHell : ParticlesHellLimbotrail
+{
+  RenderStyle Normal
+  Scale 0.2
+  States
+  {
+	Spawn:
+	  HS2Q AA 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	  HS2Q AA 0 A_SetScale(ScaleX-0.00075)
+      HS2Q AA 3 bright A_ChangeVelocity (frandom(-0.2, 0.03), frandom(-0.01, 0.04), frandom(-0.1, 0.12), 0)
+      HS2Q AA 1 bright A_FadeOut(0.001)
+      Loop
+   }
+}
+
+ACTOR LimboSmoke
+{
+  Scale 2.2
+  damage 1
+  +NOCLIP
+  +THRUSPECIES
+  +bright
+  RenderStyle Add
+  Alpha 0.70
+  +FORCEXYBILLBOARD
+  +NOGRAVITY
+  +THRUSPECIES
+  +VISIBILITYPULSE
+  Species "CyberDemon"
+  States
+    {
+	Spawn:
+	  HLS3 ABCDEFGHIJKLMNO 2 A_FadeOut(0.03)
+	  Stop
+	}
+}
+
+ACTOR LimboShockwave 
+{
+  Renderstyle None
+  +DROPOFF
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +THRUACTORS
+  +NOTELEPORT
+  +NOINTERACTION
+  States
+	{
+	Spawn:
+	  TNT1 A 0
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA random(0,1) A_SpawnItemEx("LimboFlame",frandom(-32,32),frandom(-32,32),frandom(-32,32),frandom(8,9),frandom(8,9),frandom(-0.1,0.1),frandom(0,359),SXF_TRANSFERPOINTERS|SXF_NOCHECKPOSITION,96)
+	  TNT1 A 1
+	  stop
+	}
+}
+
+ACTOR LimboFlame 
+{
+  Scale 0.1
+  Renderstyle Add
+  Alpha 0.5
+  +FORCERADIUSDMG
+  +THRUSPECIES
+  +DROPOFF
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +THRUACTORS
+  +NOTELEPORT
+  Species "CyberDemon"
+  DamageType "Desintegrate"
+  States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A random(0,5)
+		TNT1 AA 1 Bright A_Jump(256,"SpawnA","SpawnB","SpawnC","SpawnD")
+		Loop
+	SpawnA:
+		TNT1 A 0 A_JumpIf(Alpha<0.18,2)
+		TNT1 A 0 A_Explode(5,60,1)
+		TNT1 A 0 A_SetScale(ScaleX+0.01,ScaleY+0.01)
+		HLF6 A 1 A_FadeOut(0.01,1)
+		Loop
+	SpawnB:
+		TNT1 A 0 A_JumpIf(Alpha<0.18,2)
+		TNT1 A 0 A_Explode(5,60,1)
+		TNT1 A 0 A_SetScale(ScaleX+0.01,ScaleY+0.01)
+		HLF6 B 1 A_FadeOut(0.01,1)
+		Loop
+	SpawnC:
+		TNT1 A 0 A_JumpIf(Alpha<0.18,2)
+		TNT1 A 0 A_Explode(5,60,1)
+		TNT1 A 0 A_SetScale(ScaleX+0.01,ScaleY+0.01)
+		HLF6 C 1 A_FadeOut(0.01,1)
+		Loop
+	SpawnD:
+		TNT1 A 0 A_JumpIf(Alpha<0.18,2)
+		TNT1 A 0 A_Explode(5,60,1)
+		TNT1 A 0 A_SetScale(ScaleX+0.01,ScaleY+0.01)
+		HLF6 D 1 A_FadeOut(0.01,1)
+		Loop
+	}
+}
+
+ACTOR LimboExploFlare
+{
+  Renderstyle Add
+  Alpha 0.6
+  +FORCEXYBILLBOARD
+  +NOINTERACTION
+  +CLIENTSIDEONLY
+  +FORCERADIUSDMG
+  +THRUSPECIES
+  +DROPOFF
+  +NOGRAVITY
+  +NOBLOCKMAP
+  +THRUACTORS
+  +NOTELEPORT
+  Species "CyberDemon"
+  States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 Bright A_Jump(256,"Fade")
+		Loop
+	Fade:
+		TNT1 A 0 A_SetScale(ScaleX+0.008,ScaleY+0.008)
+		HLF6 E 1 Bright A_FadeOut(0.01,1)
+		Loop
+	}
+}
+
+Actor DarkCometFlame : LimboFlame
+{
+  Translation "0:255=%[0,0,0]:[2.0,0.2,0.2]"
+} 
+Actor DarkCardinalCometsmoke : LimboSmoke
+{
+  Translation "0:255=%[0,0,0]:[2.0,0.2,0.2]"
+}
+
+ACTOR RainCometSpawner
+{
+  Height 2
+  Radius 2
+  Speed 6
+  RenderStyle Add
+  Alpha 0.9
+  Scale 1
+  PROJECTILE
+  +SPAWNCEILING
+  +CEILINGHUGGER
+  +NOCLIP
+  +DONTSPLASH
+  States
+    {
+    Spawn:
+	  TNT1 AAAAAAAAAAAAAAAAAAAA 1 A_Wander
+	  DV09 ABCABCABC 2 Bright A_Wander
+      TNT1 A 0 A_CustomMissile("RainComet",-18,random(0,20),random(0,360),2)
+	  DV09 AAABBBCCC 1 Bright A_Wander
+      TNT1 A 0 A_CustomMissile("RainComet",-18,random(0,20),random(0,360),2)
+	  DV09 AAABBBCCC 1 Bright A_Wander
+      TNT1 A 0 A_CustomMissile("RainComet",-18,random(0,20),random(0,360),2)
+	  DV09 AAABBBCCC 1 Bright A_Wander
+	  TNT1 A 0 A_CustomMissile("RainComet",-18,random(0,20),random(0,360),2)
+    FadeOut:
+	  DV09 ABC 2 Bright A_FadeOut(0.06)
+      Goto FadeOut
+	}
+}
+
+ACTOR RainComet
+{
+  Radius 8
+  Height 8
+  Speed 10
+  Damage 10
+  Scale 0.9
+  Damagetype "Superplasma"
+  Species "CyberDemon"
+  PROJECTILE
+  +SPAWNCEILING
+  +DONTSPLASH
+  -NOGRAVITY
+  -FLOAT
+  +RANDOMIZE
+  +ForceXYBillboard
+  +FORCERADIUSDMG
+  +CLIENTSIDEONLY
+  +THRUGHOST
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  +FULLVOLDEATH
+  SeeSound "Cardinal/SmallComet"
+  DeathSound "Cardinal/Smallcometexp"
+  Decal "RedsmallScorch"
+  States
+    {
+    Spawn:
+    GCO4 AAABBBCCC 1 Bright A_SpawnItemEx("DarkCardinalCometTrailSmall", 0, 0, 0, 0, 0, 0, 0, 128)
+    Loop
+	
+  Death:
+    TNT1 A 0
+    TNT1 A 0 A_Explode(10,100,0,0,true)
+	TNT1 A 0  A_QuakeEx(4,4,4,12,0,900,0,QF_SCALEDOWN,0,0,0,300)
+    TNT1 A 0 A_SetTranslucent(0.75,1)
+    TNT1 AAAAAAAAAA 0 A_SpawnItemEx("ObeliskTrailSpark", 0, 0, 0, 0, 0, 0, 0, 128)
+    COMT DE 3 Bright 
+    COMT FGHI 3 Bright 
+    Stop
+    }
+}
+
+ACTOR DarkCardinalShotHell
+{
+   Radius 8
+   Height 12
+   Speed 40
+   Damage (Random(25,30))
+   PROJECTILE
+   RENDERSTYLE Normal
+   +RANDOMIZE
+   +ForceXYBillboard
+   +FORCERADIUSDMG
+   +CLIENTSIDEONLY
+   +THRUGHOST
+   +THRUSPECIES
+   +MTHRUSPECIES
+   +DONTHURTSPECIES
+   +DONTHARMSPECIES
+   +Bright
+   +FULLVOLDEATH
+   DeathSound "Cardinal/ElectroImpact"
+   Scale 0.15
+   DamageType "Stun"
+   Species "CyberDemon"
+   Decal "RedScorch"
+   States
+   {
+   Spawn: 
+	 C01S ABCDEFGHIJKLMNO 2 Bright { A_SpawnItemEx("DarkCardinalShotHellTrail",0,0,0,frandom(-1,0),frandom(-1,-1),frandom(0,1));
+      A_SpawnItemEx("ParticleShotHell",frandom(-15,0),frandom(-15,15),frandom(-6,18),0,frandom(-5,5),frandom(0,5));} 
+     loop
+   Death:
+     TNT1 A 0 A_Quake(4, 40, 0, true)
+     TNT1 A 0 A_Explode(20,128,1)
+	 TNT1 A 1 A_SpawnItem("DarkCardinalShotHellImpact")
+	 TNT2 AAAAAAAAA 9 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+     stop
+   }
+}
+
+
+Actor DarkCardinalShotHellTrail
+{
+  
+  +NOINTERACTION
+  +ROLLSPRITE
+  RenderStyle "Add"
+  Alpha 1
+  Scale 0.15
+  States
+  {
+  Spawn:
+	TNT1 A 0 NoDelay A_SetRoll(random(0,360))
+	TNT1 A 3
+	ELN3 ABC 2 Bright A_FadeOut(0.05)
+	Stop
+	}
+}
+
+Actor DarkCardinalShotHellImpact
+{
+  Radius 8
+  Height 8
+  Damage 20
+  Projectile
+  +RANDOMIZE
+  +ForceXYBillboard
+  +FORCERADIUSDMG
+  +CLIENTSIDEONLY
+  +THRUSPECIES
+  +MTHRUSPECIES
+  +DONTHURTSPECIES
+  +DONTHARMSPECIES
+  RenderStyle Add
+  Alpha 0.95
+  scale 1.0
+  DamageType "Stun"
+  Species "CyberDemon"
+  States
+  {
+  Spawn:
+	AP8I ABCDEFGH 2 bright A_FadeOut(0.1)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("Cardinalshockelectro", 0,0,10, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("Cardinalshockelectro", 0,0,10, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("Cardinalshockelectro", 0,0,10, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL AAAAAAAAAAAA 0 A_SpawnItemEx("Cardinalshockelectro", 0,0,10, (Random(-5,5)), (Random(-5,5)), (Random(-5,5)), 0, SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION)
+	NULL A 0 A_custommissile("CardinalElectroShock",18,0,5,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,25,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,45,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,65,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,85,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,105,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,125,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,145,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,165,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,185,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,205,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,225,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,245,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,265,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,285,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,305,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,325,32,0)
+    NULL A 0 A_custommissile("CardinalElectroShock",18,0,345,32,0)
+	Stop
+	}
+}
+
+actor Cardinalshockelectro
+{
+  Radius 8
+  Height 8
+  Speed 0
+  Damage 5
+  Projectile
+  DamageType "Stun"
+  Species "CyberDemon"
+  Scale .35
+  +RANDOMIZE
+  +ForceXYBillboard
+  +SEEKERMISSILE
+  +DEHEXPLOSION
+  +SCREENSEEKER
+  +FORCERADIUSDMG
+  +NOTIMEFREEZE
+  RenderStyle Add
+  Alpha 0.75
+
+  States
+  {
+  Spawn:
+    AS8L AB 0 bright A_SeekerMissile(0, 90, SMF_LOOK, 0)
+    AS8L AB 2 bright A_SeekerMissile(0, 90, SMF_LOOK, 0)
+    AS8L CDE 3 bright A_SeekerMissile(0, 90, SMF_LOOK, 0)
+	AS8L AB 1 bright A_SeekerMissile(0, 90, SMF_LOOK, 0)
+    AS8L CDE 1 bright A_SeekerMissile(0, 90, SMF_LOOK, 0)
+    stop
+  }
+}
+
+actor CardinalElectroShock
+{
+  Radius 13
+  Height 8
+  Speed 25
+  Damage (Random(5,10))
+  Projectile
+  DamageType "Stun"
+  Species "CyberDemon"
+  scale .75
+  -NOGRAVITY
+  +RANDOMIZE
+  +BLOODLESSIMPACT
+  +NOEXTREMEDEATH
+  RenderStyle Add
+  Alpha 0.75
+  Gravity 0.80
+  SeeSound "electricplasma/shoot"
+  DeathSound "electricplasma/hit"
+  Decal "RedsmallScorch"
+  States
+  {
+  Spawn:
+    AS8L AB 0 bright A_CustomMissile("CardinalElectroShockTrail", 0, 0, 0)
+    AS8L AB 2 bright A_BishopMissileWeave
+    loop
+  Death:
+    AS8L CDE 3 bright
+    stop
+  }
+}
+
+actor CardinalElectroShockTrail
+{
+  Radius 13
+  Height 8
+  Speed 0
+  Damage 0
+  Projectile
+  +RANDOMIZE
+  RenderStyle Add
+  Alpha 0.75
+  States
+  {
+  Spawn:
+    E8LT ABC 3 bright A_BishopMissileWeave
+    goto death
+  Death:
+    E8LT DEF 4 bright A_FadeOut(0.25)
+    loop
+  }
+}
