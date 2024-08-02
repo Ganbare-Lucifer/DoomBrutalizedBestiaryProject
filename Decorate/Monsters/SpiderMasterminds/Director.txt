@@ -1,0 +1,141 @@
+ACTOR Director : SpiderMastermind
+{
+  Health 2000
+  Radius 108
+  Height 112
+  Tag "Director"
+  SeeSound "director/sight"
+  ActiveSound "Director/active"
+  DeathSound "director/death"
+  Obituary "The Director turned %o into confetti."
+  +ALLOWPAIN
+  +NOTARGET
+  States
+  {
+  Spawn:
+    DIRE A 0 
+    DIRE A 1 A_SetInventory("DirectorArmor",1) //gives 1000 armor.
+    DIRE AB 10 A_Look
+    goto Spawn+2
+  See:
+    DIRE A 3 A_PlaySound("director/walk",4,1,0,ATTN_IDLE)
+    DIRE ABB 3 A_Chase
+    DIRE C 3 A_PlaySound("director/walk",4,1,0,ATTN_IDLE)
+    DIRE CDD 3 A_Chase
+    DIRE E 3 A_PlaySound("director/walk",4,1,0,ATTN_IDLE)
+    DIRE EFF 3 A_Chase
+    Loop
+  Missile:    	
+	DIRE A 20 A_FaceTarget
+	DIRE A 0 A_JumpIfCloser(368,"Missile2")
+	DIRE G 0 Bright A_PlaySound("weapons/maulfi",4)
+	DIRE G 0 Bright A_CustomMissile("CometNail1",54,0,frandom(1,9))
+	DIRE G 0 Bright A_CustomMissile("CometNail1",54,0,frandom(-1,-9))
+    DIRE G 4 Bright A_CustomMissile("CometNail1",54,0,0)
+	DIRE H 0 Bright A_PlaySound("weapons/maulfi",4)
+	DIRE H 0 Bright A_CustomMissile("CometNail1",54,0,frandom(1,9))
+	DIRE H 0 Bright A_CustomMissile("CometNail1",54,0,frandom(-1,-9))
+    DIRE H 4 Bright A_CustomMissile("CometNail1",54,0,0)
+    DIRE H 1 Bright A_SpidRefire
+    Goto Missile+2
+  Missile2:
+	DIRE U 0 Bright A_PlayWeaponSound("weapons/maulf2")
+	DIRE UUUUUUUUUUUUUUUUUUUUUUUUUUUUU 0 Bright A_CustomMissile("MaulerShrapnel1",54,0,frandom(-11,11),CMF_OFFSETPITCH,frandom(-7,7))
+	DIRE U 15 Bright A_CustomMissile("MaulerShrapnel1",54,0,frandom(-11,11),CMF_OFFSETPITCH,frandom(-7,7))
+	DIRE GTGTGTGTGTGT 2 {A_FaceTarget; A_PlaySound("weapons/nailin");}
+	DIRE T 0 Bright A_SpidRefire
+	Goto Missile+1
+  Pain:
+    DIRE I 3
+    DIRE I 3 A_Pain
+    Goto See
+  Death:
+    DIRE J 1 Bright 
+    DIRE J 19 Bright A_Scream
+    DIRE K 10 Bright A_NoBlocking
+    DIRE LMNOPQR 10 Bright
+    DIRE S 30
+    DIRE S -1 A_BossDeath
+    Stop
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_SpawnItem("FrozenDirector")
+	Stop 
+  }
+}
+
+actor CometNail1 : Piercer //Thanks to Comet1337 for new projectile type :)
+{
+   Damage 5
+   Radius 2
+   Height 4
+   Speed 128
+   Piercer.Maxdamage 3 
+   Piercer.Maxpierce -1 //-1 rips indefinitely.
+   Damagetype wepripper 
+   Obituary "%o got nailed by The Director"
+   +THRUGHOST
+   +NOBOSSRIP
+   +NODAMAGETHRUST
+   +HITTRACER
+   +FORCEXYBILLBOARD
+   States
+   {	
+   Spawn:
+		DRNL A 1
+		Wait
+   Crash:
+   Death:
+		DRNL D 2 Bright 
+		{
+		   A_ChangeFlag("forcexybillboard", 1); 
+		   A_SetTranslucent(1.0, 1); 
+		   A_Playsound("weapons/rico");
+		}
+		DRNL EFGHI 2 Bright A_Fadeout(0.125)
+		stop
+   Xdeath: 
+		TNT1 a 0 
+		{
+			if (countinv("basicarmor", AAPTR_TRACER)) 
+			{
+				A_PlaySound("weapons/rico");
+			}
+		} 
+		stop
+	}
+}
+
+ACTOR MaulerShrapnel1 : slowpiercer //Updated by Comet1337
+{  
+   Height 4
+   Radius 4
+   Damage 5
+   Speed 128
+   DamageType wepshrapnel
+   slowpiercer.maxdamage 3
+   slowpiercer.maxpierce 2
+   Obituary "%o was perforated by The Director's shrapnel."
+   SeeSound ""
+   DeathSound "weapons/tink"
+   RenderStyle NORMAL
+   Alpha 1.0
+   +THRUGHOST
+   +NOBOSSRIP
+   -NOGRAVITY   
+   States
+   {
+   Spawn:
+      MFRG BCDEFGH 1 Bright
+	  MFRG I 1 Bright A_ChangeFlag("Ripper",0)
+	  MFRG JKLMNOPQRST 1 Bright A_ScaleVelocity(0.95)
+	  goto Spawn+15
+   Death:
+      NAIL D 2 {A_ChangeFlag("Nogravity",1); A_SetTranslucent(1.0,1);}
+	  NAIL EFGHI 2 Bright A_Fadeout(0.1)
+	  stop
+   }
+}

@@ -1,0 +1,645 @@
+Actor ZombieFodder
+{
+    Health 70
+    GibHealth 30
+    Radius 20
+    Height 52
+    Speed 9
+    PainChance 256
+	damagefactor "Ice", 0.2
+    SeeSound "ZombieFodder/sight"
+    PainSound "ZombieFodder/pain"
+    DeathSound "ZombieFodder/death"
+    ActiveSound "ZombieFodder/active"
+    Obituary "%o had their soul swallowed by a Zombie Fodder."
+	//Damagetype "eat"
+	BloodType "Brutal_Blood", "SawBlood", "SawBlood"
+	Tag "Zombie Fodder"
+	//bloodcolor "blue"
+	+randomize
+    Monster
+    +FLOORCLIP
+	Woundhealth 18
+
+  States
+  {
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_SpawnItem("FrozenZombieFodder")
+	Stop
+  Forgettarget:
+  TNT1 A 0 A_cleartarget
+  Spawn:
+  ZFOD A 0
+  TNT1 A 0 A_GiveInventory("headshotme", 1)
+  Keepspawned:
+    ZFOD AB 10 A_Look
+	//ZFOD AABBCCDD 3 A_wander
+    Loop
+  See:
+  TNT1 A 0 A_jumpifintargetinventory("isinvisible",1,"forgettarget")
+    ZFOD AABBCCDD 3 A_Chase
+    Loop
+  Melee:
+    ZFOD EF 5 A_FaceTarget
+    ZFOD G 8 A_CustomMeleeAttack(random(10,30)*1,"skeleton/melee")
+    Goto See
+  Pain:
+    ZFOD H 4
+    ZFOD H 4 A_Pain
+    Goto See
+  Death:
+    ZFOD I 7
+    ZFOD J 7 A_Scream
+    ZFOD K 5 A_NoBlocking
+    ZFOD L 5 
+    ZFOD M 1
+	TNT1 A 0 A_SpawnItemEx("ZombieFodderCorpse")
+	TNT1 A -1
+    Stop
+	
+	Death.ExtremePunches:
+		TNT1 A 0
+		TNT1 A 0 A_Scream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_SpawnProjectile ("ExtremePunchedZguy", 32, 0, random (130,210), CMF_AIMDIRECTION, Random (-10,-20))
+		TNT1 A 0
+		Stop
+   XDeath:
+  Death.cut:
+  Death.ssg:
+ // Death.shotgun:
+  Death.railgun:
+  Death.explosiveimpact:
+    /*ZFOD N 5
+    ZFOD O 5 A_XScream
+	TNT1 A 0 
+	{
+	A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("xdeath1",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath2",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath3",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath1",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath2",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath3",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	
+	 
+	 }
+    ZFOD P 5 A_NoBlocking
+    ZFOD QR 5
+    ZFOD S -1
+    Stop
+	
+	*/
+        TNT1 A 0 A_XScream
+		//TNT1 A 0 A_jumpifinventory("isfrozen",1,"shatter")
+        TNT1 A 0 A_NoBlocking
+        //TNT1 A 0 A_SpawnItemex("DesintegratedHuman")
+		TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TGIB ABCDEFGHIJKLMNOPQ 3
+		TGIB Q 1
+		TNT1 A -1 A_SpawnItemEx("GenericXCorpse")
+      Stop
+	  Death.plasma:
+	  Death.superplasma:
+    //ZFOD I 7
+    TNT1 A 0 A_XScream
+    TNT1 A 0 A_NoBlocking
+    TNT1 A 0 A_SpawnItemEx("PlasmaHumanoid")
+    Stop
+	
+	   Death.fire:
+    Death.burn:
+	Death.FallInLava:
+    Death.flames:
+        TNT1 A 0 A_Scream
+        TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemex("GenericBurningGuy")
+        //TNT1 A 0 A_SpawnItem("BurningShotgunguy", 0, 10)
+      Stop
+	  
+	  
+	  
+	  	Death.Desintegrate:
+        TNT1 A 0 A_XScream
+		//TNT1 A 0 A_jumpifinventory("isfrozen",1,"shatter")
+        TNT1 A 0 A_NoBlocking
+        TNT1 A 0 A_SpawnItemEx("DesintegratedHuman")
+		TNT1 A 0 A_Stop
+		TGIB ABCDEFGHIJKLMNOPQ 3
+		TGIB Q 1
+		TNT1 A -1 A_SpawnItemEx("GenericXCorpse")
+      Stop
+
+	 Death.head:
+	 ZFOD W 2
+  TNT1 A 0 A_SpawnItemEx("ZombieFodderHeadExplode",0,0,48)
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_SpawnItemEx("ZombieFodderNoHead")
+	//TNT1 A 0 A_noblocking
+	TNT1 A -1
+	
+	
+	
+	
+  Raise:
+    ZFOD L 5
+    ZFOD KJI 5
+    Goto See
+	
+	
+	
+	
+		Death.cut:
+	//Death.HKFT:
+        TNT1 A 0 A_facetarget
+		TNT1 A 0 A_stop
+		//TNT1 A 0 A_jump(124,"xdeath")
+		 ZFOD H 8
+		TNT1 A 0 A_XScream
+  	    TNT1 O 0 A_NoBlocking
+
+		//TNT1 A 0 A_SpawnItemEx("pinata")
+		TNT1 A 0 //A_CustomMissile ("MuchBlood2", 35, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_spawnprojectile ("RipZombieFodder", 0, 0, random (0, 360), 2, random (0, -160))
+	    TNT1 AAAA 0 //A_CustomMissile ("Brutal_LiquidBlood", 30, 0, random (0, 360), 2, random (0, 40))
+		ZFXD ABCD 5 //A_CustomMissile ("Brutal_LiquidBlood", 30, 0, random (0, 360), 2, random (0, 40))
+       // TNT1 A 0 A_SpawnItem ("DeadZombieman_Half")
+		//TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		ZFXD DDDDDDDDDDDDDDDDDDDD 1 A_spawnprojectile ("Brutal_LiquidBlood", 12, 0, random (0, 360), 2, random (0, 90))
+		ZFXD E 0 
+		
+		TNT1 A 0 A_GiveToTarget("SoulAmmo", 10)
+		ZFXD D 1 A_SpawnItemEx("ZombieFodderLegCorpse")
+		TNT1 A -1
+		Stop
+  }
+}
+
+
+
+
+actor ZombieFodderNoHead : ZombieFodder
+{
+	height 46
+  States
+  {
+  Forgettarget:
+  TNT1 A 0 A_cleartarget
+  Goto keepspawned
+Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_jump(256,"spawn1","spawn2")
+	
+	Spawn1:
+	 ZFOD WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW 3 A_spawnprojectile("Brutal_LiquidBlood2", 35, 0, random (0, 360), 2, random (-50, -150))
+	// ZFOD W random(50,92)
+	Goto keepspawned
+	Spawn2:
+  
+  Keepspawned:
+    ZFNH AB 10 A_Look
+	//ZFNH AABBCCDD 3 A_wander
+    Loop
+  See:
+  TNT1 A 0 A_jumpifintargetinventory("isinvisible",1,"forgettarget")
+    ZFNH AABBCCDD 3 A_Chase
+	
+    Loop
+  Melee:
+    ZFNH EF 5 A_FaceTarget
+    ZFNH G 8 A_CustomMeleeAttack(random(10,30)*1,"skeleton/melee")
+    Goto See
+  Pain:
+    ZFNH H 4
+    ZFNH H 4 A_Pain
+    Goto See
+  Death:
+  Death.head:
+  Death.extremepunches:
+    ZFOD W 7
+    ZFOD X 7 A_Scream
+    ZFOD Y 5 A_NoBlocking
+    ZFOD Z 5 
+    ZFDR A 1
+	TNT1 A -1 A_SpawnItemEx("ZombieFodderCorpseNoHead")
+    Stop
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_SpawnItem("FrozenZombieFodderNoHead")
+	Stop	
+
+
+	
+  Raise:
+    ZFOD L 5
+    ZFOD KJI 5
+    Goto See
+	
+	
+	
+	
+		Death.cut:
+	//Death.HKFT:
+        TNT1 A 0 A_facetarget
+		TNT1 A 0 A_stop
+		//TNT1 A 0 A_jump(124,"xdeath")
+		ZFNH H 8
+		TNT1 A 0 A_XScream
+  	    TNT1 O 0 A_NoBlocking
+
+		//TNT1 A 0 A_SpawnItemEx("pinata")
+		TNT1 A 0 //A_CustomMissile ("MuchBlood2", 35, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_spawnprojectile ("RipZombieFodder2", 0, 0, random (0, 360), 2, random (0, -160))
+	    TNT1 AAAA 0 //A_CustomMissile ("Brutal_LiquidBlood", 30, 0, random (0, 360), 2, random (0, 40))
+		ZFXD ABCD 5 //A_CustomMissile ("Brutal_LiquidBlood", 30, 0, random (0, 360), 2, random (0, 40))
+       // TNT1 A 0 A_SpawnItem ("DeadZombieman_Half")
+		//TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		ZFXD DDDDDDDDDDDDDDDDDDDD 1 A_spawnprojectile ("Brutal_LiquidBlood", 12, 0, random (0, 360), 2, random (0, 90))
+		ZFXD E 0 
+		ZFXD D 1 A_SpawnItemEx("ZombieFodderLegCorpse")
+		TNT1 A -1
+		Stop
+  }
+}
+  
+  
+Actor ZombieFodderNoHead2 : ZombieFodderNoHead
+{
+  States
+  {
+  Spawn:
+  TNT1 A 0
+  TNT1 A 0
+  Goto keepspawned
+  }
+}
+
+Actor ZombieFodderNoLegs : ZombieFodder
+{
+ Height 32
+ health 20
+ Speed 3
+
+States
+{
+ Spawn:
+ Pain:
+ Melee:
+ pain.ice:
+ Wound:
+ Pain.grenadeimpact:
+    ZFNL AABBCCDD 3 
+	TNT1 A 0 A_wander
+	TNT1 A 0 A_jump(104,"Ouch")
+	Loop
+	
+	
+	Ouch:
+	TNT1 A 0 
+	TNT1 A 0 A_pain
+	TNT1 A 0 A_SpawnItemEx("Blood")
+	Goto spawn
+	Death.ice:
+	Shatter:
+	xdeath:
+	death:
+	Death.Desintegrate:
+	  XDeath:
+  Death.cut:
+  Death.ssg:
+ // Death.shotgun:
+  Death.railgun:
+  Death.explosiveimpact:
+  Death.extremepunches:
+  TNT1 A 0
+  TNT1 A 0 A_noblocking
+  TNT1 A 0 A_scream
+  TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("XDeath1",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("XDeath2",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("XDeath3",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("XDeath1",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("XDeath2",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	TNT1 A 0 A_SpawnItemEx("XDeath3",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+ TNT1 A 0 A_SpawnItemEx("zguyhead",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+  ZFNL E 1 A_SpawnItemEx("fuckedupzguy")
+  TNT1 A -1
+  Loop
+	}
+}
+
+Actor ExtremePunchedzguy
+{
+	Damage 400
+	+MISSILE
+    Scale 1.0
+	+FORCEXYBILLBOARD
+	-NOGRAVITY
+	+NOEXTREMEDEATH
+	+SKYEXPLODE
+	+SHOOTABLE
+	+NOEXTREMEDEATH
+	+THRUGHOST
+	+THRUSPECIES
+	Monster
+	-countkill
+	Species "Marines"
+	Health 30
+	gibhealth 1
+	Gravity 0.8
+	DamageType "extremepunches"
+	DamageFactor "Cut", 2.00
+	DamageFactor "Saw", 2.00 
+	damagefactor "explosiveimpact", 0.0
+	Decal "BrutalBloodSuper"
+	Radius 10
+	Height 14
+	Speed 30
+	+rollsprite
+
+	States
+	{
+	Spawn:
+	TNT1 aa 0
+		//TNT1 A 0 A_ChangeFlag("THRUGHOST", 0)
+		X728 A 2
+		Loop
+		
+		
+  
+	  XDeath:
+  Death.cut:
+  Death.ssg:
+ // Death.shotgun:
+  Death.railgun:
+  Death.explosiveimpact:
+  Death:
+ // TNT1 A 0 A_jumpifinventory("isfrozen",1,"shatter")
+    /*ZFOD N 5
+    ZFOD O 5 A_XScream
+	TNT1 A 0 
+	{
+	A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("MuchBlood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+	A_SpawnItemEx("xdeath1",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath2",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath3",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath1",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath2",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	A_SpawnItemEx("xdeath3",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+	
+	 
+	 }
+    ZFOD P 5 A_NoBlocking
+    ZFOD QR 5
+    ZFOD S -1
+    Stop
+	
+	*/
+		TNT1 A 0 A_setroll(0)
+		//TNT1 AAAA 0 a_spawnitemex("healthpinatasmall")
+		TNT1 A 0 A_checkfloor("death.floor")
+        TNT1 A 0 A_XScream
+		//TNT1 A 0 A_jumpifinventory("isfrozen",1,"shatter")
+        TNT1 A 0 A_NoBlocking
+        //TNT1 A 0 A_SpawnItemex("DesintegratedHuman")
+		TNT1 A 0
+
+		TNT1 A 0 A_Stop
+		TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_SpawnItemEx("Guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_setroll(0)
+
+		TGIB ABCDEFGHIJKLMNOPQ 3
+		TGIB Q 1
+		TNT1 A 0 A_SpawnItemEx("GenericXCorpse")
+	TNT1 A -1
+    Stop
+      Stop
+	
+	  
+	  
+	  Death.floor:
+	 //  ZFOD I 7
+	//TNT1 A 0 a_spawnitemex("healthpinatasmall")
+   // ZFOD J 7 A_Scream
+    ZFOD L 5 A_NoBlocking
+   // ZFOD L 5 A_givetotarget("mercilessscore",100)
+    ZFOD M 1
+	TNT1 A 0 A_SpawnItemEx("ZombieFoddercorpse")
+	TNT1 A -1
+    Stop
+    Stop
+	}
+}
+
+Actor MercilessCorpse
+{
+	+shootable
+	Radius 32
+	Height 20
+	Health 100
+	
+	gibhealth 5
+	-floorclip
+	+thruactors
+	+forcexybillboard 
+	+CORPSE
+	+noteleport
+	+notelefrag
+	Damagefactor "trample", 0.01
+	damagefactor "Headkick", 0.0
+	
+	States
+	{
+	Death:
+	TNT1 A 0 A_noblocking
+	TNT1 A -1
+	}
+}
+
+Actor ZombieFoddercorpse : mercilesscorpse
+{
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		ZFOD M random(100,1000)
+		Riseagain:
+		 ZFOD L 5
+		ZFOD KJI 5
+		TNT1 A 0 A_spawnitemex("ZombieFodder")
+		TNT1 A 10
+		Stop
+	Death:
+	XDeath:
+	TNT1 A 0 A_spawnitemex("zguyhead",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_noblocking
+		TGIB Q 5
+		TNT1 A 0 A_spawnitemex("genericxcorpse")
+		TNT1 A -1
+		LOOP
+	}
+}
+
+Actor halfZombieFoddercorpse : mercilesscorpse
+{
+	Mass 50
+
+	States
+	{
+	Spawn: 
+	ZFXD H -1
+	LOOP
+	
+	}
+}
+
+Actor ZombieFodderlegcorpse : mercilesscorpse
+{
+	Mass 30
+
+	States
+	{
+	Spawn:
+	ZFXD D -1
+	LOOP
+	}
+}
+
+
+Actor fuckedupzguy : ZombieFodderlegcorpse
+{
+	States
+	{
+	Spawn:
+	ZFNL E -1
+	LOOP
+	}
+}
+
+Actor ZombieFoddercorpsenohead : ZombieFoddercorpse
+{
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		ZFOD [ -1
+		Riseagain:
+		ZFOD Z 5
+		ZFOD YXW 5
+		TNT1 A 0 A_spawnitemex("ZombieFoddernohead2")
+		TNT1 A 10
+		Stop
+		Death:
+	XDeath:
+	//TNT1 A 0 A_spawnitemex("zguyhead",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_noblocking
+		TGIB Q 5
+		TNT1 A 0 A_spawnitemex("genericxcorpse")
+		TNT1 A -1
+		LOOP
+	}
+}
+
+
+Actor ZombieFodderheadlessdying : mercilesscorpse
+{
+	States
+	{
+	Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_jump(256,"spawn1","spawn2")
+	
+	Spawn1:
+	 ZFOD WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW 3 A_spawnprojectile("Brutal_LiquidBlood2", 35, 0, random (0, 360), 2, random (-50, -150))
+	 ZFOD W random(10,92)
+	TNT1 A 0 A_noblocking
+	TNT1 A 0 A_spawnitemex("ZombieFoddernohead")
+	TNT1 A -1
+	Stop
+	Spawn2:
+	ZFOD W random(10,92)
+	TNT1 A 0 A_noblocking
+	TNT1 A 0 A_spawnitemex("ZombieFoddernohead")
+	TNT1 A -1
+	Stop
+	
+	
+	Death:
+	      TNT1 A 0 A_XScream
+		//TNT1 A 0 A_jumpifinventory("isfrozen",1,"shatter")
+        TNT1 A 0 A_NoBlocking
+		TNT1 AA 0 a_spawnitemex("healthpinatasmall")
+        //TNT1 A 0 A_SpawnItemex("DesintegratedHuman")
+		TNT1 A 0 A_Stop
+		TNT1 A 0 A_givetotarget("mercilessscore",100)
+		TNT1 A 0 A_spawnitemex("guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_spawnitemex("guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_spawnitemex("guts",0, random (3, -3), 48, random (5,-5), random (5,-5),random (5,-5),random (0, 365))
+		TNT1 A 0 A_spawnitemex("muchblood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_spawnitemex("muchblood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_spawnitemex("muchblood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_spawnitemex("muchblood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TNT1 A 0 A_spawnitemex("muchblood",0, random (3, -3), 48, 20, 20,20,random (0, 365))
+		TGIB ABCDEFGHIJKLMNOPQ 3
+		TGIB Q 1
+		TNT1 A -1 A_spawnitemex("genericxcorpse")
+      Stop
+	
+	}
+}
+
+Actor GenericXCorpse : mercilesscorpse
+{
+	Mass 70
+
+	States
+	{
+	Spawn:
+		TGIB Q -1
+		LOOP
+	Death:
+	XDeath:
+		TNT1 A 0 A_NoBlocking
+		TNT1 A -1
+		LOOP
+	}
+}
+
