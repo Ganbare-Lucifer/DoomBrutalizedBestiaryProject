@@ -1,0 +1,3 @@
+Generator SuperDemonBall		BigScorch
+generator CrackodemonBall CacoScorch
+generator Blusoul CacoScorch
