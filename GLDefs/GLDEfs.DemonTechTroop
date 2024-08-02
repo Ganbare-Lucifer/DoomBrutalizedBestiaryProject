@@ -1,0 +1,10 @@
+//Add to main mod GLDefs.txt
+
+flickerlight2 IncinerationGlow
+{
+    color 0.8 0.3 0.0
+    size 42
+    secondarySize 32
+    interval 0.05
+    offset 0 0 0
+}

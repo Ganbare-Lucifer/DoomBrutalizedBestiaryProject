@@ -1,0 +1,67 @@
+// --------------------------------------------------------------------------
+//
+//	SSG Zombie
+//
+// --------------------------------------------------------------------------
+
+PointLight SSGZombieAttack
+{
+	Color 1.0 0.8 0.2
+	Size 30
+}
+
+Object SSGZombie
+{
+	Frame GPOSF { Light SSGZombieAttack }
+}
+
+BrightMap Sprite GPOSF1
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF0.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSZ1
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF1.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSZ2Z8
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF2.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSF2F8
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF2.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSF3F7
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF3.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSZ3Z7
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF3.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSF4F6
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF4.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSZ4Z6
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF4.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSF5
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF5.png"
+	DisableFullBright
+}
+BrightMap Sprite GPOSZ5
+{
+	Map "Sprites/Monsters/SSGZombie/Brightmaps/BMGPOSF5.png"
+	DisableFullBright
+}

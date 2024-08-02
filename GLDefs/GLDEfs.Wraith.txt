@@ -1,0 +1,212 @@
+BrightMap Sprite PTMWA1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWA1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWA2A8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWA2A8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWA3A7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWA3A7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWB1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWB1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWB2B8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWB2B8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWB3B7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWB3B7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWC1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWC1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWC2C8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWC2C8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWC3C7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWC3C7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWD1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWD1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWD2D8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWD2D8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMWD3D7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMWD3D7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAA1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAA1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAF1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAF1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAG1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAG1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAA2A8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAA2A8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAF2F8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAF2F8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAG2G8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAG2G8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAA3A7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAA3A7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAF3F7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAF3F7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMAG3G7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAG3G7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMBF1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMBF1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMBG1
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMBG1.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMBF2F8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAF2F8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMBG2G8
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAG2G8.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMBF3F7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAF3F7.png"
+	DisableFullBright
+}
+BrightMap Sprite PTMBG3G7
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTMAG3G7.png"
+	DisableFullBright
+}
+/*
+BrightMap Sprite PTQBA0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBA0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBB0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBB0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBC0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBC0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBD0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBD0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBE0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBE0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBF0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBF0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBG0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBG0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBH0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBH0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTQBI0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTQBI0.png"
+	DisableFullBright
+}
+*/
+BrightMap Sprite PTXAA0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTXAA0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTXAC0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTXAC0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTXAD0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTXAD0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTXBI0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTXBI0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTXBK0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTXBK0.png"
+	DisableFullBright
+}
+BrightMap Sprite PTXBL0
+{
+	Map "sprites/enemies/Phantom/brightmaps/BTXBL0.png"
+	DisableFullBright
+}

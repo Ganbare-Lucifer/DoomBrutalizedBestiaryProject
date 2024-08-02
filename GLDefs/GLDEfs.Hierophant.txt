@@ -1,0 +1,62 @@
+object HierophantFlameSpawner
+{
+    frame TNT1A {light HierophantLight}
+}
+
+pulselight HierophantLight
+{
+    color 0.6 0.4 0.2
+    size 50
+    secondarySize 70
+    interval 0.1
+    offset 0 10 0
+}
+
+object HierophantFlamethrower
+{
+    frame FIR3 {light FLAMETHROWER}
+}
+object HierophantFlamethrowerBoom
+{
+    frame FIR3 {light FLAMETHROWER}
+}
+
+object CurseBall
+{
+    frame CURS {light CurseLight}
+}
+
+object CurseTrail
+{
+    frame CURSJ {light CurseTrail1}
+	frame CURSK {light CurseTrail1}
+	frame CURSL {light CurseTrail1}
+    frame CURSM {light CurseTrail2}
+	frame CURSN {light CurseTrail2}
+	frame CURSO {light CurseTrail2}
+    frame CURSP {light CurseTrail3}
+	frame CURSQ {light CurseTrail3}
+	frame CURSR {light CurseTrail3}
+}
+
+pointlight CurseLight
+{
+    color 0.7 0.2 0.7
+    size 35
+}
+
+pointlight CurseTrail1
+{
+    color 0.6 0.2 0.6
+    size 28
+}
+pointlight CurseTrail2
+{
+    color 0.5 0.2 0.5
+    size 21
+}
+pointlight CurseTrail3
+{
+    color 0.4 0.2 0.4
+    size 14
+}

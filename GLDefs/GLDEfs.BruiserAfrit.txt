@@ -1,0 +1,509 @@
+FlickerLight2 BruiserAfrit
+{
+Color 0.7 0.4 0.0
+Size 96
+SecondarySize 128
+Interval 0.9
+Offset 0 24 0
+}
+
+Pointlight BruiserAfritDeath1
+{
+Color 1.0 0.8 0.0
+Size 128
+Offset 0 32 0
+}
+
+Pointlight BruiserAfritDeath2
+{
+Color 1.0 0.6 0.0
+Size 96
+Offset 0 32 0
+}
+
+Pointlight BruiserAfritDeath3
+{
+Color 0.6 0.4 0.0
+Size 72
+Offset 0 32 0
+}
+
+Pointlight BruiserAfritDeath4
+{
+Color 0.5 0.4 0.0
+Size 64
+Offset 0 32 0
+}
+
+Pointlight BruiserAfritDeath5
+{
+Color 0.4 0.2 0.0
+Size 56
+Offset 0 32 0
+}
+
+Object BruiserAfrit
+{
+Frame BFRTA { Light BruiserAfrit }
+Frame BFRTB { Light BruiserAfrit }
+Frame BFRTC { Light BruiserAfrit }
+Frame BFRTD { Light BruiserAfrit }
+Frame BFRTE { Light BruiserAfrit }
+Frame BFRTF { Light BruiserAfrit }
+Frame BFRTG { Light BruiserAfrit }
+Frame BFRTH { Light BruiserAfrit }
+Frame BFRTI { Light BruiserAfrit }
+Frame BFRTJ { Light BruiserAfrit }
+Frame BFRTK { Light BruiserAfrit }
+Frame BFRTL { Light BruiserAfrit }
+Frame BFRTM { Light BruiserAfrit }
+Frame BFRTN { Light BruiserAfrit }
+
+Frame BFRTO { Light BruiserAfritDeath4 }
+Frame BFRTP { Light BruiserAfritDeath3 }
+Frame BFRTQ { Light BruiserAfritDeath2 }
+Frame BFRTR { Light BruiserAfritDeath1 }
+Frame BFRTS { Light BruiserAfritDeath2 }
+Frame BFRTT { Light BruiserAfritDeath3 }
+Frame BFRTU { Light BruiserAfritDeath4 }
+Frame BFRTV { Light BruiserAfritDeath5 }
+}
+
+Pointlight BruiserAfritBall11
+{
+Color 0.6 0.3 0.0
+Size 64
+}
+
+Pointlight BruiserAfritBall12
+{
+Color 0.7 0.4 0.0
+Size 72
+}
+
+Pointlight BruiserAfritBall13
+{
+Color 0.6 0.4 0.0
+Size 88
+}
+
+Pointlight BruiserAfritBall14
+{
+Color 0.6 0.3 0.0
+Size 56
+}
+
+Pointlight BruiserAfritBall15
+{
+Color 0.55 0.25 0.0
+Size 48
+}
+
+Pointlight BruiserAfritBall16
+{
+Color 0.5 0.2 0.0
+Size 40
+}
+
+Pointlight BruiserAfritBall17
+{
+Color 0.45 0.15 0.0
+Size 32
+}
+
+Pointlight BruiserAfritBall18
+{
+Color 0.3 0.1 0.0
+Size 24
+}
+
+Object BruiserAfritBall2
+{
+Frame BAB2A { Light BruiserAfritBall11 }
+Frame BAB2B { Light BruiserAfritBall11 }
+Frame BAB2K { Light BruiserAfritBall11 }
+Frame BAB2L { Light BruiserAfritBall12 }
+Frame BAB2M { Light BruiserAfritBall12 }
+Frame BAB2N { Light BruiserAfritBall13 }
+Frame BAB2O { Light BruiserAfritBall13 }
+Frame BAB2P { Light BruiserAfritBall12 }
+Frame BAB2Q { Light BruiserAfritBall12 }
+Frame BAB2R { Light BruiserAfritBall11 }
+Frame BAB2S { Light BruiserAfritBall14 }
+Frame BAB2T { Light BruiserAfritBall15 }
+Frame BAB2U { Light BruiserAfritBall16 }
+Frame BAB2V { Light BruiserAfritBall17 }
+Frame BAB2W { Light BruiserAfritBall18 }
+}
+
+
+Pointlight BruiserAfritBall21
+{
+Color 0.6 0.2 0.0
+Size 32
+}
+
+Pointlight BruiserAfritBall22
+{
+Color 0.8 0.4 0.0
+Size 48
+}
+
+Pointlight BruiserAfritBall23
+{
+Color 0.6 0.2 0.0
+Size 24
+}
+
+Pointlight BruiserAfritBall24
+{
+Color 0.4 0.0 0.0
+Size 16
+}
+
+Object BruiserAfritBall
+{
+Frame BAB1A { Light BruiserAfritBall21 }
+Frame BAB1B { Light BruiserAfritBall21 }
+Frame BAB1C { Light BruiserAfritBall22 }
+Frame BAB1D { Light BruiserAfritBall22 }
+Frame BAB1E { Light BruiserAfritBall21 }
+Frame BAB1F { Light BruiserAfritBall21 }
+Frame BAB1G { Light BruiserAfritBall23 }
+Frame BAB1H { Light BruiserAfritBall24 }
+}
+
+Pointlight BruiserAfritComet1
+{
+Color 0.6 0.4 0.0
+Size 64
+}
+
+Pointlight BruiserAfritComet2
+{
+Color 0.8 0.6 0.0
+Size 72
+}
+
+Pointlight BruiserAfritComet3
+{
+Color 1.0 0.8 0.4
+Size 80
+}
+
+Pointlight BruiserAfritComet4
+{
+Color 0.8 0.7 0.0
+Size 72
+}
+
+Pointlight BruiserAfritComet5
+{
+Color 0.6 0.4 0.0
+Size 64
+}
+
+Pointlight BruiserAfritComet6
+{
+Color 0.4 0.2 0.0
+Size 56
+}
+
+Pointlight BruiserAfritComet7
+{
+Color 0.4 0.0 0.0
+Size 40
+}
+
+Object BruiserAfritComet
+{
+Frame BAB3A { Light BruiserAfritComet1 }
+Frame BAB3B { Light BruiserAfritComet1 }
+Frame BAB3C { Light BruiserAfritComet1 }
+Frame BAB3D { Light BruiserAfritComet2 }
+Frame BAB3E { Light BruiserAfritComet3 }
+Frame BAB3F { Light BruiserAfritComet4 }
+Frame BAB3G { Light BruiserAfritComet5 }
+Frame BAB3H { Light BruiserAfritComet6 }
+Frame BAB3I { Light BruiserAfritComet7 }
+}
+
+Pointlight BruiserAfritCometBall
+{
+Color 0.8 0.3 0.05
+Size 48
+}
+
+PointLight BruiserAfritCometFire_1
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 20
+}
+
+PointLight BruiserAfritCometFire_2
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 30
+}
+
+PointLight BruiserAfritCometFire_3
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 40
+}
+
+PointLight BruiserAfritCometFire_4
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 47
+}
+
+PointLight BruiserAfritCometFire_5
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 54
+}
+
+PointLight BruiserAfritCometFire_6
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 61
+}
+
+PointLight BruiserAfritCometFire_7
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 66
+}
+
+PointLight BruiserAfritCometFire_8
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 73
+}
+
+PointLight BruiserAfritCometFire_9
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 76
+}
+
+PointLight BruiserAfritCometFire_10
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 79
+}
+
+PointLight BruiserAfritCometFire_11
+{
+Offset 0 0 0
+Color 1.0 0.5 0.0
+Size 80
+}
+
+PointLight BruiserAfritCometFire_12
+{
+Offset 0 0 0
+Color 0.95 0.47 0.0
+Size 81
+}
+
+PointLight BruiserAfritCometFire_13
+{
+Offset 0 0 0
+Color 0.9 0.43 0.0
+Size 82
+}
+
+PointLight BruiserAfritCometFire_14
+{
+Offset 0 0 0
+Color 0.83 0.38 0.0
+Size 83
+}
+
+PointLight BruiserAfritCometFire_15
+{
+Offset 0 0 0
+Color 0.75 0.34 0.0
+Size 84
+}
+
+PointLight BruiserAfritCometFire_16
+{
+Offset 0 0 0
+Color 0.63 0.27 0.0
+Size 85
+}
+
+PointLight BruiserAfritCometFire_17
+{
+Offset 0 0 0
+Color 0.55 0.21 0.0
+Size 86
+}
+
+PointLight BruiserAfritCometFire_18
+{
+Offset 0 0 0
+Color 1.38 0.13 0.0
+Size 87
+}
+
+PointLight BruiserAfritCometFire_19
+{
+Offset 0 0 0
+Color 0.15 0.04 0.0
+Size 88
+}
+
+Object BruiserAfritCometBall
+{
+Frame BAB3O { Light BruiserAfritCometBall }
+Frame BAB3S { Light BruiserAfritCometBall }
+Frame BABXA { Light BruiserAfritCometFire_1 }
+Frame BABXB { Light BruiserAfritCometFire_2 }
+Frame BABXC { Light BruiserAfritCometFire_3 }
+Frame BABXD { Light BruiserAfritCometFire_4 }
+Frame BABXE { Light BruiserAfritCometFire_5 }
+Frame BABXF { Light BruiserAfritCometFire_6 }
+Frame BABXG { Light BruiserAfritCometFire_7 }
+Frame BABXH { Light BruiserAfritCometFire_8 }
+Frame BABXI { Light BruiserAfritCometFire_9 }
+Frame BABXJ { Light BruiserAfritCometFire_10 }
+Frame BABXK { Light BruiserAfritCometFire_11 }
+Frame BABXL { Light BruiserAfritCometFire_12 }
+Frame BABXM { Light BruiserAfritCometFire_13 }
+Frame BABXN { Light BruiserAfritCometFire_14 }
+Frame BABXO { Light BruiserAfritCometFire_15 }
+Frame BABXP { Light BruiserAfritCometFire_16 }
+Frame BABXQ { Light BruiserAfritCometFire_17 }
+Frame BABXR { Light BruiserAfritCometFire_18 }
+Frame BABXS { Light BruiserAfritCometFire_19 }
+}
+
+Pointlight BruiserAfritHellFire
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 5
+}
+
+Pointlight BruiserAfritHellFire_2
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 15
+}
+
+Pointlight BruiserAfritHellFire_3
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 35
+}
+
+Pointlight BruiserAfritHellFire_4
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 34
+}
+
+Pointlight BruiserAfritHellFire_5
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 32
+}
+
+Pointlight BruiserAfritHellFire_6
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 30
+}
+
+Pointlight BruiserAfritHellFire_7
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 25
+}
+
+Pointlight BruiserAfritHellFire_8
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 20
+}
+
+Pointlight BruiserAfritHellFire_9
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 15
+}
+
+Pointlight BruiserAfritHellFire_10
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 5
+}
+
+Pointlight BruiserAfritHellFire_11
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 4
+}
+
+Pointlight BruiserAfritHellFire_12
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 3
+}
+
+Pointlight BruiserAfritHellFire_13
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 2
+}
+
+Pointlight BruiserAfritHellFire_14
+{
+Color 1.0 0.5 0.0
+Offset 0 0 0
+Size 1
+}
+
+Object BruiserAfritHellFire2
+{
+Frame BAFRA { Light BruiserAfritHellFire }
+Frame BAFRB { Light BruiserAfritHellFire_2 }
+Frame BAFRC { Light BruiserAfritHellFire_3 }
+Frame BAFRD { Light BruiserAfritHellFire_4 }
+Frame BAFRE { Light BruiserAfritHellFire_5 }
+Frame BAFRF { Light BruiserAfritHellFire_6 }
+Frame BAFRG { Light BruiserAfritHellFire_7 }
+Frame BAFRH { Light BruiserAfritHellFire_8 }
+Frame BAFRI { Light BruiserAfritHellFire_9 }
+Frame BAFRJ { Light BruiserAfritHellFire_10 }
+Frame BAFRK { Light BruiserAfritHellFire_11 }
+Frame BAFRL { Light BruiserAfritHellFire_12 }
+Frame BAFRM { Light BruiserAfritHellFire_13 }
+Frame BAFRN { Light BruiserAfritHellFire_14 }
+}

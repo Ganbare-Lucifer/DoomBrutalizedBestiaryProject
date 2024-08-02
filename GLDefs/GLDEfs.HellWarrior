@@ -1,0 +1,553 @@
+//Hell Warrior
+
+BrightMap Sprite HWARA1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA1
+DisableFullBright
+}
+
+BrightMap Sprite HWARA2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA2
+DisableFullBright
+}
+
+BrightMap Sprite HWARA3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA3
+DisableFullBright
+}
+
+BrightMap Sprite HWARA4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA4
+DisableFullBright
+}
+
+BrightMap Sprite HWARA5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA5
+DisableFullBright
+}
+
+BrightMap Sprite HWARA6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA6
+DisableFullBright
+}
+
+BrightMap Sprite HWARA7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA7
+DisableFullBright
+}
+
+BrightMap Sprite HWARA8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARA8
+DisableFullBright
+}
+
+BrightMap Sprite HWARB1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB1
+DisableFullBright
+}
+
+BrightMap Sprite HWARB2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB2
+DisableFullBright
+}
+
+BrightMap Sprite HWARB3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB3
+DisableFullBright
+}
+
+BrightMap Sprite HWARB4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB4
+DisableFullBright
+}
+
+BrightMap Sprite HWARB5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB5
+DisableFullBright
+}
+
+BrightMap Sprite HWARB6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB6
+DisableFullBright
+}
+
+BrightMap Sprite HWARB7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB7
+DisableFullBright
+}
+
+BrightMap Sprite HWARB8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARB8
+DisableFullBright
+}
+
+BrightMap Sprite HWARC1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC1
+DisableFullBright
+}
+
+BrightMap Sprite HWARC2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC2
+DisableFullBright
+}
+
+BrightMap Sprite HWARC3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC3
+DisableFullBright
+}
+
+BrightMap Sprite HWARC4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC4
+DisableFullBright
+}
+
+BrightMap Sprite HWARC5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC5
+DisableFullBright
+}
+
+BrightMap Sprite HWARC6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC6
+DisableFullBright
+}
+
+BrightMap Sprite HWARC7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC7
+DisableFullBright
+}
+
+BrightMap Sprite HWARC8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARC8
+DisableFullBright
+}
+
+BrightMap Sprite HWARD1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD1
+DisableFullBright
+}
+
+BrightMap Sprite HWARD2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD2
+DisableFullBright
+}
+
+BrightMap Sprite HWARD3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD3
+DisableFullBright
+}
+
+BrightMap Sprite HWARD4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD4
+DisableFullBright
+}
+
+BrightMap Sprite HWARD5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD5
+DisableFullBright
+}
+
+BrightMap Sprite HWARD6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD6
+DisableFullBright
+}
+
+BrightMap Sprite HWARD7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD7
+DisableFullBright
+}
+
+BrightMap Sprite HWARD8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARD8
+DisableFullBright
+}
+
+BrightMap Sprite HWARI1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI1
+DisableFullBright
+}
+
+BrightMap Sprite HWARI2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI2
+DisableFullBright
+}
+
+BrightMap Sprite HWARI3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI3
+DisableFullBright
+}
+
+BrightMap Sprite HWARI4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI4
+DisableFullBright
+}
+
+BrightMap Sprite HWARI5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI5
+DisableFullBright
+}
+
+BrightMap Sprite HWARI6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI6
+DisableFullBright
+}
+
+BrightMap Sprite HWARI7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI7
+DisableFullBright
+}
+
+BrightMap Sprite HWARI8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARI8
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ1
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ2
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ3
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ4
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ5
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ6
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ7
+DisableFullBright
+}
+
+BrightMap Sprite HWARJ8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARJ8
+DisableFullBright
+}
+
+BrightMap Sprite HWARK1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK1
+DisableFullBright
+}
+
+BrightMap Sprite HWARK2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK2
+DisableFullBright
+}
+
+BrightMap Sprite HWARK3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK3
+DisableFullBright
+}
+
+BrightMap Sprite HWARK4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK4
+DisableFullBright
+}
+
+BrightMap Sprite HWARK5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK5
+DisableFullBright
+}
+
+BrightMap Sprite HWARK6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK6
+DisableFullBright
+}
+
+BrightMap Sprite HWARK7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK7
+DisableFullBright
+}
+
+BrightMap Sprite HWARK8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARK8
+DisableFullBright
+}
+
+BrightMap Sprite HWARL1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL1
+DisableFullBright
+}
+
+BrightMap Sprite HWARL2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL2
+DisableFullBright
+}
+
+BrightMap Sprite HWARL3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL3
+DisableFullBright
+}
+
+BrightMap Sprite HWARL4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL4
+DisableFullBright
+}
+
+BrightMap Sprite HWARL5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL5
+DisableFullBright
+}
+
+BrightMap Sprite HWARL6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL6
+DisableFullBright
+}
+
+BrightMap Sprite HWARL7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL7
+DisableFullBright
+}
+
+BrightMap Sprite HWARL8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARL8
+DisableFullBright
+}
+
+BrightMap Sprite HWARM1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM1
+DisableFullBright
+}
+
+BrightMap Sprite HWARM2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM2
+DisableFullBright
+}
+
+BrightMap Sprite HWARM3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM3
+DisableFullBright
+}
+
+BrightMap Sprite HWARM4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM4
+DisableFullBright
+}
+
+BrightMap Sprite HWARM5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM5
+DisableFullBright
+}
+
+BrightMap Sprite HWARM6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM6
+DisableFullBright
+}
+
+BrightMap Sprite HWARM7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM7
+DisableFullBright
+}
+
+BrightMap Sprite HWARM8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARM8
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ1
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ1
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ2
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ2
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ3
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ3
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ4
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ4
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ5
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ5
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ6
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ6
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ7
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ7
+DisableFullBright
+}
+
+BrightMap Sprite HWARQ8
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARQ8
+DisableFullBright
+}
+
+BrightMap Sprite HWARR0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARR0
+DisableFullBright
+}
+
+BrightMap Sprite HWARS0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARS0
+DisableFullBright
+}
+
+BrightMap Sprite HWART0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWART0
+DisableFullBright
+}
+
+BrightMap Sprite HWARU0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARU0
+DisableFullBright
+}
+
+BrightMap Sprite HWARV0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARV0
+DisableFullBright
+}
+
+BrightMap Sprite HWARW0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWARW0
+DisableFullBright
+}
+
+BrightMap Sprite HWSHA0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWSHA0
+DisableFullBright
+}
+
+BrightMap Sprite HWSHE0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWSHE0
+DisableFullBright
+}
+
+BrightMap Sprite HWSHF0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWSHF0
+DisableFullBright
+}
+
+BrightMap Sprite HWSHG0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWSHG0
+DisableFullBright
+}
+
+BrightMap Sprite HWSHH0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWSHH0
+DisableFullBright
+}
+
+BrightMap Sprite HWSHI0
+{
+Map Sprites/Brightmaps/Monsters/HellWarrior/BMHWSHI0
+DisableFullBright
+}
