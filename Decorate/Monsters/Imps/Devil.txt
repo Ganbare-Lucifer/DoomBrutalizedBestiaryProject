@@ -1,0 +1,90 @@
+actor Devil : DoomImp
+{
+  Obituary "%o was fried by a Devil."
+  Hitobituary "%o was flayed by a Devil."
+  Tag "Devil"  
+  Health 120
+  Speed 10
+  Radius 20
+  Height 56
+  Mass 120
+  Speed 10
+  PainChance 180
+  PainChance "LowKick", 216
+  +DONTHURTSPECIES  
+  Seesound "devil/see"
+  Painsound "devil/pain"
+  Deathsound "devil/death"
+  Activesound "devil/active"
+  BloodType "Brutal_Blood", "SawBlood", "SawBlood"
+  States
+  {
+  Spawn:
+    DEVL AB 10 A_Look
+    loop
+  See:
+    DEVL AABBCCDD 3 A_Chase
+    loop
+  Melee:
+  Missile:
+    DEVL EF 6 A_FaceTarget
+    DEVL G 4 A_TroopAttack
+    DEVL B 2
+    DEVL HI 6 A_FaceTarget
+    DEVL J 4 A_TroopAttack    
+    DEVL B 2
+    goto See
+  Pain:
+    DEVL K 2
+    DEVL K 2 A_Pain
+    goto See
+  Pain.LowKick:
+    DEVL K 2
+    DEVL K 50 A_Pain
+	goto See
+	Death:
+	Death.Minor:
+	TNT1 A 0
+	TNT1 A 0 A_Jump(24,"Death.DeadDrop")
+	TNT1 A 0 A_Jump(48,"Death.OGImp")
+    DEVL L 8
+    DEVL M 8 A_Scream
+    DEVL N 6 A_NoBlocking
+    DEVL O 6 A_SpawnItemEx ("GrowingBloodPool")
+    DEVL P -1
+    Stop
+	Death.DeadDrop:
+    TR2D A 8
+    TR2D B 8 A_Scream
+    TR2D C 6 A_NoBlocking
+    TR2D D 6 A_SpawnItemEx ("GrowingBloodPool")
+    TR2D E -1
+    Stop
+	Death.OGImp:
+    TR2D F 8
+    TR2D G 8 A_Scream
+    TR2D H 6 A_NoBlocking
+    TR2D I 6 A_SpawnItemEx ("GrowingBloodPool")
+    TR2D J -1
+    Stop
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_SpawnItem("FrozenDevil")
+	Stop
+  XDeath:
+    DEVL Q 5
+    DEVL R 5 A_XScream
+    DEVL S 5
+    DEVL T 5 A_NoBlocking
+    DEVL UVW 5 A_SpawnItemEx ("GrowingBloodPool")
+    DEVL X -1
+    stop
+  Raise:
+    DEVL PO 8
+    DEVL NML 6
+    goto See
+  }
+}
