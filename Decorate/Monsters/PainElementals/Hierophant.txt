@@ -1,0 +1,1664 @@
+//===========================================================================
+//
+//	Hierophant/Ifrit
+//
+//===========================================================================
+
+Actor Hierophant
+{
+	Monster
+	MeleeDamage 5
+	DamageType Normal
+	Health 1600
+	Radius 24
+	Height 60
+	Mass 1000
+	Speed 10
+	FastSpeed 13
+	PainChance 50
+	PainChance "Desintegrate",255
+	PainChance "Avoid",255
+	PainChance "Saw",100
+	PainChance "Cut",100
+	PainChance "Kick",100
+	PainChance "LowKick",100
+	PainChance "Head",120
+	PainChance "Explosive",255
+	PainChance "Taunt",255
+	DamageFactor "Minigun",0.9
+	DamageFactor "Head",2.0
+	DamageFactor "Taunt",1.0
+	DamageFactor "TeleportRemover",0.0
+	DamageFactor "SSG",3.0
+	DamageFactor "CauseObjectsToSplash",0.0
+	DamageFactor "Shrapnel",0.4
+	DamageFactor "Fatality",3.0
+	DamageFactor "DontCallTheBaron",0.0
+	DamageFactor "Crush",10.0
+	DamageFactor "GibRemoving",0.0
+	DamageFactor "Blood",0.0
+	DamageFactor "BlueBlood",0.0
+	DamageFactor "GreenBlood",0.0
+	DamageFactor "Fire",0.0
+	DamageFactor "Burn",0.0
+	DamageFactor "Flame",0.0
+	DamageFactor "GreenFire",0.1
+	DamageFactor "Plasma",0.7
+	DamageFactor "Desintegrate",0.7
+	BloodType "Brutal_Blood","BloodSplatterReplacer","SawBlood"
+	Obituary "%o was burned by a Hierophant."
+	HitObituary "%o got shredded by a Hierophant."
+	+FloorClip
+	//+MissileMore
+	+Float
+	+NoGravity
+	+DontHarmClass
+	seesound "Hierophant/hiesit"
+	painsound "Hierophant/hiepai"
+	deathsound "Hierophant/hiedth"
+	activesound "Hierophant/hieact"
+	meleesound "D3Wraith/Hit"
+	Tag "Hierophant"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("HierophantHeadshotHitbox",0,0,0,0,0,0,0,SXF_SetMaster)
+		TNT1 A 0 A_SpawnItemEx("HierophantFlameSpawner",0,0,0,0,0,0,0,SXF_SetMaster)
+		TNT1 A 0 A_PlaySound("BDFireplace",6,0.6,1)
+	Idle:
+		HIER AAACCC 8 A_Look
+		Loop
+
+	See:
+		TNT1 A 0 A_CheckSight("Chase") //Check if player can be seen
+		//Roar the first time the player is seen
+		TNT1 A 0 A_JumpIfInventory("MonsterHaveSeenPlayer",1,"SeeContinue")
+		TNT1 A 0 A_GiveInventory("MonsterHaveSeenPlayer",1)
+		TNT1 A 0 A_Jump(256,"Roar")
+		Goto SeeContinue
+
+	SeeContinue: //Player is in sight, engage!
+		TNT1 A 0 A_TakeInventory("EnemyMemory",10)
+		TNT1 A 0 A_Jump(192,2)
+		TNT1 A 0 ThrustThingZ(0,random(4,15),random(0,1),1) //Randomly thurst up or down
+		HIER AA 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER BB 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER AA 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER CC 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER DD 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER CC 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		TNT1 A 0 A_Jump(8,"Roar")
+		TNT1 A 0 A_Jump(64,"Blur")
+		Goto See
+
+	Chase: //Player is not within sight, chase!
+		TNT1 A 0 A_Jump(192,2)
+		TNT1 A 0 ThrustThingZ(0,random(4,15),random(0,1),1) //Randomly thurst up or down
+		HIER AA 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER BB 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER AA 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER CC 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER DD 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		HIER CC 3 A_Chase
+		TNT1 A 0 A_ScaleVelocity(0.8)
+		TNT1 A 0 A_JumpIfInventory("EnemyMemory",15,"Search")
+		TNT1 A 0 A_GiveInventory("EnemyMemory",1)
+		TNT1 A 0 A_Jump(64,"Blur")
+		Goto See
+	
+	Search:
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_TakeInventory("EnemyMemory",40)
+		HIER AA 3 A_Wander
+		TNT1 A 0 A_Look
+		HIER BB 3 A_Wander
+		TNT1 A 0 A_Look
+		HIER AA 3 A_Wander
+		TNT1 A 0 A_Look
+		HIER CC 3 A_Wander
+		TNT1 A 0 A_Look
+		HIER DD 3 A_Wander
+		TNT1 A 0 A_Look
+		HIER CC 3 A_Wander
+		TNT1 A 0 A_Look
+		TNT1 A 0 A_Jump(196,"Search")
+		HIER A 10 A_Look
+		TNT1 A 0 A_SetAngle(angle - 30)
+		HIER A 10 A_Look
+		TNT1 A 0 A_SetAngle(angle + 30)
+		HIER C 10 A_Look
+		TNT1 A 0 A_SetAngle(angle + 30)
+		HIER C 10 A_Look
+		TNT1 A 0 A_SetAngle(angle - 30)
+		TNT1 A 0 A_Jump(196,"Search")
+		TNT1 A 0 A_PlaySound("D3Wraith/Idle")
+		Loop
+
+
+//===========================================================================
+//
+//	Attack
+//
+//===========================================================================
+
+	Missile:
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_Jump(64,"MissileCurse")
+		TNT1 A 0 A_JumpIfCloser(400,"MissileBeam")
+		Goto MissileFire
+
+	MissileFire:
+		TNT1 A 0 A_JumpIfInventory("FireSeq",1,"MissileFire2")
+		Goto MissileFire1
+
+	MissileFire1:
+		HIER B 3 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",60,-20,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",60,-20,random(0,140),2,random(0,160))
+		HIER E 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",60,-20,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",60,-20,random(0,140),2,random(0,160))
+		HIER E 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",57,-26,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",57,-26,random(0,140),2,random(0,160))
+		HIER E 2 A_FaceTarget
+		TNT1 A 0 A_PlaySound("weapons/gswing",5)
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",48,-42,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",48,-42,random(0,140),2,random(0,160))
+		HIER F 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",41,-38,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",41,-38,random(0,140),2,random(0,160))
+		HIER F 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",22,-27,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",22,-27,random(0,140),2,random(0,160))
+		HIER Y 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",21,-23,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",21,-23,random(0,140),2,random(0,160))
+		HIER Y 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",20,-10,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",20,-10,random(0,140),2,random(0,160))
+		HIER G 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("DoomImpBall",24,-10,frandom(0,-1),0)
+		HIER G 2 A_CustomMissile("DoomImpBall",24,-10,frandom(-4,-6),0)
+		HIER D 3 A_GiveInventory("FireSeq",1)
+		TNT1 A 0 A_Jump(90,"MissileFire2")
+		TNT1 A 0 A_JumpIfInventory("Enraged",1,1)
+		Goto See
+		TNT1 A 0 A_Jump(98,"Missile")
+		Goto See
+
+	MissileFire2:
+		HIER D 3 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",60,20,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",60,20,random(0,140),2,random(0,160))
+		HIER H 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",60,20,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",60,20,random(0,140),2,random(0,160))
+		HIER H 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",57,26,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",57,26,random(0,140),2,random(0,160))
+		HIER H 2 A_FaceTarget
+		TNT1 A 0 A_PlaySound("weapons/gswing",5)
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",48,42,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",48,42,random(0,140),2,random(0,160))
+		HIER I 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",41,38,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",41,38,random(0,140),2,random(0,160))
+		HIER I 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",22,27,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",22,27,random(0,140),2,random(0,160))
+		HIER Z 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",21,23,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",21,23,random(0,140),2,random(0,160))
+		HIER Z 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",20,10,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",20,10,random(0,140),2,random(0,160))
+		HIER J 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("DoomImpBall",24,10,frandom(0,1),0)
+		HIER J 2 A_CustomMissile("DoomImpBall",24,10,frandom(4,6),0)
+		HIER B 3 A_TakeInventory("FireSeq",1)
+		TNT1 A 0 A_Jump(90,"MissileFire1")
+		TNT1 A 0 A_JumpIfInventory("Enraged",1,1)
+		Goto See
+		TNT1 A 0 A_Jump(98,"Missile")
+		Goto See
+
+	MissileCurse:
+		HIER KLM 4 A_FaceTarget
+		HIER MMMM 1 A_CustomMissile("CurseCharge1",29,0,random(-10,10),2,random(-10,10))
+		HIER MMMM 1 A_CustomMissile("CurseCharge2",29,0,random(-10,10),2,random(-10,10))
+		HIER MMMM 1 A_CustomMissile("CurseCharge3",29,0,random(-10,10),2,random(-10,10))
+		HIER MMMM 1 A_CustomMissile("CurseCharge4",29,0,random(-10,10),2,random(-10,10))
+		TNT1 A 0 A_CustomMissile("CurseBall",29,0,0,0)
+		HIER MLL 2
+		TNT1 A 0 A_Jump(64,"MissileFire")
+		TNT1 A 0 A_JumpIfInventory("Enraged",1,1)
+		Goto See
+		TNT1 A 0 A_Jump(98,"Missile")
+		Goto See
+
+	MissileBeam:
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",16,-32,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",16,-32,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",16,32,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",16,32,random(0,140),2,random(0,160))
+		HIER K 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",16,-32,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",16,-32,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",16,32,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",16,32,random(0,140),2,random(0,160))
+		HIER K 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",20,-28,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",20,-28,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",20,28,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",20,28,random(0,140),2,random(0,160))
+		HIER K 2 A_FaceTarget
+		
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",23,-23,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",23,-23,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",23,23,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",23,23,random(0,140),2,random(0,160))
+		HIER L 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",26,-18,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",26,-18,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",26,18,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",26,18,random(0,140),2,random(0,160))
+		HIER L 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",28,-12,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",28,-12,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",28,12,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",28,12,random(0,140),2,random(0,160))
+		HIER L 2 A_FaceTarget
+		
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",30,-6,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",30,-6,random(0,140),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",30,6,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",30,6,random(0,140),2,random(0,160))
+		HIER M 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",32,0,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",32,0,random(0,140),2,random(0,160))
+		HIER M 2 A_FaceTarget
+		TNT1 A 0 A_CustomMissile("SmallFlameTrails",32,0,random(0,40),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("ImBallGettingReady",32,0,random(0,140),2,random(0,160))
+		HIER M 2 A_FaceTarget
+		
+		TNT1 A 0 A_PlaySound("Flamer",5)
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+	MissileBeamMore:
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		HIER N 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		HIER O 1 Bright A_CustomMissile("HierophantFlamethrower",32,0,frandom(-3,3),0,frandom(-3,3))
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_Jump(196,"MissileBeamMore")
+		TNT1 A 0 A_PlaySound("FLAMSTOP",5)
+		HIER ML 4
+		TNT1 A 0 A_JumpIfInventory("Enraged",1,1)
+		Goto See
+		TNT1 A 0 A_Jump(98,"Missile")
+		Goto See
+
+	Melee:
+		TNT1 A 0 A_JumpIfInventory("FireSeq",1,"Melee2")
+		Goto Melee1
+
+	Melee1:
+		HIER B 3 A_FaceTarget
+		HIER E 5 A_FaceTarget
+		TNT1 A 0 A_PlaySound("weapons/gswing",5)
+		HIER F 4 A_FaceTarget
+		HIER Y 4 A_FaceTarget
+		HIER G 4 A_MeleeAttack
+		HIER D 3 A_GiveInventory("FireSeq",1)
+		Goto See
+
+	Melee2:
+		HIER D 3 A_FaceTarget
+		HIER H 5 A_FaceTarget
+		TNT1 A 0 A_PlaySound("weapons/gswing",5)
+		HIER I 4 A_FaceTarget
+		HIER Z 4 A_FaceTarget
+		HIER J 4 A_MeleeAttack
+		HIER B 3 A_TakeInventory("FireSeq",1)
+		Goto See
+
+
+//===========================================================================
+//
+//	Misc.
+//
+//===========================================================================
+
+	Blur:
+		TNT1 A 0 A_ChangeFlag("NOPAIN",1)
+		HIER BEF 3
+		TNT1 A 0 A_Playsound("monster/blur")
+	BlurAttack:
+		TNT1 A 0 A_SpawnItemEx("HieroFX1",0,0,0,0,0,0,0,128,0)
+		HIER G 1 A_Chase("","")
+		TNT1 A 0 A_Chase("","")
+		TNT1 A 0 A_GiveInventory("DummyToken",1)
+		TNT1 A 0 A_JumpIfInventory("DummyToken",20,1)
+		Goto BlurAttack
+		TNT1 A 0 A_Jump(64,"BlurAttack")
+		HIER D 3 A_TakeInventory("DummyToken",40)
+		TNT1 A 0 A_ChangeFlag("NOPAIN",0)
+		TNT1 A 0 A_CheckSight("See")
+		Goto Missile
+
+	Pain:
+		HIER P 2 
+		HIER P 2 A_Pain
+		TNT1 A 0 A_Jump(64,"Pain.Avoid")
+		Goto See
+
+	Pain.Desintegrate:
+	Pain.Avoid:
+		TNT1 A 0 A_Jump(64,"Blur")
+		TNT1 A 0 A_ChangeFlag("NOPAIN",1)
+		HIER DHI 3
+		TNT1 A 0 A_Playsound("monster/blur")
+	BlurFlee:
+		TNT1 A 0 A_SpawnItemEx("HieroFX2",0,0,0,0,0,0,0,128,0)
+		HIER J 1 A_Wander
+		TNT1 A 0 A_Wander
+		TNT1 A 0 A_GiveInventory("DummyToken",1)
+		TNT1 A 0 A_JumpIfInventory("DummyToken",20,1)
+		Goto BlurFlee
+		TNT1 A 0 A_Jump(64,"BlurFlee")
+		HIER B 3 A_TakeInventory("DummyToken",40)
+		TNT1 A 0 A_ChangeFlag("NOPAIN",0)
+		TNT1 A 0 A_CheckSight("See")
+		Goto Missile
+
+	Pain.Taunt:
+		TNT1 A 0 A_JumpIfInventory("Enraged",1,"Missile")
+		HIER Q 6 A_FaceTarget
+		TNT1 A 0 A_ChangeFlag("MISSILEMORE",1)
+		TNT1 A 0 A_PlaySound("D3Wraith/Sight")
+		HIER RSRS 4 A_FaceTarget
+		HIER Q 6 A_FaceTarget
+		TNT1 A 0 A_GiveInventory("Enraged",1)
+		Goto Missile
+
+	Roar:
+		HIER Q 4 A_FaceTarget
+		TNT1 A 0 A_PlaySound("D3Wraith/Sight")
+		HIER RSRS 4 A_FaceTarget
+		HIER Q 4 A_FaceTarget
+		Goto Missile
+
+
+//===========================================================================
+//
+//	Deaths
+//
+//===========================================================================
+
+	Death:
+		TNT1 A 0 A_Stopsound(6)
+		TNT1 A 0 A_Jump(256,"Death1","Death2")
+	
+	Death1:
+		HIDA A 4 A_NoBlocking 
+		TNT1 A 0 A_SpawnItemEx("HieroSoul",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		HIDA B 4 A_Scream
+		TNT1 AA 0 A_CustomMissile("XDeath1",40,0,random(0,360),2,random(0,160))
+		HIDA CDE 4 A_CustomMissile("Brutal_FlyingBlood",40,0,random(170,190),2,random(0,40))
+	Death1.Fly:
+		HIDA F 4
+		TNT1 A 0 A_JumpIf(momz == 0,"Death1.Land")
+		Loop
+	Death1.Land:
+		HIDA G 4
+		HIDA H -1 //A_SetFloorClip
+		Stop
+
+	Death2:
+		HIDB A 3 A_NoBlocking
+		HIDB B 3 A_Scream
+		TNT1 AA 0 A_CustomMissile("XDeath1",40,0,random(0,360),2,random(0,160))
+		HIDB CDEFG 3 A_CustomMissile("Brutal_FlyingBlood",40,0,random(170,190),2,random(0,40))
+	Death2.Fly:
+		HIDB H 3
+		TNT1 A 0 A_JumpIf(momz == 0,"Death2.Land")
+		Loop
+	Death2.Land:
+		HIDB I -1 //A_SetFloorClip
+		Stop
+
+	Death.Head:
+		TNT1 A 0 A_Stopsound(6)
+		TNT1 A 0 A_CustomMissile("XDeath1",50,0,random(0,360),2,random(0,160))
+		TNT1 AAAA 0 A_CustomMissile("Brutal_FlyingBlood",20,0,90,2,random(0,45))
+		TNT1 AAA 0 A_CustomMissile("XDeath1",50,0,random(150,210),2,random(10,70))
+		TNT1 A 0 A_CustomMissile("Brains3",50,0,random(150,210),2,random(10,70))
+		TNT1 A 0 A_CustomMissile("SmallBrainPiece",50,0,random(170,190),2,random(-10,10))
+		TNT1 A 0 A_CustomMissile("SmallBrainPieceFast",50,0,random(170,190),2,random(-10,10))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",10,0,random(0,360),2,random(10,170))
+		TNT1 A 0 A_CustomMissile("HierophantSmallSpike",50,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantSmallGib",50,0,random(0,360),2,random(0,160)) 
+		TNT1 A 0 A_CustomMissile("HierophantHornL",50,0,random(0,360),2,random(0,160))
+		
+		HIDC A 4 A_CustomMissile("Brutal_LiquidBlood",40,0,random(75,90),2,random(10,45))
+		TNT1 AA 0 A_CustomMissile("Brutal_FlyingBlood",20,0,90,2,random(0,45))
+		TNT1 A 0 A_NoBlocking
+		HIDC B 4 A_CustomMissile("Brutal_LiquidBlood",40,0,random(75,90),2,random(10,45))
+		TNT1 AA 0 A_CustomMissile("Brutal_FlyingBlood",20,0,90,2,random(0,45))
+		TNT1 A 0 A_Scream
+		HIDC CDE 4 A_CustomMissile("Brutal_LiquidBlood",35,0,random(75,90),2,random(10,45))
+		TNT1 AA 0 A_CustomMissile("Brutal_FlyingBlood",20,0,90,2,random(0,45))
+	DeathHead.Fly:
+		HIDC F 4 A_CustomMissile("Brutal_LiquidBlood",30,0,random(75,90),2,random(10,45))
+		TNT1 A 0 A_CustomMissile("Brutal_FlyingBlood",20,0,90,2,random(0,45))
+		TNT1 A 0 A_JumpIf(momz == 0,"DeathHead.Land")
+		Loop
+	DeathHead.Land:
+		TNT1 A 0 A_SpawnItem("GrowingBloodPool")
+		HIDC GH 4 A_CustomMissile("Brutal_LiquidBlood",15,0,random(75,90),2,random(10,45))
+		HIDC IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII 4 A_CustomMissile("Brutal_LiquidBlood",15,0,random(75,90),2,random(10,45))
+		HIDC I -1 //A_SetFloorClip
+		Stop
+
+	Death.ExplosiveImpact:
+	Death.SSG:
+		TNT1 A 0 A_Stopsound(6)
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_NoBlocking
+		
+		TNT1 AAA 0 A_CustomMissile("BloodMistBig",random(25,40),random(-10,10),random(0,360),2,random(10,80))
+		TNT1 AAA 0 A_CustomMissile("XDeath1",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("XDeath2",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("XDeath2b",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("Xdeath3",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("Xdeath3b",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 AAA 0 A_CustomMissile("Instestin",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("Guts",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("XDeathOrgan1",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("XDeathOrgan2",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		
+		TNT1 AAAA 0 A_CustomMissile("Blood",32,0,random(0,360),2,random(0,160))
+		TNT1 AAAA 0 A_CustomMissile("Brutal_FlyingBlood",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 AAAA 0 A_CustomMissile("Brutal_FlyingBloodFaster",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 AAAA 0 A_CustomMissile("Brutal_FlyingBloodMuchFaster",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 AAAA 0 A_CustomMissile("SuperWallRedBlood",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		
+		TNT1 A 0 A_CustomMissile("HierophantBottomGib",10,random(-2,2),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("HierophantChestGib",35,random(-2,2),random(160,200),2,random(0,50))
+		TNT1 AAAA 0 A_CustomMissile("HierophantSmallSpike",random(25,40),random(-5,5),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("HierophantSpikes",random(25,40),random(-5,5),random(160,200),2,random(0,50))
+		TNT1 AAA 0 A_CustomMissile("HierophantSmallGib",random(25,40),random(-10,10),random(160,200),2,random(0,50))
+		TNT1 A 0 A_CustomMissile("HierophantArmRFly",40,15,195,2,random(0,50))
+		TNT1 A 0 A_CustomMissile("HierophantArmLFly",40,-15,165,2,random(0,50))
+		TNT1 A 0 A_SpawnItemEx ("HieroSoul",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		
+		TNT1 A 0 A_CustomMissile("XDeath1",50,0,random(0,360),2,random(0,160))
+		TNT1 AAAA 0 A_CustomMissile("Brutal_FlyingBlood",20,0,90,2,random(0,45))
+		TNT1 AAA 0 A_CustomMissile("XDeath1",50,0,random(150,210),2,random(10,70))
+		TNT1 A 0 A_CustomMissile("Brains3",50,0,random(150,210),2,random(10,70))
+		TNT1 A 0 A_CustomMissile("SmallBrainPiece",50,0,random(170,190),2,random(-10,10))
+		TNT1 A 0 A_CustomMissile("SmallBrainPieceFast",50,0,random(170,190),2,random(-10,10))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",10,0,random(0,360),2,random(10,170))
+		TNT1 A 0 A_CustomMissile("HierophantSmallSpike",50,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantSmallGib",50,0,random(0,360),2,random(0,160)) 
+		TNT1 A 0 A_CustomMissile("HierophantHornL",50,0,random(0,360),2,random(0,160))
+		
+		TNT1 A 2
+		Stop
+		
+	Death.Plasma: Death.Plasma2:
+	  TNT1 A 0
+	  TNT1 A 0 A_Stop
+	  TNT1 A 0 A_PlaySound("plasmaflesh")
+	  TNT1 AAAAAAAAA 0 A_CustomMissile ("Ashes1", 32, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 AAAAAAAAA 0 A_CustomMissile ("Ashes2", 32, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 A 0 A_SpawnItemEx ("RealisticFireSparks1Blue",random(-2,2),random(-2,2),18,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+	  TNT1 AAAA 0 A_CustomMissile ("BluePlasmaFireNonStatic", 42, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 AAAA 0 A_CustomMissile ("BloodMistBig", 32, 0, random (0, 360), 2, random (0, 180))
+	  TNT1 AAAAAA 0 A_CustomMissile ("SuperGoreMistSmall", 32, 0, random (0, 360), 2, random (10, 90))
+	  TNT1 AAA 0 A_CustomMissile ("Brutal_FlyingBlood", 32, 0, random (0, 360), 2, random (0, 180))
+	  PBR1 B 6 A_NoBlocking
+	  TNT1 A 0 A_SpawnItemEx ("RealisticFireSparks1Blue",random(-2,2),random(-2,2),10,0,0,0,0,SXF_NOCHECKPOSITION  ,0)
+	  TNT1 A 0 A_SpawnItemEx ("DetectFloorCraterSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  TNT1 A 0 A_SpawnItem("BarrelExplosionSmokeColumn")
+	  TNT1 A 0 A_SpawnItemEx("TinyBurningPiece", random (-15, 15), random (-15, 15))
+	  TNT1 A 0 A_SpawnItemEx("TinyBurningPiece2", random (-35, 35), random (-35, 35))
+	  TNT1 A 0 A_SpawnItemEx("TinyBurningPiece3", random (-45, 45), random (-45, 35))
+	  TNT1 A 0 A_SpawnItemEx ("HieroSoul",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  PBR1 CCDD 3 A_CustomMissile ("BluePlasmaFireNonStatic", 32, 0, random (0, 360), 2, random (0, 180))
+	  PBR1 EEFF 3
+	  PBR1 GG 3
+	  PBR1 H -1
+	  Stop
+	
+    Death.SuperPlasma:
+      TNT1 A 0
+      TNT1 A 0 A_XScream
+      TNT1 A 0 A_NoBlocking
+	  XBRN AA 2 BRIGHT A_SpawnItem("BlueFlare",0,43)
+      TNT1 AAAA 0 A_CustomMissile ("Brutal_Blood", 30, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 A 0 A_CustomMissile ("XDeathBurnedArm", 32, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 A 0 A_CustomMissile ("XDeathBurnedLeg", 32, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 A 0 A_CustomMissile ("XDeathBurnedSkull", 32, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 A 0 A_CustomMissile ("XDeathBurnedMeat", 32, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 A 0 A_CustomMissile ("XDeathBurnedMeat2", 32, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 A 0 A_CustomMissile ("XDeathBurnedMeat3", 32, 0, random (0, 360), 2, random (0, 160))
+	  XBRN BB 2 BRIGHT A_SpawnItem("BlueFlare",0,43)
+      TNT1 A 0 A_CustomMissile ("Brutal_Blood", 30, 0, random (0, 360), 2, random (0, 160))
+	  XBRN CC 2 BRIGHT A_SpawnItem("BlueFlare",0,43)
+	  TNT1 AAAAA 0 A_CustomMissile ("PlasmaParticleX", 48, 0, random (0, 360), 2, random (0, 360))
+	  TNT1 AAA 0 A_CustomMissile ("BigPlasmaParticleX", 42, 0, random (0, 360), 2, random (0, 360))
+	  TNT1 A 0 A_SpawnItemEx ("HieroSoul",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+      TNT1 A 0
+      Stop
+	
+	Death.Blast:
+	Death.Railgun:
+	  TNT1 A 0
+	  TNT1 A 0 A_FaceTarget
+	  TNT1 A 0 A_NoBlocking
+	  TNT1 A 0 A_Jump(128, "Death.Blast2")
+	  TNT1 AAAAAA 0 A_CustomMissile ("SmallGib", 32, 0, random (150, 210), 2, random (0, 40))
+	  TNT1 A 0 A_CustomMissile("HierospawnHead",50,0,random(-300,300))
+	  TNT1 A 0 A_CustomMissile ("XDeathHieroArm", 35, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 AAA 0 A_CustomMissile ("Intestine", 32, 0, random (150, 210), 2, random (0, 40))
+	  TNT1 AA 0 A_CustomMissile ("MeatDeath", 0, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 AAA 0 A_CustomMissile ("XDeath1", 32, 0, random (150, 210), 2, random (0, 40))
+	  TNT1 AAA 0 A_CustomMissile ("XDeath3", 16, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAAAA 0 A_CustomMissile ("NashgoreBlood", 32, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAA 0 A_CustomMissile ("MuchBlood", 32, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAAA 0 A_CustomMissile ("SuperWallRedBlood", 32, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+	  TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+	  TNT1 A 0 A_SpawnItemEx ("HieroSoul",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  Stop
+		
+	Death.Blast2:
+	  TNT1 AAAAAA 0 A_CustomMissile ("SmallGib", 32, 0, random (150, 210), 2, random (0, 40))
+	  TNT1 A 0 A_CustomMissile("HierospawnHead",50,0,random(-300,300))
+	  TNT1 A 0 A_CustomMissile ("XDeathHieroArm", 35, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 AAA 0 A_CustomMissile ("Intestine", 32, 0, random (150, 210), 2, random (0, 40))
+	  TNT1 AA 0 A_CustomMissile ("MeatDeath", 0, 0, random (0, 360), 2, random (0, 160))
+	  TNT1 AAA 0 A_CustomMissile ("XDeath1", 32, 0, random (150, 210), 2, random (0, 40))
+	  TNT1 AAA 0 A_CustomMissile ("XDeath3", 16, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AA 0 A_CustomMissile ("XDeath2", 16, 0, random (130, 210), 2, random (0, 40))
+	  TNT1 AAAA 0 A_CustomMissile ("NashgoreBlood", 32, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAA 0 A_CustomMissile ("MuchBlood", 32, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAAA 0 A_CustomMissile ("SuperWallRedBlood", 32, 0, random (170, 190), 2, random (0, 40))
+	  TNT1 AAAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+	  TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+	  TNT1 A 0 A_SpawnItemEx ("HieroSoul",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	  Stop  
+	}
+}
+
+
+//===========================================================================
+//
+//	Misc.
+//
+//===========================================================================
+
+ACTOR HierophantHeadshotHitbox
+{
+	Radius 25
+	Health 10000
+	Height 9
+	Mass 10000
+	RenderStyle Add
+	Damagefactor "Blood",0.0 Damagefactor "BlueBlood",0.0 Damagefactor "GreenBlood",0.0
+	Damagefactor "Head",0.0 Damagefactor "MinorHead",0.0 Damagefactor "KillMe",0.0
+	Damagefactor "Control",0.0 Damagefactor "Trample",0.0 Damagefactor "GibRemoving",0.0
+	Damagefactor "Alert",0.0 Damagefactor "ExplosiveImpact",0.0 Damagefactor "Taunt",0.0
+	Damagefactor "GibRemoving",0.0 Damagefactor "TeleportRemover",0.0
+	Damagefactor "Fire",0.0 Damagefactor "Flame",0.0 Damagefactor "Burn",0.0
+	DamageFactor "SSG", 2.0
+	PainChance 256
+	DamageType Head
+	BloodType "Brutal_Blood","BloodSPlatterReplacer","SawBlood"
+	+SHOOTABLE
+	+NOGRAVITY
+	+NODAMAGETHRUST
+	+ISMONSTER
+	+NOTARGET
+	+NOTAUTOAIMED
+	+NORADIUSDMG
+	var int user_oldHealth;
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ChangeFlag("isMonster",0)
+		goto Idle
+	Idle:
+		TNT1 A 0 A_SetUserVar("user_oldHealth",health)
+		TNT1 A 1 A_Warp(AAPTR_Master,0,0,51,0,WARPF_Interpolate | WARPF_NoCheckPosition)
+		TNT1 A 0 A_CheckFlag("solid","Idle",AAPTR_Master)
+		Goto RemoveActor
+	Pain:
+		TNT1 A 1
+		TNT1 A 0 A_Explode(user_oldHealth - health,15,0,0,15)//hs
+		TNT1 A 1
+		Goto Idle
+	RemoveActor:
+		TNT1 A 0
+		Stop
+	}
+}
+
+ACTOR HierophantFlameSpawner
+{
+	Radius 5
+	Health 10000
+	Height 5
+	Mass 10000
+	RenderStyle Add
+	BloodType "none"
+	-SHOOTABLE
+	+NOGRAVITY
+	+NODAMAGETHRUST
+	+ISMONSTER
+	+NOTARGET
+	+NOTAUTOAIMED
+	+NORADIUSDMG
+	Obituary "%o was burned by an Hierophant."
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ChangeFlag("isMonster",0)
+		goto Idle
+	Idle:
+		TNT1 A 1 A_Warp(AAPTR_Master,0,0,20,0,WARPF_Interpolate | WARPF_NoCheckPosition)
+		TNT1 A 0 A_CustomMissile("HierophantFlameFX",0,random(-5,5),random(0,360),2,random(-70,-110))
+		TNT1 A 0 A_CheckFlag("solid","Idle",AAPTR_Master)
+		Goto RemoveActor
+	RemoveActor:
+		TNT1 A 0
+		Stop
+	}
+}
+
+ACTOR HierophantFlameFX
+{
+	Game Doom
+	Radius 5
+	Height 5
+	Speed 3
+    PROJECTILE
+	-NOGRAVITY
+	+FORCEXYBILLBOARD
+    +CLIENTSIDEONLY
+	+THRUACTORS
+	+DOOMBOUNCE
+	RenderStyle Add
+    Damagetype Fire
+    Scale 0.37
+	Gravity 0
+	States
+	{
+    Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY) //Random X-flip
+        TNT1 EC 1
+		TNT1 A 0 A_Explode(1,40,0,0,1)
+        FRPR ABCDEFGH 2 BRIGHT
+        Stop
+	}
+}
+
+Actor HieroFX1
+{
+	Radius 2
+	Height 2
+	+NoGravity
+	+NoBlockMap
+	RenderStyle Translucent
+	Scale 1.0
+	Alpha 0.60
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		HIER G 2 A_FadeOut(0.04)
+		Loop
+	}
+}
+
+Actor HieroFX2 : HieroFX1
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		HIER J 2 A_FadeOut(0.04)
+		Loop
+	}
+}
+
+
+//===========================================================================
+//
+//	Missiles
+//
+//===========================================================================
+
+ACTOR HierophantFlamethrower
+{
+	Radius 5
+	Height 5
+	Speed 14
+	Damage (random(1,2))
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+DONTSPLASH
+	+MISSILE
+	+FORCEXYBILLBOARD
+	-RIPPER
+	+NOBLOOD
+	+NOBLOODDECALS
+	+BLOODLESSIMPACT
+	-BLOODSPLATTER
+	RenderStyle Add
+	DamageType Fire
+	Scale 0.3
+	Alpha 0.9
+	Gravity 0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 2
+		TNT1 A 0 A_SetScale(frandom(0.28,0.37))
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY) //Random X-flip
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(scaleX,-1 * scaleY) //Random Y-flip
+		
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 AB 2 BRIGHT A_SpawnItem("RedFlareSmall",0,0)
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 CD 2 BRIGHT A_SpawnItem("RedFlareSmall",0,0)
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 EF 2 BRIGHT A_SpawnItem("RedFlareSmall",0,0)
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 GH 2 BRIGHT A_SpawnItem("RedFlare",0,0)
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 IJ 2 BRIGHT A_SpawnItem("RedFlare",0,0)
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 KL 2 BRIGHT A_SpawnItem("RedFlare",0,0)
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 MN 2 BRIGHT A_SpawnItem("RedFlare",0,0)
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_CustomMissile("BigBlackSmoke",0,0,random(-10,10),2,random(10,45))
+		TNT1 A 0 A_SetScale(scaleX * 1.2,scaleY * 1.2)
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		FIR3 OP 2 BRIGHT A_SpawnItem("RedFlare",0,0)
+		Stop
+	XDeath:
+	Death:
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Underwater")
+		TNT1 A 0 A_Explode(2,64,0)
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_CustomMissile("HierophantFlamethrowerBoom",6,0,random(0,360),2,random(10,90))
+		TNT1 A 0 A_Jump(128,1,2,3)
+		Stop
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece3",random(-10,10),random(-10,10))
+		Stop
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece2",random(-10,10),random(-10,10))
+		Stop
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece",random(-10,10),random(-10,10))
+		Stop
+	Underwater:
+		TNT1 AA 1 A_CustomMissile("BUBULZ",0,0,random(-60,60),2,random(-60,60))
+		Stop
+	}
+}
+
+ACTOR HierophantFlamethrowerBoom
+{
+	Game Doom
+	Radius 1
+	Height 1
+	Speed 2
+	Damage 0 
+    +NOBLOCKMAP
+    +NOTELEPORT
+    +DONTSPLASH
+	+MISSILE
+    +CLIENTSIDEONLY
+    +NOINTERACTION
+	+NOCLIP
+	+FORCEXYBILLBOARD
+	damagetype fire
+	Renderstyle Add
+    Scale 1.0
+	Alpha 1.0
+	Gravity 0
+	States
+	{
+    Spawn:
+	    TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY) //Random X-flip
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(scaleX,-1 * scaleY) //Random Y-flip
+        FIR3 ABCD 1 BRIGHT
+		TNT1 A 0 A_CustomMissile("BigBlackSmoke",20,0,random(0,360),2,random(40,160))
+		FIR3 EFGHIJKLMNOP 1 BRIGHT
+	    Stop
+	}
+}
+
+Actor CurseBall : BaronBall
+{
+	Speed 18
+	FastSpeed 19
+	Damage 0
+	DamageType Normal
+	+ThruGhost
+	+ForceXYBillBoard
+	+ForceRadiusDmg
+	+NoDamageThrust
+	+SeekerMissile
+	Alpha 0.90
+	SeeSound "dscurse1"
+	DeathSound "dscurse2"
+	Decal "Scorch"
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_SpawnItem("CurseFlareRed")
+		CURS A 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SpawnItem("CurseFlareBlue")
+		CURS B 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SeekerMissile(6,7)
+		
+		TNT1 A 0 A_SpawnItem("CurseFlareRed")
+		CURS C 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SpawnItem("CurseFlareBlue")
+		CURS D 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SeekerMissile(6,7)
+		
+		TNT1 A 0 A_GiveInventory("DummyToken",1)
+		TNT1 A 0 A_JumpIfInventory("DummyToken",20,"Fly")
+		Loop
+	Fly:
+		TNT1 A 0 A_SpawnItem("CurseFlareRed")
+		CURS A 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SpawnItem("CurseFlareBlue")
+		CURS B 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SpawnItem("CurseFlareRed")
+		CURS C 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		TNT1 A 0 A_SpawnItem("CurseFlareBlue")
+		CURS D 1 Bright A_SpawnItemEx("CurseTrail",0,0,0,0,0,0,0,128,0)
+		Loop
+	Death:
+		TNT1 A 0 A_SetTranslucent(0.80,1)
+		TNT1 AAAAA 0 A_CustomMissile("CurseTrail",3,0,random(0,360),2,random(0,360))
+		CURS E 2 Bright A_Explode(30,128,0,1,5,0,0)
+		TNT1 A 0 A_DropItem("CurseItem", 1)
+		TNT1 AAAA 0 A_CustomMissile("CurseTrail",3,0,random(0,360),2,random(0,360))
+		CURS FGHI 2 Bright A_CustomMissile("CurseTrail",3,0,random(0,360),2,random(0,360))
+		Stop
+	}
+}
+
+Actor CurseTrail
+{
+	Speed 9
+	Radius 1
+	Height 1
+	Projectile
+	+ForceXYBillBoard
+	RenderStyle Add
+	Alpha 0.80
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY) //Random X-flip
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(scaleX,-1 * scaleY) //Random Y-flip
+		CURS JKLMNOPQR 2 Bright
+		Stop
+	}
+}
+
+Actor CurseCharge1
+{
+	Alpha 0.65
+	Speed 3
+	Scale 0.40
+	Radius 1
+	Height 1
+	Projectile
+	+ForceXYBillBoard
+	RenderStyle Add
+	Alpha 0.80
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		CURS JKLMNOPQR 1 Bright
+		Stop
+	}
+}
+
+Actor CurseCharge2 : CurseCharge1
+{
+	Alpha 0.70
+	Speed 4
+	Scale 0.60
+}
+Actor CurseCharge3 : CurseCharge1
+{
+	Alpha 0.75
+	Speed 5
+	Scale 0.80
+}
+Actor CurseCharge4 : CurseCharge1
+{
+	Alpha 0.80
+	Speed 6
+	Scale 1.00
+}
+
+Actor CurseFlareRed
+{
+	+NOINTERACTION
+	+NOCLIP
+	+NOBLOCKMAP
+	+MOVEWITHSECTOR
+	+NOGRAVITY
+	+DROPOFF
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+	+GHOST
+	renderstyle Add
+	alpha 0.3
+	scale 0.2
+	radius 1
+	height 1
+	mass 1
+	states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2,3)
+		L2NR A 2 Bright
+		Stop
+		L2NR B 2 Bright
+		Stop
+		LENR C 2 Bright
+		Stop
+	}
+}
+
+Actor CurseFlareBlue : CurseFlareRed
+{
+	states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2,3)
+		L2NB A 2 Bright
+		Stop
+		L2NB B 2 Bright
+		Stop
+		LENB C 2 Bright
+		Stop
+	}
+}
+
+Actor CurseItem : CustomInventory
+{
+	-COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.PickupMessage ""
+	Inventory.PickupSound "none"
+	Radius 100
+	States
+	{
+	Spawn:
+		TNT1 AAAA 3
+		Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("HierophantCurse",1)
+		TNT1 A 0 ACS_NamedExecuteAlways("HierophantCurseEffect")
+		Stop
+	}
+}
+
+Actor HierophantCurse : PowerSpeed
+{
+	Powerup.Duration 80
+	Speed 0.5
+	//Powerup.Color "50 00 50"
+}
+
+
+//===========================================================================
+//
+//	Gibs
+//
+//===========================================================================
+
+ACTOR BaseGibFly
+{
+	Radius 8
+	Height 8
+	Speed 9
+	Mass 1
+	gravity 0.8
+	Decal BrutalBloodSplat
+	BounceFactor 0.3
+	wallbouncefactor 0.3
+	+DOOMBOUNCE
+	+MOVEWITHSECTOR
+	+CLIENTSIDEONLY
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	-DONTSPLASH
+	seesound "bloood"
+	deathsound "bloood"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Death")
+		XARM AEBCFDG 5 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+	Death:
+		XDT5 I 1
+		XDT5 I 0 A_SpawnItem("Gib_Arm")
+		Stop
+	}
+}
+
+ACTOR BaseGib
+{
+	Radius 8
+	Height 8
+	Speed 9
+	Mass 1000
+	Health 60
+	+CLIENTSIDEONLY
+	+NOTELEPORT
+	+MOVEWITHSECTOR
+	+DONTSPLASH
+	+NOBLOCKMONST
+	-NOBLOCKMAP
+	+GHOST
+	+THRUACTORS
+	+FLOORCLIP
+	+SLIDESONWALLS
+	+FORCEXYBILLBOARD
+	+NOTAUTOAIMED
+	-SOLID
+	+SHOOTABLE
+	painchance 255
+	painchance "Flames",0
+	painchance "Fire",0
+	painchance "Burn",0
+	painchance "KillMe",0
+	DamageFactor "Crush",50.0
+	DamageFactor "Shrapnel",100.0
+	DamageFactor "Plasma",20.0
+	DamageFactor "TeleportRemover",1000.0
+	DamageFactor "CauseObjectsToSplash",0.0
+	DamageFactor "GibRemoving",0.5
+	DamageFactor "Kick",3.0
+	DamageFactor "SuperKick",3.0
+	DamageFactor "Headkick",0.0
+	DamageFactor "ExtremePunches",2.0
+	DamageFactor "Blood",0.0
+	DamageFactor "Green_BLood",0.0
+	DamageFactor "BlueBlood",0.0
+	DamageFactor "Taunt",0.0
+	DamageFactor "KillMe",0.0
+	DamageFactor "Avoid",0.0
+	DamageFactor "Taunt",0.0
+	DamageFactor "Trample",5000.0
+	DamageFactor "Saw",40.0
+	DamageFactor "Cut",40.0
+	DamageFactor "Water",0.0
+	States
+    {
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("Brutal_BloodSpot",0,1)
+		TNT1 A -1
+		Stop 
+	Rest:
+		TNT1 A -1
+		Stop
+	Death:
+		TNT1 AAA 0 A_CustomMissile("XDeath1",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("XDeath3b",10,0,random(0,360),2,random(50,90))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",10,0,random(0,360),2,random(10,170))
+		Stop
+	Death.plasma:
+	Death.Burn:
+	Death.Fire:
+	Death.Flames:
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece2",random(-15,15),random(-15,15))
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece3",random(-15,15),random(-15,15))
+		TNT1 A 0 A_Jump(256,1,2,3)
+		TNT1 A 0 A_CustomMissile("XDeathBurnedMeat",2,0,random(0,360),2,270)
+		Stop
+		TNT1 A 0 A_CustomMissile("XDeathBurnedMeat2",2,0,random(0,360),2,270)
+		Stop
+		TNT1 A 0 A_CustomMissile("XDeathBurnedMeat3",2,0,random(0,360),2,270)
+		Stop
+	Death.Trample:
+		TNT1 A 0 A_GiveToTarget("BootsSmearedWithRedBlood",6)
+		Goto Death.Stomp
+	Death.Crush:
+	Death.Stomp:
+	Death.SuperPunch:
+	Death.ExtremePunches:
+		TNT1 AAA 0 A_CustomMissile("XDeath1",5,0,random(0,360),2,random(0,30))
+		TNT1 A 0 A_CustomMissile("XDeath3b",10,0,random(0,360),2,random(50,90))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",5,0,random(0,360),2,random(0,30))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(10,30))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(10,130))
+		TNT1 A 0 A_PlaySOund("misc/xdeath5",1)
+		TNT1 A 0 A_PlaySOund("misc/xdeath3",3)
+		TNT1 A 0 A_PlaySOund("misc/xdeath2",2)
+		TNT1 A 0 A_SpawnItem("SplatteredSmall")
+		Stop
+	Death.TeleportRemover:
+		TNT1 A 0 A_ChangeFlag("NOCLIP",1)
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE",0)
+		TNT1 A 0 A_ChangeFlag("NOBLOCKMAP",1)
+		TNT1 A 0 A_NoBlocking
+		Stop	 
+	Death.GibRemoving:
+		TNT1 A 0 A_ChangeFlag("NOCLIP",1)
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE",0)
+		TNT1 A 0 A_ChangeFlag("NOBLOCKMAP",1)
+		TNT1 A 0 A_NoBlocking
+		Stop
+	Death.Desintegrate:
+		TNT1 AAAA 0 A_CustomMissile("Brutal_FlyingBloodFake",0,0,random(0,360),2,random(0,90))
+		TNT1 A 0 A_CustomMissile("Brutal_FlyingBlood",7,0,random(0,360),2,random(30,60))
+		TNT1 A 0 A_CustomMissile("BloodMistSmall",7,0,random(0,360),2,random(30,60))
+		Stop
+	}
+}
+
+Actor HierospawnHead
+{
+
+	Radius 8
+    Height 15
+	Speed 5
+	Scale 0.65
+	Gravity 0.5
+	Mass 4
+	BounceFactor 0.5
+	wallbouncefactor 0.5
+	BounceCount 2
+	BounceType Doom
+	BounceSound "Gore/HeadBounce"
+	seesound "bloood"
+    deathsound "bloood"
+	+MISSILE
+    +MOVEWITHSECTOR
+    +CLIENTSIDEONLY
+    +NOBLOCKMAP
+    +NOTELEPORT
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		HDTH ABCD 2 A_SpawnItemEx("Brutal_BloodSpot")
+	Loop
+	Bounce:
+		//TNT1 A 0 A_PlaySound("Gore/HeadBounce",CHAN_7)
+		TNT1 A 0 A_SpawnItemEx("Brutal_BloodSpot")
+		TNT1 A 0 A_SpawnItemEx("Brutal_BloodSpot")
+		Goto Spawn
+	Death:
+		TNT1 A 0 A_PlaySound("Gore/HeadBounce",CHAN_7)
+		TNT1 A 0 A_SpawnItemEx("Brutal_BloodSpot")
+		TNT1 A 0 A_SpawnItemEx("Brutal_BloodSpot")
+		TNT1 A 0 A_SpawnItemEx("Brutal_BloodSpot")
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_QueueCorpse
+        HDTH E -1
+		Stop
+	}
+}
+
+ACTOR HierophantArmRFly : BaseGibFly
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+	Fly:
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Death")
+		HIGA CDEFGHIJKLAB 2 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+	Death:
+		TNT1 A 0 A_SpawnItem("HierophantArmR")
+		Stop
+	}
+}
+
+ACTOR HierophantArmLFly : BaseGibFly
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+	Fly:
+		TNT1 A 0 A_JumpIf(waterlevel > 1,"Death")
+		HIGA MNOPQRSTUV 3 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+	Death:
+		TNT1 A 0 A_SpawnItem("HierophantArmL")
+		Stop
+	}
+}
+
+ACTOR HierophantArmR : BaseGib
+{
+	DamageFactor "Fire",0.0
+	DamageFactor "Burn",0.0
+	DamageFactor "Flame",0.0
+	XScale -1.0
+	States
+    {
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGA W 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGA W -1
+		Stop
+	Vanish:
+		HIGA W 1 A_FadeOut(0.1)
+		Loop
+	Death:
+		TNT1 AAA 0 A_CustomMissile("XDeath1",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("XDeath3b",10,0,random(0,360),2,random(50,90))
+		TNT1 A 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",10,0,random(0,360),2,random(10,170))
+		TNT1 A 0 A_CustomMissile("HierophantSmallGib",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantArmGib",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantHandR",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantSmallSpike",5,0,random(0,360),2,random(0,160))
+		Stop
+	Death.Trample:
+		TNT1 A 0 A_GiveToTarget("BootsSmearedWithRedBlood",6)
+		Goto Death.Stomp
+	Death.Crush:
+	Death.Stomp:
+	Death.SuperPunch:
+	Death.ExtremePunches:
+		TNT1 AAA 0 A_CustomMissile("XDeath1",5,0,random(0,360),2,random(0,30))
+		TNT1 A 0 A_CustomMissile("XDeath3b",10,0,random(0,360),2,random(50,90))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",5,0,random(0,360),2,random(0,30))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(10,30))
+		TNT1 AA 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(10,130))
+		TNT1 A 0 A_PlaySOund("misc/xdeath5",1)
+		TNT1 A 0 A_PlaySOund("misc/xdeath3",3)
+		TNT1 A 0 A_PlaySOund("misc/xdeath2",2)
+		TNT1 A 0 A_SpawnItem("SplatteredSmall")
+		Stop
+	}
+}
+
+ACTOR HierophantArmL : HierophantArmR
+{
+	xScale 1.0
+	States
+    {
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGA W 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGA W -1
+		Stop
+	Death:
+		TNT1 AAA 0 A_CustomMissile("XDeath1",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("XDeath3b",10,0,random(0,360),2,random(50,90))
+		TNT1 A 0 A_CustomMissile("XDeathSkinPiece2",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("XDeathSkinPiece1",5,0,random(0,360),2,random(0,160))
+		TNT1 AA 0 A_CustomMissile("SmallSuperGore",10,0,random(0,360),2,random(10,170))
+		TNT1 AA 0 A_CustomMissile("HierophantSmallGib",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantArmGib",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantHandL",5,0,random(0,360),2,random(0,160))
+		TNT1 A 0 A_CustomMissile("HierophantSmallSpike",5,0,random(0,360),2,random(0,160))
+		Stop
+	}
+}
+
+ACTOR HierophantArmGib : BaseGibFly
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY)
+		HIGA XXXXXXXX 4 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		HIGA X -1
+		Stop
+	Death:
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGA X 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGA X -1
+		Stop
+	Vanish:
+		HIGA X 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantHandR : BaseGibFly
+{
+	Speed 9
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		HIGA YYYYYYYY 4 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		HIGA Y -1
+		Stop
+	Death:
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGA Y 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGA Y -1
+		Stop
+	Vanish:
+		HIGA Y 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantHandL : BaseGibFly
+{
+	Speed 9
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		HIGA ZZZZZZZZ 4 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		HIGA Z -1
+		Stop
+	Death:
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGA Z 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGA Z -1
+		Stop
+	Vanish:
+		HIGA Z 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantHornL : BaseGibFly
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		HIGB ABCDEFGH 3 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+	Death:
+		"----" A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		"----" A 0 A_QueueCorpse
+		"----" A 1000
+		"----" A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		"----" A -1
+		Stop
+	Vanish:
+		"----" A 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantSmallGib : BaseGibFly
+{
+	Speed 10
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY)
+		TNT1 A 0 A_ScaleVelocity(frandom(0.8,1.3))
+	Fly:
+		HIGC ABCDEFGH 3 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+		
+	Death:
+		TNT1 A 0 A_Jump(256,1,2,3,4,5,6,7,8,9,10,11)
+		HIGC I 1
+		Goto Rest
+		HIGC J 1
+		Goto Rest
+		HIGC K 1
+		Goto Rest
+		HIGC L 1
+		Goto Rest
+		HIGC M 1
+		Goto Rest
+		HIGC N 1
+		Goto Rest
+		HIGC O 1
+		Goto Rest
+		HIGC P 1
+		Goto Rest
+		HIGC Q 1
+		Goto Rest
+		HIGC R 1
+		Goto Rest
+		HIGC S 1
+		Goto Rest
+	Rest:
+		"----" A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		"----" A 0 A_QueueCorpse
+		"----" A 1000
+		"----" A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		"----" A -1
+		Stop
+	Vanish:
+		"----" A 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantSpikes : BaseGibFly
+{
+	Speed 11
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		TNT1 A 0 A_Jump(128,2)
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY)
+		HIGD A 4
+		HIGD A -1
+		Stop
+	Death:
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGD A 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGD A -1
+		Stop
+	Vanish:
+		HIGD A 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantSmallSpike : BaseGibFly
+{
+	Speed 12
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		TNT1 A 0 A_Jump(256,1,2,3,4)
+		HIGD B 1
+		Goto Fly
+		HIGD C 1
+		Goto Fly
+		HIGD D 1
+		Goto Fly
+		HIGD E 1
+		Goto Fly
+	Fly:
+		"----" A 0 A_Jump(128,2)
+		"----" A 0 A_SetScale(-1 * scaleX,scaleY)
+		"----" A 4
+		"----" A -1
+		Stop
+	Death:
+		"----" A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		"----" A 0 A_QueueCorpse
+		"----" A 1000
+		"----" A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		"----" A -1
+		Stop
+	Vanish:
+		"----" A 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantBottomGib : BaseGibFly
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		TNT1 A 0 A_Jump(128,"Fly")
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY)
+	Fly:
+		HIGE ABCD 4 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+	Death:
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGE A 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGE A -1
+		Stop
+	Vanish:
+		HIGE A 1 A_FadeOut(0.1)
+		Wait
+	}
+}
+
+ACTOR HierophantChestGib : BaseGibFly
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_ScaleVelocity(frandom(0.9,1.3))
+		TNT1 A 0 A_Jump(128,"Fly")
+		TNT1 A 0 A_SetScale(-1 * scaleX,scaleY)
+	Fly:
+		HIGF ABCD 5 A_CustomMissile("Brutal_FlyingBloodTrail",0,0,random(0,360),2,random(0,360))
+		Loop
+	Death:
+		TNT1 A 0 ACS_NamedExecuteAlways("BDCheckJanitor")
+		TNT1 A 0 A_QueueCorpse
+		HIGF A 1000
+		TNT1 A 0 A_JumpIfInventory("lowgraphicsmode",1,"Vanish")
+		HIGF A -1
+		Stop
+	Vanish:
+		HIGF A 1 A_FadeOut(0.1)
+		Wait
+	}
+}
