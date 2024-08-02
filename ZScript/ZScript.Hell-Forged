@@ -1,0 +1,158 @@
+// ------------------------------------------------------------------------------------------------
+//
+//   Piercer Projectile. (By Comet1337) V.3.7.2
+//
+// ------------------------------------------------------------------------------------------------
+class piercer : fastprojectile
+{
+int maxdamage, maxpierce, pierces;
+property maxpierce: maxpierce; // maximum number of enemies to pierce
+property maxdamage: maxdamage; // multiply damage by up to this many times
+array<actor> hits; // store actors hit, to only deal damage once
+
+
+default
+	{
+	piercer.maxdamage 3; // 3 for hitscan damage range, 4 for +STRIFEDAMAGE projectile, 8 for vanilla
+	piercer.maxpierce 0; // 0 or less for infinite, otherwise this number +1 is how many enemies to hit in total
+	}
+
+
+override int specialmissilehit(actor victim)
+	{
+	if (hits.find(victim) != hits.size() || victim == target || !victim.bshootable || (victim.bghost && bthrughost)) // already hit this actor (and don't hit the shooter)
+		return 1; // do nothing and keep going
+	hits.push(victim); // store the hit actor
+	actor curtarget = self; // set the projectile as the attacker if it has no target
+	if (self.target)
+		curtarget = self.target;
+	if (piercer(self).maxpierce > -1) // increment pierce count if not set to limitless
+		pierces++;
+	int setdmg = random(1, piercer(self).maxdamage); // pre-calc damage randomization
+	victim.damagemobj(self, curtarget, self.damage * setdmg, self.damagetype); // do damage
+	if (!victim.bnoblood)
+		victim.spawnblood(pos + (0, 0, height * 0.5), atan2(vel.y, vel.x), self.damage * setdmg); // splat
+
+	// keep going, unless we have +NOBOSSRIP and we hit a boss, or we hit the piercing cap
+	return !(victim.bboss && bnobossrip || (piercer(self).maxpierce > -1 && pierces > piercer(self).maxpierce));
+	}
+}
+
+
+class slowpiercer : actor
+{
+int maxdamage, maxpierce, pierces;
+property maxpierce: maxpierce;
+property maxdamage: maxdamage;
+array<actor> hits;
+
+
+default
+	{
+	slowpiercer.maxdamage 3;
+	slowpiercer.maxpierce 0;
+	projectile;
+	}
+
+
+override int specialmissilehit(actor victim)
+	{
+	if (hits.find(victim) != hits.size() || victim == target || !victim.bshootable || (victim.bghost && bthrughost))
+		return 1;
+	hits.push(victim);
+	actor curtarget = self;
+	if (self.target)
+		curtarget = self.target;
+	if (slowpiercer(self).maxpierce > -1)
+		pierces++;
+	int setdmg = random(1, slowpiercer(self).maxdamage);
+	victim.damagemobj(self, curtarget, self.damage * setdmg, self.damagetype);
+	if (!victim.bnoblood)
+		victim.spawnblood(pos + (0, 0, height * 0.5), atan2(vel.y, vel.x), self.damage * setdmg);
+
+	return !(victim.bboss && bnobossrip || (slowpiercer(self).maxpierce > -1 && pierces > slowpiercer(self).maxpierce));
+	}
+
+void a_clearpierce()
+	{
+	hits.clear();
+	}
+}
+
+class assist
+{
+static vector3 rotatevec(vector3 v, vector2 a)
+	{
+	vector3 vec = (v.x, -v.y, v.z);
+	vector3 ret;
+	ret.x = (vec.x * cos(a.x) * cos(a.y)) - (vec.y * sin(a.x)) + (vec.z * cos(a.x) * sin(a.y));
+	ret.y = (vec.x * sin(a.x) * cos(a.y)) + (vec.y * cos(a.x)) + (vec.z * sin(a.x) * sin(a.y));
+	ret.z = -(vec.x * sin(a.y)) + (vec.z * cos(a.y));
+	return ret;
+	}
+
+
+static vector3 forward(vector2 a)
+	{
+	return (cos(a.x) * cos(a.y), sin(a.x) * cos(a.y), -sin(a.y)).unit();
+	}
+}
+
+// ------------------------------------------------------------------------------------------------
+//
+//   ZScript VectorSeeker. (By Comet1337)
+//
+// ------------------------------------------------------------------------------------------------
+
+
+class VectorSeeker : actor
+{
+default
+	{
+	projectile;
+	+seekermissile
+	+screenseeker
+	}
+
+
+actor closestact;
+double closest;
+
+void a_vectorseeker(double strength, double fov = 90)
+	{
+	vector3 oldvel = vel;
+	vector2 oldang = (angle, pitch);
+	vector3 oldpos = pos;
+
+	if (!tracer)
+		{
+		a_seekermissile(90, 360, smf_look, 256);
+		vel = oldvel;
+		setorigin(oldpos, 1);
+		angle = oldang.x;
+		pitch = oldang.y;
+		}
+
+	if (!tracer)
+		return;
+
+	vector3 dir = (tracer.pos + (0, 0, tracer.height * 0.5)) - pos;
+	if (!checksight(tracer) || tracer.health <= 0 || dir.length() >= 1280)
+		{
+		tracer = null;
+		return;
+		}
+
+	vel = (vel.unit() * (1.0 - clamp(strength, 0.0, 1.0)) + dir.unit() * clamp(strength, 0.0, 1.0)).unit() * speed;
+	}
+
+
+void a_drunkmissile(double pow)
+	{
+	if (!vel.length())
+		return;
+	angle = atan2(vel.y, vel.x);
+	pitch = atan2(-vel.z, vel.xy.length());
+	vel = (vel + assist.rotatevec((1, pow * frandom(-1, 1), pow * frandom(-1, 1)), (angle, pitch))).unit() * speed;
+	}
+}
